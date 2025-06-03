@@ -36,6 +36,8 @@ return new class extends Migration
             $table->integer('tinggi_badan')->nullable();
             $table->integer('berat_badan')->nullable();
             $table->integer('anak_ke')->nullable();
+            $table->unsignedBigInteger('classroom_id');
+            // $table->foreignId('classroom_id')->constrained()->onDelete('cascade');
             $table->enum('ukuran_baju', ['S', 'M', 'L', 'XL', 'XXL'])->nullable();
 
             // Step 3 Orang Tua / Wali

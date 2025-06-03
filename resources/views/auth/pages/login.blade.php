@@ -2,7 +2,7 @@
 @section('content')
     <div class="flex flex-col lg:flex-row lg:h-screen justify-center items-center m-4 lg:my-0 gap-5 sm:gap-10">
         <div
-            class="shadow-2xl bg-blueColor px-4 py-7 w-full sm:w-96 lg:w-[13rem] h-auto lg:h-[30rem] rounded-[10px] text-white">
+            class="transition-all duration-200 ease-in-out shadow-2xl bg-blueColor px-4 py-7 w-full sm:w-96 lg:w-[13rem] h-auto lg:h-[30rem] rounded-[10px] text-white">
             <embed src="img/Pakar2.svg" class="h-32 w-32 bg-white p-3 rounded-full" type="">
             <h1 class="text-3xl font-semibold my-2 flex-wrap">PAKAR . solution</h1>
             <span class="font-light">Merupakan sebuah aplikasi managemen pendidikan yang menawarkan kemudahan kepada
@@ -10,7 +10,7 @@
                 mengakses data serta informasi.</span>
         </div>
         <div
-            class="shadow-2xl bg-white px-4 py-7 w-full sm:w-96 lg:w-[27rem] h-auto lg:h-[33rem] rounded-[10px] text-slate-800">
+            class="transition-all duration-200 ease-in-out shadow-2xl bg-white px-4 py-7 w-full sm:w-96 lg:w-[27rem] h-auto lg:h-[33rem] rounded-[10px] text-slate-800">
             <form action="{{ route('authenticate') }}" method="post" class="mt-4">
                 @csrf
                 <h2 class="font-semibold text-2xl">Masuk</h2>

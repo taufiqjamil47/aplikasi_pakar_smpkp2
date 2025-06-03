@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
+
+    public function getTotalSiswa()
+    {
+        return $totalSiswa = DB::table('students')->count('id');
+    }
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -25,25 +31,10 @@ class StudentController extends Controller
      */
     public function index()
     {
+        $totalSiswa = $this->getTotalSiswa();
         return view('PpdbPages.pages.data-siswa', [
-            'totalSiswa' => DB::table('students')->count('id')
+            'totalSiswa' => $totalSiswa
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -51,9 +42,10 @@ class StudentController extends Controller
      */
     public function show(string $slug)
     {
+        $totalSiswa = $this->getTotalSiswa();
         $student = Student::where('slug', $slug)->firstOrFail(); // Menggunakan slug sebagai kunci pencarian
         return view('PpdbPages.pages.lihat-data', [
-            'totalSiswa' => DB::table('students')->count('id')
+            'totalSiswa' => $totalSiswa
         ], compact('student'));
     }
 
@@ -62,9 +54,10 @@ class StudentController extends Controller
      */
     public function edit(string $slug)
     {
+        $totalSiswa = $this->getTotalSiswa();
         $student = Student::where('slug', $slug)->firstOrFail(); // Menggunakan slug sebagai kunci pencarian
         return view('PpdbPages.pages.edit-data', [
-            'totalSiswa' => DB::table('students')->count('id')
+            'totalSiswa' => $totalSiswa
         ], compact('student'));
     }
 
@@ -118,8 +111,8 @@ class StudentController extends Controller
         $student->pendidikan_ibu = $request->pendidikan_ibu;
         $student->nama_wali = Str::upper($request->nama_wali);
         $student->tahun_lahir_wali = $request->tahun_lahir_wali;
-        $student->pekerjaan_wali = $request->pekerjaan_wali;
-        $student->pendidikan_wali = $request->pendidikan_wali;
+        $student->pekerjaan_wali = $request->pekerjaan_wali !== '-- pilih --' ? $request->pekerjaan_wali : null;
+        $student->pendidikan_wali = $request->pendidikan_wali !== '-- pilih --' ? $request->pendidikan_wali : null;
         $student->update();
 
         return redirect()->route('data-siswa.index');

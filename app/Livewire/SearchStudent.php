@@ -16,16 +16,19 @@ class SearchStudent extends Component
 
     public function render()
     {
-        $students = Student::where('nama_siswa', 'like', '%' . $this->search . '%')
+        $query = Student::where('nama_siswa', 'like', '%' . $this->search . '%')
             ->orWhere('asal_sekolah', 'like', '%' . $this->search . '%')
-            ->orWhere->orWhere('nik', 'like', '%' . $this->search . '%')
-            ->orWhere->orWhere('nisn', 'like', '%' . $this->search . '%')
-            ->paginate(20);
-        return view(
-            'livewire.search-student',
-            [
-                'students' => $students
-            ]
-        );
+            ->orWhere('nik', 'like', '%' . $this->search . '%')
+            ->orWhere('nisn', 'like', '%' . $this->search . '%')
+            ->orderBy('id', 'desc');
+
+        $students = $query->paginate(20);
+
+        $maxId = $query->max('id'); // Get the maximum ID from the filtered students
+
+        return view('livewire.search-student', [
+            'students' => $students,
+            'maxId' => $maxId
+        ]);
     }
 }

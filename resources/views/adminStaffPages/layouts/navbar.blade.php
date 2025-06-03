@@ -1,5 +1,5 @@
 <div
-    class="fixed w-full lg:relative flex justify-between items-center bg-blueColor p-[1.2rem] rounded-none lg:rounded-[10px]">
+    class="z-40 fixed w-full lg:relative flex justify-between items-center bg-blueColor p-[1.2rem] rounded-none lg:rounded-[10px]">
     <div class="logoDiv">
         <a href="/" class="hidden lg:block logo text-[25px] text-white"><strong class="text-2xl font-bold">PAKAR
             </strong>. admin(staff)</a>

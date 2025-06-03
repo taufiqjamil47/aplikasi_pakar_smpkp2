@@ -1,28 +1,18 @@
 @extends('ppdbPages.layouts.index')
 @section('content')
     <section>
-        <div class="container lg:w-[65%] sm:w-[70%] m-auto my-[1.2rem] flex gap-3 flex-wrap items-center mt-4 p-4 bg-white">
-            <div class="py-3 m-auto w-full">
-                <div class="my-2 flex sm:flex-row flex-col gap-2">
-                    <div class="basis-1/4 text-center m-auto">
-                        <label for="periode">Pilih Periode:</label>
-                    </div>
-                    <div class="basis-1/2 m-auto">
-                        <select name="periode" id="periode"
-                            class="border w-full p-1 grow text-gray-600 rounded-md focus:outline-none focus:border-sky-500">
-                            <option selected>-- pilih periode --</option>
-                            @foreach ($periods as $period)
-                                <option value="{{ $period }}">{{ $period }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="flex flex-row basis-9 text-center m-auto gap-2">
-                        <button id="exportPerPeriode"
-                            class="bg-green-300 hover:bg-green-400 px-4 py-2 rounded-[10px]">Export</button>
-                        <button id="tampilkanData"
-                            class="bg-blue-300 hover:bg-blueColor px-4 py-2 rounded-[10px]">Lihat</button>
-                    </div>
-                </div>
+        <div class="w-[80%] sm:w-[50%] mx-auto my-5 transition-all duration-500 ease-in-out">
+            <label for="periode" class="text-slate-500">Pilih Periode:</label>
+            <select name="periode" id="periode"
+                class="border w-full p-1 text-gray-600 rounded-md focus:outline-none focus:border-sky-500">
+                <option selected disabled>-- pilih periode --</option>
+                @foreach ($periods as $period)
+                    <option value="{{ $period }}">{{ $period }}</option>
+                @endforeach
+            </select>
+            <div class="flex flex-row gap-4 items-center justify-center mt-5">
+                <button id="exportPerPeriode" class="bg-green-300 hover:bg-green-400 px-4 py-2 rounded-[10px]">Export</button>
+                <button id="tampilkanData" class="bg-blue-300 hover:bg-blueColor px-4 py-2 rounded-[10px]">Lihat</button>
             </div>
         </div>
         <div class="container lg:w-[60%] sm:w-[90%] m-auto my-[1.2rem] flex gap-3 flex-wrap items-center mt-4 p-4 bg-white">

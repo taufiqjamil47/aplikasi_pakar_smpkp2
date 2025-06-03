@@ -1,19 +1,29 @@
 <div class="container">
-    <div class="flex flex-col md:flex-row gap-4">
+    <div class="flex flex-col md:flex-row gap-4 justify-center transition-all duration-300 ease-in-out">
         <input placeholder="Cari data berdasarkan nama / nik / nisn..." name="search" id="search"
             wire:model.live="search"
-            class="appearance-none h-10 rounded-[10px] border border-gray-400 border-b block pl-8 pr-6 py-2 w-full md:w-1/3 bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
+            class="transition-all duration-500 ease-in-out appearance-none h-10 rounded-[10px] border border-gray-400 border-b block pl-3 pr-6 py-2 w-full md:w-1/3 bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
+        @can('userRole')
+            <a href="{{ url('ppdb/excel-export') }}"
+                class="bg-blue-400 rounded-[10px] p-2 flex gap-2 hover:bg-blue-500 text-white justify-center"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor"
+                    class="bi bi-file-earmark-spreadsheet " viewBox="0 0 16 16">
+                    <path
+                        d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V9H3V2a1 1 0 0 1 1-1h5.5v2zM3 12v-2h2v2H3zm0 1h2v2H4a1 1 0 0 1-1-1v-1zm3 2v-2h3v2H6zm4 0v-2h3v1a1 1 0 0 1-1 1h-2zm3-3h-3v-2h3v2zm-7 0v-2h3v2H6z" />
+                </svg>Download Data
+            </a>
+        @endcan
     </div>
     <ul>
         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-                <table class="min-w-full leading-normal">
+                <table class="min-w-full leading-normal transition-all duration-300 ease-in-out">
                     <thead>
                         <thead>
                             <tr>
                                 <th
                                     class="px-5 py-4 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    No Urut</th>
+                                    No Daftar</th>
                                 <th
                                     class="px-5 py-4 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Nama Siswa</th>
@@ -43,16 +53,19 @@
                             @endphp
                             <tr class="border-b">
                                 <td class="px-3 py-2 border-gray-200 bg-white text-sm">
-                                    <div class="flex items-center">
+                                    <div class="flex justify-center">
                                         <div class="ml-3">
-                                            <p class="text-gray-900 whitespace-no-wrap">
+                                            <p
+                                                class="whitespace-no-wrap {{ $student->id == $maxId ? 'text-blue-700 bg-blue-200 font-bold p-2 rounded-full relative' : 'text-gray-900' }}">
                                                 {{ $student->id }}
                                             </p>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-3 py-2 border-gray-200 bg-white text-sm">
-                                    <p class="text-gray-900 whitespace-no-wrap">{{ $student->nama_siswa }}</p>
+                                    <p
+                                        class="whitespace-no-wrap {{ $student->id == $maxId ? 'text-blue-700 bg-blue-200 p-2 font-bold rounded-full text-center shadow-md' : 'text-gray-900' }}">
+                                        {{ $student->nama_siswa }}</p>
                                 </td>
                                 <td class="px-3 py-2 border-gray-200 bg-white text-sm">
                                     <p class="text-gray-900 whitespace-no-wrap">
@@ -96,33 +109,35 @@
                                                 </svg>
                                             </button>
                                         </form>
-                                        <form action="{{ route('data-siswa.edit', $student->slug) }}" method="GET">
-                                            <button type="submit"
-                                                class="px-3 py-2 rounded-md bg-yellow-100 hover:bg-yellow-200"><svg
-                                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                                    <path fill-rule="evenodd"
-                                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                                                </svg>
-                                            </button>
-                                        </form>
-                                        <form action="{{ route('data-siswa.destroy', $student->slug) }}" method="POST"
-                                            id="delete-form">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit"
-                                                class="px-3 py-2 rounded-md bg-red-100 hover:bg-red-200"><svg
-                                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
-                                                    <path
-                                                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
-                                                </svg>
-                                            </button>
-                                        </form>
+                                        @can('userRole')
+                                            <form action="{{ route('data-siswa.edit', $student->slug) }}" method="GET">
+                                                <button type="submit"
+                                                    class="px-3 py-2 rounded-md bg-yellow-100 hover:bg-yellow-200"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                        <path fill-rule="evenodd"
+                                                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                            <form action="{{ route('data-siswa.destroy', $student->slug) }}" method="POST"
+                                                id="delete-form">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit"
+                                                    class="px-3 py-2 rounded-md bg-red-100 hover:bg-red-200"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                                        <path
+                                                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>
@@ -137,4 +152,34 @@
             </div>
         </div>
     </ul>
+    {{-- <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <!-- Table Header -->
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Nama Siswa
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Kelas 
+                    </th>
+                    <!-- Tambahkan kolom sesuai kebutuhan -->
+                </tr>
+            </thead>
+
+            <!-- Table Body -->
+            <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <!-- Isi Kolom 1 -->
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <!-- Isi Kolom 2 -->
+                    </td>
+                    <!-- Tambahkan kolom sesuai kebutuhan -->
+                </tr>
+                <!-- Tambahkan baris sesuai kebutuhan -->
+            </tbody>
+        </table>
+    </div> --}}
 </div>

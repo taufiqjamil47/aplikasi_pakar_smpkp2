@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Student;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -39,6 +38,7 @@ class StudentFactory extends Factory
             'tinggi_badan' => fake()->randomNumber(3),
             'berat_badan' => fake()->randomNumber(2),
             'anak_ke' => fake()->randomNumber(),
+            'classroom_id' => fake()->randomElement([1, 2, 3]),
             'ukuran_baju' => fake()->randomElement(['S', 'M', 'L', 'XL', 'XXL']),
             'nama_ayah' => fake()->name(),
             'tahun_lahir_ayah' => fake()->year(),

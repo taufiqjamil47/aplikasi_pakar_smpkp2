@@ -31,4 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    // 'tesseract' => [
+    //     'path' => env('TESSERACT_PATH', 'C:/Program Files/Tesseract-OCR'), // Sesuaikan dengan lokasi instalasi Tesseract di sistem Anda
+    // ],
+
 ];

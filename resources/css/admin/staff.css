@@ -49,30 +49,58 @@
 }
 
 /* Gaya garis penghubung */
-.arba-ujo .arba-ujo ul,
-.arba-ujo li {
+.ul-drop .ul-drop ul,
+.ul-drop li {
     position: relative;
 }
 
-.arba-ujo ul {
+.ul-drop ul {
     list-style: none;
 }
 
-.arba-ujo li::before,
-.arba-ujo li::after {
+.ul-drop li::before,
+.ul-drop li::after {
     content: "";
     position: absolute;
-    left: 30px;
+    left: 20px;
 }
 
-.arba-ujo li::before {
-    @apply border border-t-slate-200 top-5 w-2 h-0;
+.ul-drop li::before {
+    @apply border border-blue-50 top-5 w-6 h-0;
 }
 
-.arba-ujo li::after {
-    @apply border border-l-slate-200 top-[2px] w-0 h-[100%];
+.ul-drop li::after {
+    @apply border border-blue-50 top-[2px] w-0 h-[100%];
 }
 
-.arba-ujo ul > li:last-child::after {
+.ul-drop ul > li:last-child::after {
+    @apply h-5;
+}
+
+.ul-subDrop .ul-subDrop ul,
+.ul-subDrop li {
+    position: relative;
+}
+
+.ul-subDrop ul {
+    list-style: none;
+}
+
+.ul-subDrop li::before,
+.ul-subDrop li::after {
+    content: "";
+    position: absolute;
+    left: 70px;
+}
+
+.ul-subDrop li::before {
+    @apply border border-blue-50 top-5 w-6 h-0;
+}
+
+.ul-subDrop li::after {
+    @apply border border-blue-50 top-[2px] w-0 h-[100%];
+}
+
+.ul-subDrop ul > li:last-child::after {
     @apply h-5;
 }
