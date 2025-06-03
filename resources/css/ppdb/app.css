@@ -1,0 +1,182 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-slate-50;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @apply bg-blueColor;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-blue-400;
+}
+
+:root {
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: white;
+}
+
+li {
+    list-style: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.card {
+    background: #ececec;
+}
+
+@media (min-width: 640px) {
+    table {
+        display: inline-table !important;
+    }
+
+    thead tr:not(:first-child) {
+        display: none;
+    }
+}
+td:not(:last-child) {
+    border-bottom: 0;
+}
+
+th:not(:last-child) {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.navbar-fixed {
+    @apply fixed z-[11] w-full mx-auto;
+    /* backdrop-filter: blur(2px); */
+    box-shadow: 1px 10px 41px -18px rgba(133, 133, 133, 0.58);
+}
+
+.hamburger-line {
+    @apply w-[30px] h-[2px] my-2 block bg-blueColor;
+}
+
+.hamburger-active > span:nth-child(1) {
+    @apply rotate-45;
+}
+.hamburger-active > span:nth-child(2) {
+    @apply scale-0;
+}
+.hamburger-active > span:nth-child(3) {
+    @apply -rotate-45;
+}
+
+.arrow-active {
+    @apply -rotate-90;
+}
+
+.active {
+    @apply border-l-4 lg:border-l-0 pl-3 lg:pl-0 lg:border-b-4 font-semibold text-blueColor; /* border */
+    @apply border-blueColor;
+    @apply lg:bg-none max-sm:bg-blue-50;
+}
+
+.activeBar {
+    @apply border-blue-500 text-blue-500;
+}
+.activeBarLine {
+    @apply border-blue-500;
+}
+
+.animate-gradient {
+    background-size: 300%;
+    -webkit-animation: animatedgradient 6s ease infinite alternate;
+    -moz-animation: animatedgradient 6s ease infinite alternate;
+    animation: animatedgradient 6s ease infinite alternate;
+}
+
+/* Livewire Wizard */
+.progressbar {
+    overflow: hidden;
+    /*CSS counters to number the steps*/
+    counter-reset: step;
+    width: 60%;
+    margin: 0 auto 30px;
+}
+.progressbar li {
+    list-style-type: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 18px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+    text-decoration: none;
+}
+.progressbar li a:hover {
+    text-decoration: none;
+}
+.progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 50px;
+    line-height: 50px;
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    background: #eeeeee;
+    border-radius: 50%;
+    margin: 0 auto 5px auto;
+}
+/*progressbar connectors*/
+.progressbar li:after {
+    content: "";
+    width: 100%;
+    height: 2px;
+    background: white;
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index: -1; /*put it behind the numbers*/
+}
+.progressbar li:first-child:after {
+    /*connector not needed before the first step*/
+    content: none;
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+.progressbar li.active:before,
+.progressbar li.active:after {
+    background: rgb(255, 99, 71);
+    color: white;
+}
+.displayNone {
+    display: none;
+}
+
+.error {
+    @apply text-red-600 text-[10.5px] px-3 py-2 my-auto bg-red-100 rounded-r-md;
+}
+@media print {
+    /* Menampilkan hanya bagian yang ingin dicetak */
+    .printable {
+        display: block !important;
+    }
+
+    /* Menyembunyikan elemen-elemen lain saat mencetak */
+    .non-printable {
+        display: none !important;
+    }
+}

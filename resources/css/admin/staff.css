@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-slate-50;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @apply bg-blueColor;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-blue-400;
+}
+
+.hamburger-line {
+    @apply w-[30px] h-[2px] my-2 block bg-white;
+}
+
+.hamburger-active > span:nth-child(1) {
+    @apply rotate-45;
+}
+.hamburger-active > span:nth-child(2) {
+    @apply scale-0;
+}
+.hamburger-active > span:nth-child(3) {
+    @apply -rotate-45;
+}
+
+.active {
+    @apply text-blueColor bg-blue-50 font-semibold rounded-lg dark:text-white;
+}
+
+.animate-gradient {
+    background-size: 300%;
+    -webkit-animation: animatedgradient 6s ease infinite alternate;
+    -moz-animation: animatedgradient 6s ease infinite alternate;
+    animation: animatedgradient 6s ease infinite alternate;
+}
+
+/* Gaya garis penghubung */
+.arba-ujo .arba-ujo ul,
+.arba-ujo li {
+    position: relative;
+}
+
+.arba-ujo ul {
+    list-style: none;
+}
+
+.arba-ujo li::before,
+.arba-ujo li::after {
+    content: "";
+    position: absolute;
+    left: 30px;
+}
+
+.arba-ujo li::before {
+    @apply border border-t-slate-200 top-5 w-2 h-0;
+}
+
+.arba-ujo li::after {
+    @apply border border-l-slate-200 top-[2px] w-0 h-[100%];
+}
+
+.arba-ujo ul > li:last-child::after {
+    @apply h-5;
+}
