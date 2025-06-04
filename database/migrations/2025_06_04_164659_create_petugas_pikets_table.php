@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('absensi_signatures', function (Blueprint $table) {
+        Schema::create('petugas_pikets', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_petugas');
-            $table->string('signature_path');
-            $table->date('tanggal'); // Hanya 1 tanda tangan per hari
-            $table->timestamp('signed_at');
+            $table->text('nama');
+            $table->text('nomor_wa');
+            $table->text('hari_piket');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('absensi_signatures');
+        Schema::dropIfExists('petugas_pikets');
     }
 };

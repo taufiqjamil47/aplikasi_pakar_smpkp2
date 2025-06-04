@@ -16,6 +16,7 @@
     "dependencies": {
         "laravel-echo": "^1.15.3",
         "pusher-js": "^8.3.0",
+        "signature_pad": "^5.0.7",
         "toastr": "^2.1.4"
     }
 }

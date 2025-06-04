@@ -1,80 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Absensi Hari Ini</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-    <style>
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        @media (max-width: 650px) {
-            table {
-                border: 0;
-            }
-
-            thead {
-                display: none;
-            }
-
-            /* .mobile-stack td::before {
-                content: attr(data-label);
-                font-weight: 600;
-                color: #4b5563;
-                text-transform: uppercase;
-            } */
-
-            .mobile-stack td {
-                display: flex;
-                justify-content: space-between;
-                padding: 0.5rem 0;
-                text-align: left;
-                font-size: 0.875rem;
-                /* Tailwind text-sm */
-            }
-
-            .mobile-stack tr {
-                display: block;
-                margin-bottom: 1.5rem;
-                border: 1px solid #e5e7eb;
-                border-radius: 0.5rem;
-                padding: 1rem;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-                background-color: white;
-            }
-        }
-    </style>
-</head>
-
-<body class="bg-gray-50 min-h-screen">
+@extends('absencePages.layouts.index')
+@section('content')
     <div class="container mx-auto px-2 py-8 max-w-6xl">
         <!-- Header Section -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 mb-8 card-hover fade-in">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 mb-4 card-hover fade-in">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
                 <div>
                     <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Form Absensi</h1>
@@ -100,7 +28,7 @@
         </div>
 
         <!-- Status Messages -->
-        <div class="space-y-4 mb-8">
+        <div class="space-y-4 mb-4">
             @if (session('success'))
                 <div
                     class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg animate__animated animate__fadeIn">
@@ -122,7 +50,7 @@
 
             @if ($isSigned)
                 <div
-                    class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg animate__animated animate__fadeIn">
+                    class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-lg animate__animated animate__fadeIn">
                     <div class="flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
                             fill="currentColor">
@@ -159,7 +87,7 @@
         </div>
 
         <!-- Classroom Selection -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 mb-8 card-hover fade-in">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 mb-4 card-hover fade-in">
             <form method="GET" action="{{ route('absen.index') }}">
                 <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:items-center md:space-x-4">
                     <label for="classroom" class="text-gray-700 font-medium whitespace-nowrap">Pilih Kelas:</label>
@@ -262,7 +190,7 @@
                         Simpan Absensi
                     </button>
 
-                    <button type="button" onclick="confirmSignature()" id="btnTandaTangan"
+                    <button type="button" onclick="openSignaturePad()" id="btnTandaTangan"
                         class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
                             fill="currentColor">
@@ -275,43 +203,18 @@
                 </div>
             </form>
         </div>
+        <!-- Modal Signature -->
+        <div id="signatureModal"
+            class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white p-4 rounded-lg shadow-lg w-[90%] max-w-md">
+                <h2 class="text-lg font-bold mb-2 text-center">Tanda Tangan Petugas</h2>
+                <canvas id="signatureCanvas" class="border w-full h-48 rounded mb-2"></canvas>
+                <div class="flex justify-between">
+                    <button onclick="clearSignature()" class="text-sm text-red-600">Hapus</button>
+                    <button onclick="submitSignature()"
+                        class="bg-blue-600 text-white px-4 py-2 rounded text-sm">Simpan</button>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <script>
-        function confirmSignature() {
-            if (confirm(
-                    "⚠️ PERINGATAN!\n\nSetelah menekan tombol ini, absensi akan dikunci dan dianggap final.\nPastikan semua data sudah benar.\n\nLanjutkan tanda tangan?"
-                )) {
-                // Ubah hidden field ke 1 (artinya: mau tanda tangan)
-                document.getElementById('signed-status').value = 1;
-
-                // Disable tombol agar tidak bisa klik ulang
-                document.getElementById('btnTandaTangan').disabled = true;
-                document.getElementById('btnSimpan').disabled = true;
-
-                // Add loading state
-                const btn = document.getElementById('btnTandaTangan');
-                btn.innerHTML = `
-                    <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Memproses...
-                `;
-
-                // Submit form
-                document.getElementById('absensiForm').submit();
-            }
-        }
-
-        // Add fade-in animation to elements
-        document.addEventListener('DOMContentLoaded', () => {
-            const elements = document.querySelectorAll('.fade-in');
-            elements.forEach((el, index) => {
-                el.style.animationDelay = `${index * 0.1}s`;
-            });
-        });
-    </script>
-</body>
-
-</html>
+@endsection

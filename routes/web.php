@@ -52,11 +52,14 @@ Route::middleware(['auth'])->group(function () {
 // routes/web.php
 Route::get('/absen-hari-ini/form', function () {
     return view('absencePages.pages.input-token');
-});
-Route::get('/absensi/validate', [PiketController::class, 'validateToken'])->name('absen.validate');
-Route::get('/absen-hari-ini', [PiketController::class, 'index'])->name('absen.index');
-Route::post('/absen-hari-ini', [PiketController::class, 'create'])->name('absen.create');
+})->name('absen.token-form');
 
+Route::post('/absensi/validate', [PiketController::class, 'validateToken'])->name('absen.validate');
+Route::post('/absen-hari-ini/signature', [PiketController::class, 'sign'])->name('absen.sign');
+Route::get('/absen-hari-ini', [PiketController::class, 'index'])
+    ->middleware('absen_token_verified') // opsional pakai middleware
+    ->name('absen.index');
+Route::post('/absen-hari-ini', [PiketController::class, 'create'])->name('absen.create');
 
 Route::middleware(['auth'])->group(function () {
     // khusus admin disini

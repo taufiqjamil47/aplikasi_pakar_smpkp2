@@ -90,7 +90,7 @@
                                 d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                         </svg>
                     </a>
-                    {{-- <a href="/admin/staff/home"
+                    <a href="/absen-hari-ini/form"
                         class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-blue-500">
                         <div>
                             <div
@@ -107,13 +107,13 @@
                                 </svg>
                             </div>
 
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">PAKAR . admin
-                                (staff)
+                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">PAKAR . Presence
                             </h2>
 
                             <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                PAKAR . admin (staff) aplikasi ini dirancang untuk menyediakan solusi yang handal dan
-                                mudah digunakan dalam pengelolaan administrasi pada instansi sekolah.
+                                PAKAR . Presence adalah sebuah aplikasi yang digunakan khusus untuk Piket, dalam
+                                menjalankan tugasnya
+                                secara digital. Serta mampu memudahkan pengabsenan per hari
                             </p>
                         </div>
 
@@ -123,7 +123,7 @@
                                 d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                         </svg>
                     </a>
-                    <a href="#admin-teacher"
+                    {{-- <a href="#admin-teacher"
                         class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-blue-500">
                         <div>
                             <div
