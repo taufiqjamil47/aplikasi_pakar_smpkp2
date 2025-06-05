@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Support\Str;
 use App\Models\AbsensiToken;
 use App\Models\PetugasPiket;
+use App\Models\MessageTemplate;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
@@ -30,11 +31,10 @@ class GenerateAbsensiToken extends Command
      */
     public function handle()
     {
-        // Pastikan timezone sesuai
         date_default_timezone_set('Asia/Jakarta');
 
         $tanggal = now()->toDateString();
-        $hariIni = now()->locale('id')->dayName; // hasil: 'Senin', 'Selasa', dst
+        $hariIni = now()->locale('id')->dayName;
 
         Log::info("Memulai proses generate token absensi untuk tanggal {$tanggal}");
 
@@ -52,7 +52,7 @@ class GenerateAbsensiToken extends Command
             $absensiToken = AbsensiToken::create([
                 'token' => $token,
                 'tanggal' => $tanggal,
-                'expired_at' => now()->setTime(14, 0), // jam 2 siang expired
+                'expired_at' => now()->setTime(14, 0),
             ]);
 
             Log::info("Token berhasil dibuat: {$token}");
@@ -73,16 +73,35 @@ class GenerateAbsensiToken extends Command
             return;
         }
 
+        // Ambil template pesan dari database
+        $template = MessageTemplate::where('name', 'absensi_token')->first();
+
+        if (!$template) {
+            $message = "Template pesan tidak ditemukan.";
+            $this->error($message);
+            Log::error($message);
+            return;
+        }
+
         $successCount = 0;
         $baseUrl = config('app.url', 'http://127.0.0.1:8000');
 
         foreach ($petugas as $p) {
             try {
+                $link = "{$baseUrl}/absen-hari-ini/form?token=";
+
+                // Ganti placeholder dengan data aktual
+                $pesanLengkap = str_replace(
+                    ['{nama_petugas}', '{token}', '{link}'],
+                    [$p->nama, $token, $link],
+                    $template->template
+                );
+
                 $response = Http::withHeaders([
                     'Authorization' => 'frKW7rLNoejGVCvcTdQb',
                 ])->post('https://api.fonnte.com/send', [
                     'target' => $p->nomor_wa,
-                    'message' => "Assalamualaikum *{$p->nama}* 👋\n\nToken Absensi Hari Ini:\n*$token*\n\nSilakan klik link berikut untuk input token:\n{$baseUrl}/absen-hari-ini/form?token=$token\n\n⏳ Berlaku sampai jam 14.00 WIB."
+                    'message' => $pesanLengkap
                 ]);
 
                 if ($response->successful()) {

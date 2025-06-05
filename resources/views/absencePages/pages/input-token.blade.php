@@ -18,7 +18,7 @@
                         </span>
                     </p>
                 </div>
-                <div class="mt-4 md:mt-0">
+                <div class="mt-4 md:mt-0 flex flex-col md:flex-row items-center space-y-3 md:space-y-0 md:space-x-4">
                     <div class="flex items-center space-x-2">
                         <div class="h-3 w-3 rounded-full bg-green-500 animate-pulse"></div>
                         <span class="text-sm text-gray-600">Sistem Absensi Online</span>

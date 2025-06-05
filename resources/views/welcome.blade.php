@@ -4,237 +4,163 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Portal Layanan Aplikasi PAKAR.solution SMP KP 2 Majalaya">
 
-    <title>
-        PAKAR .
-        solution
-    </title>
+    <title>PAKAR.solution</title>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     @vite(['resources/css/home/welcome.css', 'resources/js/home/welcome.js'])
 </head>
 
-<body class="antialiased">
-    <div
-        class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-blue-500 selection:text-white">
-        <div class="max-w-7xl mx-auto p-6 lg:p-8">
-            <div class="flex flex-col justify-center items-center text-center">
-                <div class="w-full md:w-[60%] flex flex-col gap-2 md:gap-3 md:flex-row items-center">
-                    <img src="{{ url('img/logo_sekolah.png') }}" alt="Logo Sekolah" class="w-28 h-28">
+<body class="antialiased bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <!-- Animated background elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div
+            class="absolute top-0 left-0 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob dark:bg-blue-800">
+        </div>
+        <div
+            class="absolute top-0 right-0 w-64 h-64 bg-green-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000 dark:bg-green-800">
+        </div>
+        <div
+            class="absolute bottom-0 left-1/2 w-64 h-64 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000 dark:bg-purple-800">
+        </div>
+    </div>
+
+    <div class="relative min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto w-full">
+            <!-- Header Section -->
+            <div class="text-center mb-12">
+                <div class="flex flex-col items-center justify-center">
                     <div
-                        class="font-extrabold text-1xl md:text-4xl [text-wrap:balance] bg-clip-text text-transparent bg-slate-600">
-                        Portal Layanan Aplikasi PAKAR . <span
-                            class="text-blueColor inline-flex flex-col h-[20px] md:h-[45px] overflow-hidden">
-                            <ul class="block animate-textSlide text-left leading-tight [&_li]:block">
-                                {{-- h-[calc(theme(fontSize.2xl)*theme(lineHeight.tight))] md:h-[calc(theme(fontSize.4xl)*theme(lineHeight.tight))] --}}
-                                <li>adminsitrasi kepala sekolah</li>
-                                <li>adminsitrasi staff</li>
-                                <li>adminsitrasi guru</li>
-                                <li>presensi</li>
-                                <li>ppdb</li>
-                                <li aria-hidden="true">adminsitrasi kepala sekolah</li>
-                            </ul>
-                        </span>
+                        class="w-32 h-32 md:w-40 md:h-40 bg-white dark:bg-gray-800 rounded-full shadow-lg p-2 mb-6 transform hover:scale-105 transition-transform duration-300">
+                        <img src="{{ url('img/logo_sekolah.png') }}" alt="Logo Sekolah"
+                            class="w-full h-full object-contain">
                     </div>
+
+                    <h1 class="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
+                        Portal Layanan Aplikasi <span class="text-blue-600 dark:text-blue-400">PAKAR</span>
+                    </h1>
+
+                    <p class="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                        Kumpulan jalan pintas menuju masing-masing aplikasi PAKAR.solution SMP KP 2 Majalaya
+                    </p>
                 </div>
-                <h2 class="font-light text-slate-700">Di bawah ini merupakan kumpulan jalan pintas menuju masing-masing
-                    aplikasi
-                    PAKAR.solution SMP KP 2
-                    Majalaya</h2>
-                <div class="flex flex-col md:flex-row gap-3 md:gap-14 mt-7 text-white">
+
+                <!-- Action Buttons -->
+                <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
                     @if (Route::has('login'))
                         @auth
                             <a href="#portal"
-                                class="bg-blueColor py-2 px-10 rounded w-full md:w-52 hover:bg-blue-400">Portal</a>
+                                class="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-lg shadow-md hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center">
+                                <i class="fas fa-th-large mr-2"></i> Portal
+                            </a>
                         @else
-                            <a href="#" class="bg-blueColor py-2 px-10 rounded w-full md:w-52 hover:bg-blue-400">Cari
-                                Data</a>
+                            <a href="#"
+                                class="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-lg shadow-md hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center">
+                                <i class="fas fa-search mr-2"></i> Cari Data
+                            </a>
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}"
-                                    class="bg-green-600 py-2 px-10 rounded w-full md:w-52 hover:bg-green-400">Registrasi
-                                    akun</a>
+                                    class="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-medium rounded-lg shadow-md hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center">
+                                    <i class="fas fa-user-plus mr-2"></i> Registrasi Akun
+                                </a>
                             @endif
                         @endauth
                     @endif
                 </div>
             </div>
 
+            <!-- Applications Grid -->
             <div class="mt-16" id="portal">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-800 dark:text-white mb-10">
+                    Pilih Aplikasi yang Anda Butuhkan
+                </h2>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                    <!-- PPDB Card -->
                     <a href="/login"
-                        class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-blue-500">
-                        <div>
-                            <div
-                                class="h-16 w-16 bg-blue-50 dark:bg-blue-800/20 flex items-center justify-center rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-person-check w-7 h-7 text-blue-500"
-                                    viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514ZM11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
-                                    <path
-                                        d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z" />
-                                </svg>
-                            </div>
-
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">PAKAR . ppdb</h2>
-
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                PAKAR . ppdb adalah aplikasi unggulan untuk mengelola Penerimaan Peserta Didik Baru
-                                (PPDB). aplikasi ini memberikan solusi terpadu untuk mempermudah proses pendaftaran
-                                serta pengelolaan PPDB di lembaga
-                                pendidikan menjadi lebih efisien dan terorganisir.
-                            </p>
+                        class="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300">
                         </div>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            class="self-center shrink-0 stroke-blue-500 w-6 h-6 mx-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                        </svg>
+                        <div class="p-6 flex items-start">
+                            <div class="flex-shrink-0">
+                                <div
+                                    class="h-16 w-16 bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center rounded-xl text-blue-500 dark:text-blue-400 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/50 transition-colors duration-300">
+                                    <i class="fas fa-user-graduate text-2xl"></i>
+                                </div>
+                            </div>
+                            <div class="ml-6">
+                                <h3
+                                    class="text-xl font-semibold text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                                    PAKAR.ppdb
+                                </h3>
+                                <p class="mt-2 text-gray-600 dark:text-gray-300">
+                                    Aplikasi unggulan untuk mengelola Penerimaan Peserta Didik Baru (PPDB). Memberikan
+                                    solusi terpadu untuk mempermudah proses pendaftaran serta pengelolaan PPDB di
+                                    lembaga pendidikan.
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="px-6 py-4 bg-gray-50 dark:bg-gray-700/30 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                            <span class="text-sm text-blue-600 dark:text-blue-400 font-medium">Klik untuk
+                                mengakses</span>
+                            <i
+                                class="fas fa-arrow-right text-blue-500 dark:text-blue-400 group-hover:translate-x-1 transition-transform duration-300"></i>
+                        </div>
                     </a>
+
+                    <!-- Presence Card -->
                     <a href="/absen-hari-ini/form"
-                        class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-blue-500">
-                        <div>
-                            <div
-                                class="h-16 w-16 bg-blue-50 dark:blue-blue-800/20 flex items-center justify-center rounded-full">
-                                <svg class="w-7 h-7 text-blue-500 bi bi-journal-check"
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-                                    <path
-                                        d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
-                                    <path
-                                        d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
-                                </svg>
-                            </div>
-
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">PAKAR . Presence
-                            </h2>
-
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                PAKAR . Presence adalah sebuah aplikasi yang digunakan khusus untuk Piket, dalam
-                                menjalankan tugasnya
-                                secara digital. Serta mampu memudahkan pengabsenan per hari
-                            </p>
+                        class="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-green-500 to-green-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300">
                         </div>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            class="self-center shrink-0 stroke-blue-500 w-6 h-6 mx-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                        </svg>
+                        <div class="p-6 flex items-start">
+                            <div class="flex-shrink-0">
+                                <div
+                                    class="h-16 w-16 bg-green-100 dark:bg-green-900/30 flex items-center justify-center rounded-xl text-green-500 dark:text-green-400 group-hover:bg-green-50 dark:group-hover:bg-green-900/50 transition-colors duration-300">
+                                    <i class="fas fa-calendar-check text-2xl"></i>
+                                </div>
+                            </div>
+                            <div class="ml-6">
+                                <h3
+                                    class="text-xl font-semibold text-gray-800 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300">
+                                    PAKAR.Presence
+                                </h3>
+                                <p class="mt-2 text-gray-600 dark:text-gray-300">
+                                    Aplikasi khusus untuk Piket dalam menjalankan tugasnya secara digital. Memudahkan
+                                    pengabsenan harian dengan antarmuka yang intuitif dan fitur yang lengkap.
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="px-6 py-4 bg-gray-50 dark:bg-gray-700/30 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                            <span class="text-sm text-green-600 dark:text-green-400 font-medium">Klik untuk
+                                mengakses</span>
+                            <i
+                                class="fas fa-arrow-right text-green-500 dark:text-green-400 group-hover:translate-x-1 transition-transform duration-300"></i>
+                        </div>
                     </a>
-                    {{-- <a href="#admin-teacher"
-                        class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-blue-500">
-                        <div>
-                            <div
-                                class="h-16 w-16 bg-blue-50 dark:bg-blue-800/20 flex items-center justify-center rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-list-check  w-7 h-7 text-blue-500"
-                                    viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z" />
-                                </svg>
-                            </div>
-
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">PAKAR . admin (teacher)
-                            </h2>
-
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                PAKAR . admin (teacher) mencakup manajemen data siswa, penilaian, pelaporan, dan masih
-                                banyak lagi
-                                memberikan guru kemampuan untuk fokus pada esensi pengajaran tanpa terbebani tugas
-                                administratif yang berlebihan.
-                            </p>
-                        </div>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            class="self-center shrink-0 stroke-blue-500 w-6 h-6 mx-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                        </svg>
-                    </a>
-                    <a href="#admin-walikelas"
-                        class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-blue-500">
-                        <div>
-                            <div
-                                class="h-16 w-16 bg-blue-50 dark:bg-blue-800/20 flex items-center justify-center rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-list-check  w-7 h-7 text-blue-500"
-                                    viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z" />
-                                </svg>
-                            </div>
-
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">PAKAR . admin
-                                (homeroom)
-                            </h2>
-
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                PAKAR . admin (teacher) mencakup manajemen data siswa, penilaian, pelaporan, dan masih
-                                banyak lagi
-                                memberikan guru kemampuan untuk fokus pada esensi pengajaran tanpa terbebani tugas
-                                administratif yang berlebihan.
-                            </p>
-                        </div>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            class="self-center shrink-0 stroke-blue-500 w-6 h-6 mx-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                        </svg>
-                    </a>
-                    <a href="#presensi"
-                        class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-blue-500">
-                        <div>
-                            <div
-                                class="h-16 w-16 bg-blue-50 dark:bg-blue-800/20 flex items-center justify-center rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-list-check  w-7 h-7 text-blue-500"
-                                    viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z" />
-                                </svg>
-                            </div>
-
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">PAKAR . presensi
-                            </h2>
-
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                PAKAR . admin (teacher) mencakup manajemen data siswa, penilaian, pelaporan, dan masih
-                                banyak lagi
-                                memberikan guru kemampuan untuk fokus pada esensi pengajaran tanpa terbebani tugas
-                                administratif yang berlebihan.
-                            </p>
-                        </div>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" class="self-center shrink-0 stroke-blue-500 w-6 h-6 mx-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                        </svg>
-                    </a> --}}
                 </div>
             </div>
 
-            <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
-                <div class="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left">
-                    <div class="flex items-center gap-4">
+            <!-- Footer -->
+            <div class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="flex items-center space-x-4 mb-4 md:mb-0">
                         <a href="https://github.com/taufiqjamil47"
-                            class="group inline-flex items-center hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-blue-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                class="-mt-px mr-1 w-5 h-5 stroke-gray-400 dark:stroke-gray-600 group-hover:stroke-gray-600 dark:group-hover:stroke-gray-400">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                            </svg>
-                            PAKAR . solution | SMP KP 2 Majalaya
+                            class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors duration-300 flex items-center">
+                            <i class="fas fa-heart text-red-500 mr-2"></i>
+                            <span>PAKAR.solution | SMP KP 2 Majalaya</span>
                         </a>
                     </div>
-                </div>
-
-                <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-                    App Version {{ Illuminate\Foundation\Application::VERSION }}
+                    <div class="text-gray-500 dark:text-gray-400 text-sm">
+                        App Version {{ Illuminate\Foundation\Application::VERSION }}
+                    </div>
                 </div>
             </div>
         </div>
