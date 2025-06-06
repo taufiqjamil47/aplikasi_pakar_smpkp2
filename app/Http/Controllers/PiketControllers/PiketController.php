@@ -36,70 +36,6 @@ class PiketController extends Controller
         return view('absencePages.pages.form', compact('students', 'classrooms', 'selectedClassroomId'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    // public function create(Request $request)
-    // {
-    //     $request->validate([
-    //         'absences' => 'required|array',
-    //         'absences.*.student_id' => 'required|exists:students,id',
-    //         'absences.*.status' => 'required|in:sakit,izin,alfa,hadir',
-    //         'absences.*.keterangan' => 'nullable|string|max:255',
-    //         'signed' => 'nullable|in:0,1',
-    //         'signature_data' => 'nullable|string', // Add this validation
-    //     ]);
-
-    //     $tanggal = now()->toDateString();
-
-    //     // Cek apakah sudah ada tanda tangan untuk hari ini
-    //     if (AbsensiSignature::where('tanggal', $tanggal)->exists()) {
-    //         return back()->withErrors(['sudah' => 'Absensi hari ini sudah ditandatangani dan tidak bisa diubah lagi.']);
-    //     }
-
-
-    //     foreach ($request->absences as $item) {
-    //         if (empty($item['status']) || empty($item['student_id'])) {
-    //             continue;
-    //         }
-    //         Absensi::updateOrCreate(
-    //             [
-    //                 'student_id' => $item['student_id'],
-    //                 'tanggal' => $tanggal,
-    //             ],
-    //             [
-    //                 'status' => $item['status'],
-    //                 'keterangan' => $item['keterangan'] ?? null,
-    //             ]
-    //         );
-    //     }
-
-    //     if ($request->signed == 1) {
-    //         // Ambil semua petugas piket hari ini
-    //         $hariIni = now()->locale('id')->dayName;
-    //         $petugasHariIni = PetugasPiket::where('hari_piket', 'LIKE', "%$hariIni%")->get();
-
-    //         if ($petugasHariIni->isEmpty()) {
-    //             return redirect()->back()->withErrors(['signed' => 'Tidak ditemukan petugas piket untuk hari ini.']);
-    //         }
-
-    //         foreach ($petugasHariIni as $petugas) {
-    //             AbsensiSignature::updateOrCreate(
-    //                 [
-    //                     'tanggal' => $tanggal,
-    //                     'nama_petugas' => $petugas->nama,
-    //                 ],
-    //                 [
-    //                     'signed_at' => now(),
-    //                 ]
-    //             );
-    //         }
-
-    //         return redirect()->back()->with('success', 'Absensi disimpan & telah ditandatangani oleh semua petugas.');
-    //     }
-
-    //     return redirect()->back()->with('success', 'Absensi berhasil disimpan.');
-    // }
     public function create(Request $request)
     {
         $request->validate([
@@ -163,7 +99,7 @@ class PiketController extends Controller
                     ],
                     [
                         'signed_at' => now(),
-                        'signature_path' => 'C:\xampp\htdocs\aplikasi_pakar_smpkp2\public\signature_images' . $filename,
+                        'signature_path' => 'signature_images/' . $filename
                     ]
                 );
             }

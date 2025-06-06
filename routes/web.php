@@ -73,5 +73,3 @@ Route::post('/absen-hari-ini', [PiketController::class, 'create'])->name('absen.
 Route::middleware(['auth'])->group(function () {
     // khusus admin disini
 });
-
-Route::get('/admin/absensi', [AdminPiketController::class, 'index'])->name('admin.index');

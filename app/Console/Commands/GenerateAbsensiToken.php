@@ -52,7 +52,7 @@ class GenerateAbsensiToken extends Command
             $absensiToken = AbsensiToken::create([
                 'token' => $token,
                 'tanggal' => $tanggal,
-                'expired_at' => now()->setTime(14, 0),
+                'expired_at' => now()->setTime(10, 0),
             ]);
 
             Log::info("Token berhasil dibuat: {$token}");
@@ -63,7 +63,6 @@ class GenerateAbsensiToken extends Command
             return;
         }
 
-        // Cari petugas piket hari ini
         $petugas = PetugasPiket::where('hari_piket', 'LIKE', "%$hariIni%")->get();
 
         if ($petugas->isEmpty()) {
@@ -73,8 +72,7 @@ class GenerateAbsensiToken extends Command
             return;
         }
 
-        // Ambil template pesan dari database
-        $template = MessageTemplate::where('name', 'absensi_token')->first();
+        $template = MessageTemplate::where('nama', 'absensi_token')->first();
 
         if (!$template) {
             $message = "Template pesan tidak ditemukan.";
@@ -90,12 +88,14 @@ class GenerateAbsensiToken extends Command
             try {
                 $link = "{$baseUrl}/absen-hari-ini/form?token=";
 
-                // Ganti placeholder dengan data aktual
                 $pesanLengkap = str_replace(
                     ['{nama_petugas}', '{token}', '{link}'],
                     [$p->nama, $token, $link],
                     $template->template
                 );
+
+                // Konversi \n menjadi newline asli
+                $pesanLengkap = str_replace("\\n", "\n", $pesanLengkap);
 
                 $response = Http::withHeaders([
                     'Authorization' => 'frKW7rLNoejGVCvcTdQb',

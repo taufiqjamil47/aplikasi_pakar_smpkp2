@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('app:generate-absensi-token')->dailyAt('06:00');
+        $schedule->command('app:generate-absensi-token')->dailyAt('08:53');
     }
 
     /**

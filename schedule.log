@@ -1,7 +1,8 @@
 
-   INFO  No scheduled commands are ready to run.  
+  2025-06-06 08:51:01 Running ["artisan" app:generate-absensi-token] ...................................... 850ms DONE
+  ⇂ "C:\xampp\php\php.exe" "artisan" app:generate-absensi-token > "NUL" 2>&1  
 
 
-  2025-06-05 11:40:01 Running ["artisan" app:generate-absensi-token] .................................... 1,668ms DONE
+  2025-06-06 08:53:00 Running ["artisan" app:generate-absensi-token] .................................... 1,260ms DONE
   ⇂ "C:\xampp\php\php.exe" "artisan" app:generate-absensi-token > "NUL" 2>&1  
 

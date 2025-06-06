@@ -124,7 +124,7 @@
                             Scan Formulir</a>
                     </li>
                 @endcan
-                {{-- @can('userRole')
+                @can('userRole')
                     <li class="group text-slate-500"><a
                             class="{{ Request::is('ppdb/export-data-view') ? 'active' : '' }} gap-2 items-center text-base text-dark py-2 mx-5 flex group-hover:text-black"
                             href="/ppdb/export-data-view">
@@ -135,7 +135,7 @@
                             </svg>
                             Export Data</a>
                     </li>
-                @endcan --}}
+                @endcan
             </ul>
         </nav>
     </div>
