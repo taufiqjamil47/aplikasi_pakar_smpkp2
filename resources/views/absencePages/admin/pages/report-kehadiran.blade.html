@@ -1,0 +1,736 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Student Attendance Report</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
+        <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .attendance-present { background-color: #dcfce7; }
+        .attendance-absent { background-color: #fee2e2; }
+        .attendance-late { background-color: #fef3c7; }
+        .attendance-excused { background-color: #e0e7ff; }
+        
+        @media print {
+            .no-print {
+                display: none;
+            }
+            body {
+                background-color: white;
+            }
+            .container {
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+            .shadow-lg {
+                box-shadow: none !important;
+            }
+        }
+    </style>
+    </head>
+    <body class="min-h-screen">
+        <div class="container mx-auto px-4 py-8">
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <!-- Header -->
+                <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-6">
+                    <div
+                        class="flex flex-col md:flex-row justify-between items-center">
+                        <div>
+                            <h1
+                                class="text-2xl md:text-3xl font-bold text-white">Student
+                                Attendance Report</h1>
+                            <p class="text-blue-100 mt-1">Track and analyze
+                                student attendance data</p>
+                        </div>
+                        <div class="mt-4 md:mt-0">
+                            <button onclick="printReport()"
+                                class="bg-white text-blue-700 px-4 py-2 rounded-lg font-medium hover:bg-blue-50 transition no-print">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5 inline-block mr-1"
+                                    fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2"
+                                        d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                                </svg>
+                                Print Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="p-6 bg-gray-50 border-b border-gray-200 no-print">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700 mb-1">Report
+                                Type</label>
+                            <select id="reportType"
+                                class="w-full rounded-md border-gray-300 shadow-sm px-3 py-2 bg-white border focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="semester">Semester</option>
+                            </select>
+                        </div>
+
+                        <div id="weekSelector" class="block">
+                            <label
+                                class="block text-sm font-medium text-gray-700 mb-1">Week</label>
+                            <select id="weekSelect"
+                                class="w-full rounded-md border-gray-300 shadow-sm px-3 py-2 bg-white border focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="1">Week 1</option>
+                                <option value="2">Week 2</option>
+                                <option value="3">Week 3</option>
+                                <option value="4">Week 4</option>
+                            </select>
+                        </div>
+
+                        <div id="monthSelector" class="hidden">
+                            <label
+                                class="block text-sm font-medium text-gray-700 mb-1">Month</label>
+                            <select id="monthSelect"
+                                class="w-full rounded-md border-gray-300 shadow-sm px-3 py-2 bg-white border focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+
+                        <div id="semesterSelector" class="hidden">
+                            <label
+                                class="block text-sm font-medium text-gray-700 mb-1">Semester</label>
+                            <select id="semesterSelect"
+                                class="w-full rounded-md border-gray-300 shadow-sm px-3 py-2 bg-white border focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="1">Semester 1</option>
+                                <option value="2">Semester 2</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700 mb-1">Class</label>
+                            <select id="classSelect"
+                                class="w-full rounded-md border-gray-300 shadow-sm px-3 py-2 bg-white border focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="all">All Classes</option>
+                                <option value="10A">Class 10A</option>
+                                <option value="10B">Class 10B</option>
+                                <option value="11A">Class 11A</option>
+                                <option value="11B">Class 11B</option>
+                                <option value="12A">Class 12A</option>
+                                <option value="12B">Class 12B</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex justify-end">
+                        <button onclick="generateReport()"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium transition">
+                            Generate Report
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Report Info -->
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex flex-col md:flex-row justify-between">
+                        <div>
+                            <h2 id="reportTitle"
+                                class="text-xl font-semibold text-gray-800">Weekly
+                                Attendance Report</h2>
+                            <p id="reportPeriod" class="text-gray-600 mt-1">Week
+                                1, 2023</p>
+                        </div>
+                        <div class="mt-4 md:mt-0">
+                            <p id="reportClass" class="text-gray-600">Class: All
+                                Classes</p>
+                            <p id="reportDate" class="text-gray-600">Generated:
+                                <span id="currentDate"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weekly Report Table -->
+                <div id="weeklyReport" class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student
+                                    ID</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Class</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mon</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tue</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Wed</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thu</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fri</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Present
+                                    %</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200"
+                            id="weeklyTableBody">
+                            <!-- Weekly data will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Monthly Report Table -->
+                <div id="monthlyReport" class="overflow-x-auto hidden">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student
+                                    ID</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Class</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Present</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Absent</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Late</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Excused</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Present
+                                    %</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200"
+                            id="monthlyTableBody">
+                            <!-- Monthly data will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Semester Report Table -->
+                <div id="semesterReport" class="overflow-x-auto hidden">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student
+                                    ID</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Class</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total
+                                    Days</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Present</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Absent</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Late</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Excused</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Present
+                                    %</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200"
+                            id="semesterTableBody">
+                            <!-- Semester data will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Summary -->
+                <div class="p-6 bg-gray-50">
+                    <h3
+                        class="text-lg font-semibold text-gray-800 mb-3">Attendance
+                        Summary</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div
+                            class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                            <div class="flex items-center">
+                                <div class="rounded-full bg-green-100 p-3 mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-6 w-6 text-green-600"
+                                        fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Present</p>
+                                    <p id="presentCount"
+                                        class="text-xl font-semibold">0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                            <div class="flex items-center">
+                                <div class="rounded-full bg-red-100 p-3 mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-6 w-6 text-red-600" fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Absent</p>
+                                    <p id="absentCount"
+                                        class="text-xl font-semibold">0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                            <div class="flex items-center">
+                                <div
+                                    class="rounded-full bg-yellow-100 p-3 mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-6 w-6 text-yellow-600"
+                                        fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Late</p>
+                                    <p id="lateCount"
+                                        class="text-xl font-semibold">0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white p-4 rounded-lg shadow border border-gray-100">
+                            <div class="flex items-center">
+                                <div
+                                    class="rounded-full bg-indigo-100 p-3 mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-6 w-6 text-indigo-600"
+                                        fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Excused</p>
+                                    <p id="excusedCount"
+                                        class="text-xl font-semibold">0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <div class="flex items-center mb-2">
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div id="attendanceProgressBar"
+                                    class="bg-green-600 h-2.5 rounded-full"
+                                    style="width: 0%"></div>
+                            </div>
+                            <span id="attendancePercentage"
+                                class="ml-3 text-sm font-medium text-gray-700">0%</span>
+                        </div>
+                        <p class="text-sm text-gray-500">Overall attendance
+                            rate</p>
+                    </div>
+                </div>
+
+                <!-- Legend -->
+                <div class="p-6 border-t border-gray-200">
+                    <h3
+                        class="text-sm font-medium text-gray-700 mb-2">Legend</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center">
+                            <div
+                                class="w-4 h-4 rounded attendance-present mr-2"></div>
+                            <span class="text-sm text-gray-600">Present
+                                (P)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div
+                                class="w-4 h-4 rounded attendance-absent mr-2"></div>
+                            <span class="text-sm text-gray-600">Absent
+                                (A)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div
+                                class="w-4 h-4 rounded attendance-late mr-2"></div>
+                            <span class="text-sm text-gray-600">Late (L)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div
+                                class="w-4 h-4 rounded attendance-excused mr-2"></div>
+                            <span class="text-sm text-gray-600">Excused
+                                (E)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="p-6 bg-gray-50 border-t border-gray-200">
+                    <div
+                        class="flex flex-col md:flex-row justify-between items-center">
+                        <p class="text-sm text-gray-500">© 2023 School
+                            Management System</p>
+                        <div class="mt-2 md:mt-0">
+                            <p class="text-sm text-gray-500">Report generated by
+                                <span class="font-medium">Attendance
+                                    System</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        // Sample data
+        const students = [
+            { id: "S001", name: "Ahmad Rizky", class: "10A" },
+            { id: "S002", name: "Budi Santoso", class: "10A" },
+            { id: "S003", name: "Citra Dewi", class: "10A" },
+            { id: "S004", name: "Dian Purnama", class: "10B" },
+            { id: "S005", name: "Eko Prasetyo", class: "10B" },
+            { id: "S006", name: "Fitri Handayani", class: "11A" },
+            { id: "S007", name: "Galih Pratama", class: "11A" },
+            { id: "S008", name: "Hana Safira", class: "11B" },
+            { id: "S009", name: "Irfan Hakim", class: "12A" },
+            { id: "S010", name: "Joko Widodo", class: "12B" }
+        ];
+        
+        // Attendance codes: P = Present, A = Absent, L = Late, E = Excused
+        const weeklyAttendance = {
+            "S001": ["P", "P", "P", "L", "P"],
+            "S002": ["P", "A", "P", "P", "P"],
+            "S003": ["P", "P", "E", "P", "P"],
+            "S004": ["A", "P", "P", "P", "L"],
+            "S005": ["P", "P", "P", "P", "P"],
+            "S006": ["P", "L", "P", "P", "P"],
+            "S007": ["P", "P", "P", "A", "P"],
+            "S008": ["E", "P", "P", "P", "P"],
+            "S009": ["P", "P", "L", "P", "P"],
+            "S010": ["P", "P", "P", "P", "E"]
+        };
+        
+        const monthlyAttendance = {
+            "S001": { present: 18, absent: 1, late: 2, excused: 1 },
+            "S002": { present: 16, absent: 3, late: 1, excused: 2 },
+            "S003": { present: 19, absent: 0, late: 1, excused: 2 },
+            "S004": { present: 15, absent: 2, late: 3, excused: 2 },
+            "S005": { present: 20, absent: 0, late: 1, excused: 1 },
+            "S006": { present: 17, absent: 1, late: 2, excused: 2 },
+            "S007": { present: 16, absent: 2, late: 2, excused: 2 },
+            "S008": { present: 18, absent: 1, late: 1, excused: 2 },
+            "S009": { present: 19, absent: 0, late: 2, excused: 1 },
+            "S010": { present: 17, absent: 1, late: 1, excused: 3 }
+        };
+        
+        const semesterAttendance = {
+            "S001": { days: 100, present: 90, absent: 3, late: 5, excused: 2 },
+            "S002": { days: 100, present: 85, absent: 8, late: 3, excused: 4 },
+            "S003": { days: 100, present: 95, absent: 1, late: 2, excused: 2 },
+            "S004": { days: 100, present: 82, absent: 10, late: 5, excused: 3 },
+            "S005": { days: 100, present: 98, absent: 0, late: 1, excused: 1 },
+            "S006": { days: 100, present: 88, absent: 5, late: 4, excused: 3 },
+            "S007": { days: 100, present: 86, absent: 7, late: 4, excused: 3 },
+            "S008": { days: 100, present: 92, absent: 3, late: 2, excused: 3 },
+            "S009": { days: 100, present: 94, absent: 2, late: 3, excused: 1 },
+            "S010": { days: 100, present: 89, absent: 4, late: 2, excused: 5 }
+        };
+        
+        // Set current date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('id-ID', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        // Handle report type change
+        document.getElementById('reportType').addEventListener('change', function() {
+            const reportType = this.value;
+            
+            // Hide all selectors
+            document.getElementById('weekSelector').classList.add('hidden');
+            document.getElementById('monthSelector').classList.add('hidden');
+            document.getElementById('semesterSelector').classList.add('hidden');
+            
+            // Show the appropriate selector
+            if (reportType === 'weekly') {
+                document.getElementById('weekSelector').classList.remove('hidden');
+            } else if (reportType === 'monthly') {
+                document.getElementById('monthSelector').classList.remove('hidden');
+            } else if (reportType === 'semester') {
+                document.getElementById('semesterSelector').classList.remove('hidden');
+            }
+        });
+        
+        // Generate report based on selected filters
+        function generateReport() {
+            const reportType = document.getElementById('reportType').value;
+            const selectedClass = document.getElementById('classSelect').value;
+            
+            // Hide all reports
+            document.getElementById('weeklyReport').classList.add('hidden');
+            document.getElementById('monthlyReport').classList.add('hidden');
+            document.getElementById('semesterReport').classList.add('hidden');
+            
+            // Update report title and period
+            let reportTitle = '';
+            let reportPeriod = '';
+            
+            if (reportType === 'weekly') {
+                const weekNumber = document.getElementById('weekSelect').value;
+                reportTitle = 'Weekly Attendance Report';
+                reportPeriod = `Week ${weekNumber}, 2023`;
+                document.getElementById('weeklyReport').classList.remove('hidden');
+                generateWeeklyReport(selectedClass);
+            } else if (reportType === 'monthly') {
+                const monthNumber = document.getElementById('monthSelect').value;
+                const monthName = new Date(2023, monthNumber - 1, 1).toLocaleString('default', { month: 'long' });
+                reportTitle = 'Monthly Attendance Report';
+                reportPeriod = `${monthName} 2023`;
+                document.getElementById('monthlyReport').classList.remove('hidden');
+                generateMonthlyReport(selectedClass);
+            } else if (reportType === 'semester') {
+                const semesterNumber = document.getElementById('semesterSelect').value;
+                reportTitle = 'Semester Attendance Report';
+                reportPeriod = `Semester ${semesterNumber}, 2023`;
+                document.getElementById('semesterReport').classList.remove('hidden');
+                generateSemesterReport(selectedClass);
+            }
+            
+            document.getElementById('reportTitle').textContent = reportTitle;
+            document.getElementById('reportPeriod').textContent = reportPeriod;
+            document.getElementById('reportClass').textContent = `Class: ${selectedClass === 'all' ? 'All Classes' : selectedClass}`;
+        }
+        
+        // Generate weekly report
+        function generateWeeklyReport(selectedClass) {
+            const tableBody = document.getElementById('weeklyTableBody');
+            tableBody.innerHTML = '';
+            
+            let filteredStudents = students;
+            if (selectedClass !== 'all') {
+                filteredStudents = students.filter(student => student.class === selectedClass);
+            }
+            
+            let totalPresent = 0;
+            let totalAbsent = 0;
+            let totalLate = 0;
+            let totalExcused = 0;
+            let totalDays = 0;
+            
+            filteredStudents.forEach((student, index) => {
+                const row = document.createElement('tr');
+                
+                // Calculate attendance percentage
+                const attendance = weeklyAttendance[student.id];
+                const presentCount = attendance.filter(status => status === 'P').length;
+                const absentCount = attendance.filter(status => status === 'A').length;
+                const lateCount = attendance.filter(status => status === 'L').length;
+                const excusedCount = attendance.filter(status => status === 'E').length;
+                const attendancePercentage = Math.round((presentCount / attendance.length) * 100);
+                
+                totalPresent += presentCount;
+                totalAbsent += absentCount;
+                totalLate += lateCount;
+                totalExcused += excusedCount;
+                totalDays += attendance.length;
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${index + 1}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${student.id}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${student.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${student.class}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center ${getAttendanceClass(attendance[0])}">${attendance[0]}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center ${getAttendanceClass(attendance[1])}">${attendance[1]}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center ${getAttendanceClass(attendance[2])}">${attendance[2]}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center ${getAttendanceClass(attendance[3])}">${attendance[3]}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center ${getAttendanceClass(attendance[4])}">${attendance[4]}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ${attendancePercentage >= 90 ? 'text-green-600' : attendancePercentage >= 75 ? 'text-yellow-600' : 'text-red-600'}">${attendancePercentage}%</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            updateSummary(totalPresent, totalAbsent, totalLate, totalExcused, totalDays);
+        }
+        
+        // Generate monthly report
+        function generateMonthlyReport(selectedClass) {
+            const tableBody = document.getElementById('monthlyTableBody');
+            tableBody.innerHTML = '';
+            
+            let filteredStudents = students;
+            if (selectedClass !== 'all') {
+                filteredStudents = students.filter(student => student.class === selectedClass);
+            }
+            
+            let totalPresent = 0;
+            let totalAbsent = 0;
+            let totalLate = 0;
+            let totalExcused = 0;
+            let totalDays = 0;
+            
+            filteredStudents.forEach((student, index) => {
+                const row = document.createElement('tr');
+                
+                const attendance = monthlyAttendance[student.id];
+                const totalDaysForStudent = attendance.present + attendance.absent + attendance.late + attendance.excused;
+                const attendancePercentage = Math.round((attendance.present / totalDaysForStudent) * 100);
+                
+                totalPresent += attendance.present;
+                totalAbsent += attendance.absent;
+                totalLate += attendance.late;
+                totalExcused += attendance.excused;
+                totalDays += totalDaysForStudent;
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${index + 1}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${student.id}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${student.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${student.class}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-green-600">${attendance.present}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-red-600">${attendance.absent}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-yellow-600">${attendance.late}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-indigo-600">${attendance.excused}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ${attendancePercentage >= 90 ? 'text-green-600' : attendancePercentage >= 75 ? 'text-yellow-600' : 'text-red-600'}">${attendancePercentage}%</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            updateSummary(totalPresent, totalAbsent, totalLate, totalExcused, totalDays);
+        }
+        
+        // Generate semester report
+        function generateSemesterReport(selectedClass) {
+            const tableBody = document.getElementById('semesterTableBody');
+            tableBody.innerHTML = '';
+            
+            let filteredStudents = students;
+            if (selectedClass !== 'all') {
+                filteredStudents = students.filter(student => student.class === selectedClass);
+            }
+            
+            let totalPresent = 0;
+            let totalAbsent = 0;
+            let totalLate = 0;
+            let totalExcused = 0;
+            let totalDays = 0;
+            
+            filteredStudents.forEach((student, index) => {
+                const row = document.createElement('tr');
+                
+                const attendance = semesterAttendance[student.id];
+                const attendancePercentage = Math.round((attendance.present / attendance.days) * 100);
+                
+                totalPresent += attendance.present;
+                totalAbsent += attendance.absent;
+                totalLate += attendance.late;
+                totalExcused += attendance.excused;
+                totalDays += attendance.days;
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${index + 1}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${student.id}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${student.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${student.class}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center">${attendance.days}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-green-600">${attendance.present}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-red-600">${attendance.absent}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-yellow-600">${attendance.late}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-indigo-600">${attendance.excused}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ${attendancePercentage >= 90 ? 'text-green-600' : attendancePercentage >= 75 ? 'text-yellow-600' : 'text-red-600'}">${attendancePercentage}%</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            updateSummary(totalPresent, totalAbsent, totalLate, totalExcused, totalDays);
+        }
+        
+        // Update summary section
+        function updateSummary(present, absent, late, excused, totalDays) {
+            document.getElementById('presentCount').textContent = present;
+            document.getElementById('absentCount').textContent = absent;
+            document.getElementById('lateCount').textContent = late;
+            document.getElementById('excusedCount').textContent = excused;
+            
+            const attendancePercentage = Math.round((present / totalDays) * 100);
+            document.getElementById('attendanceProgressBar').style.width = `${attendancePercentage}%`;
+            document.getElementById('attendancePercentage').textContent = `${attendancePercentage}%`;
+        }
+        
+        // Helper function to get attendance status class
+        function getAttendanceClass(status) {
+            switch(status) {
+                case 'P': return 'attendance-present';
+                case 'A': return 'attendance-absent';
+                case 'L': return 'attendance-late';
+                case 'E': return 'attendance-excused';
+                default: return '';
+            }
+        }
+        
+        // Print report
+        function printReport() {
+            window.print();
+        }
+        
+        // Generate initial report
+        generateReport();
+    </script>
+        <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94c52717e5d13e5b',t:'MTc0OTM1MTc3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

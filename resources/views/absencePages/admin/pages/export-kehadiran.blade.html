@@ -1,0 +1,578 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ekspor Kehadiran Siswa</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+        .card {
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .custom-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+        }
+        .btn-export {
+            transition: all 0.2s ease;
+        }
+        .btn-export:hover {
+            transform: translateY(-2px);
+        }
+        .btn-export:active {
+            transform: translateY(0);
+        }
+        /* Make date inputs more responsive */
+        input[type="date"], input[type="month"] {
+            max-width: 100%;
+        }
+        /* Chart container responsive styles */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        /* Responsive table */
+        @media (max-width: 640px) {
+            .responsive-table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+            }
+        }
+    </style>
+    </head>
+    <body>
+        <div class="min-h-screen flex flex-col">
+            <!-- Header -->
+            <header class="gradient-bg text-white shadow-lg">
+                <div
+                    class="container mx-auto px-4 py-6 flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8"
+                            fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                        </svg>
+                        <h1 class="text-xl md:text-2xl font-bold">Sistem
+                            Kehadiran Siswa</h1>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-4">
+                        <a href="#" class="hover:underline">Dashboard</a>
+                        <a href="#" class="hover:underline">Kehadiran</a>
+                        <a href="#"
+                            class="font-medium px-4 py-2 bg-white text-indigo-700 rounded-lg hover:bg-opacity-90 transition">Ekspor
+                            Data</a>
+                    </div>
+                    <button class="md:hidden text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                            fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="flex-grow container mx-auto px-4 py-8">
+                <div class="max-w-5xl mx-auto">
+                    <!-- Page Title -->
+                    <div class="mb-8">
+                        <h2
+                            class="text-2xl md:text-3xl font-bold text-gray-800">Ekspor
+                            Kehadiran Siswa</h2>
+                        <p class="text-gray-600 mt-2">Pilih kelas dan periode
+                            waktu untuk mengekspor data kehadiran siswa</p>
+                    </div>
+
+                    <!-- Export Form Card -->
+                    <div class="bg-white rounded-xl shadow-md p-4 md:p-6 mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Left Column - Form -->
+                            <div class="space-y-6">
+                                <div>
+                                    <label for="class"
+                                        class="block text-sm font-medium text-gray-700 mb-1">Pilih
+                                        Kelas</label>
+                                    <select id="class"
+                                        class="custom-select w-full px-3 md:px-4 py-2 md:py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                        <option value disabled selected>-- Pilih
+                                            Kelas --</option>
+                                        <option value="10A">Kelas 10A</option>
+                                        <option value="10B">Kelas 10B</option>
+                                        <option value="11A">Kelas 11A</option>
+                                        <option value="11B">Kelas 11B</option>
+                                        <option value="12A">Kelas 12A</option>
+                                        <option value="12B">Kelas 12B</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="period"
+                                        class="block text-sm font-medium text-gray-700 mb-1">Periode
+                                        Waktu</label>
+                                    <select id="period"
+                                        class="custom-select w-full px-3 md:px-4 py-2 md:py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                        <option value disabled selected>-- Pilih
+                                            Periode --</option>
+                                        <option value="weekly">Mingguan</option>
+                                        <option value="monthly">Bulanan</option>
+                                        <option
+                                            value="semester">Semester</option>
+                                    </select>
+                                </div>
+
+                                <div id="dateContainer" class="hidden">
+                                    <label for="date"
+                                        class="block text-sm font-medium text-gray-700 mb-1">Pilih
+                                        Tanggal</label>
+                                    <input type="date" id="date"
+                                        class="w-full px-3 md:px-4 py-2 md:py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+
+                                <div id="monthContainer" class="hidden">
+                                    <label for="month"
+                                        class="block text-sm font-medium text-gray-700 mb-1">Pilih
+                                        Bulan</label>
+                                    <input type="month" id="month"
+                                        class="w-full px-3 md:px-4 py-2 md:py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+
+                                <div id="semesterContainer" class="hidden">
+                                    <label for="semester"
+                                        class="block text-sm font-medium text-gray-700 mb-1">Pilih
+                                        Semester</label>
+                                    <select id="semester"
+                                        class="custom-select w-full px-3 md:px-4 py-2 md:py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                        <option value disabled selected>-- Pilih
+                                            Semester --</option>
+                                        <option value="1-2023">Semester 1 -
+                                            2023/2024</option>
+                                        <option value="2-2023">Semester 2 -
+                                            2023/2024</option>
+                                        <option value="1-2022">Semester 1 -
+                                            2022/2023</option>
+                                        <option value="2-2022">Semester 2 -
+                                            2022/2023</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="format"
+                                        class="block text-sm font-medium text-gray-700 mb-1">Format
+                                        Ekspor</label>
+                                    <div class="flex space-x-4">
+                                        <label class="flex items-center">
+                                            <input type="radio" name="format"
+                                                value="excel"
+                                                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                                                checked>
+                                            <span class="ml-2">Excel</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="format"
+                                                value="pdf"
+                                                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300">
+                                            <span class="ml-2">PDF</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="pt-4">
+                                    <button id="exportBtn"
+                                        class="btn-export w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 md:py-3 px-4 md:px-6 rounded-lg shadow-md flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                        disabled>
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="h-5 w-5" fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                        </svg>
+                                        <span>Ekspor Data</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Right Column - Preview -->
+                            <div
+                                class="bg-gray-50 rounded-lg p-4 md:p-5 border border-gray-200">
+                                <h3
+                                    class="text-lg font-medium text-gray-800 mb-4">Pratinjau
+                                    Data</h3>
+                                <div class="chart-container mb-4">
+                                    <canvas id="attendanceChart"></canvas>
+                                </div>
+                                <div id="previewInfo"
+                                    class="text-center text-gray-500 py-4">
+                                    Pilih kelas dan periode untuk melihat
+                                    pratinjau
+                                </div>
+                                <div id="previewData" class="hidden">
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div
+                                            class="flex justify-between text-sm text-gray-600 mb-2">
+                                            <span>Total Siswa:</span>
+                                            <span id="totalStudents">0</span>
+                                        </div>
+                                        <div
+                                            class="flex justify-between text-sm text-gray-600 mb-2">
+                                            <span>Hadir:</span>
+                                            <span id="presentCount">0</span>
+                                        </div>
+                                        <div
+                                            class="flex justify-between text-sm text-gray-600 mb-2">
+                                            <span>Izin:</span>
+                                            <span id="permittedCount">0</span>
+                                        </div>
+                                        <div
+                                            class="flex justify-between text-sm text-gray-600 mb-2">
+                                            <span>Sakit:</span>
+                                            <span id="sickCount">0</span>
+                                        </div>
+                                        <div
+                                            class="flex justify-between text-sm text-gray-600 col-span-2">
+                                            <span>Tanpa Keterangan:</span>
+                                            <span id="absentCount">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Exports -->
+                    <div class="bg-white rounded-xl shadow-md p-4 md:p-6">
+                        <h3
+                            class="text-lg font-medium text-gray-800 mb-4">Ekspor
+                            Terakhir</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th
+                                            class="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                                        <th
+                                            class="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kelas</th>
+                                        <th
+                                            class="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Periode</th>
+                                        <th
+                                            class="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Format</th>
+                                        <th
+                                            class="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody
+                                    class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">20
+                                            Mei 2023</td>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">Kelas
+                                            11A</td>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">Bulanan
+                                            (Mei 2023)</td>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">Excel</td>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm">
+                                            <button
+                                                class="text-indigo-600 hover:text-indigo-900">Unduh</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">15
+                                            Mei 2023</td>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">Kelas
+                                            10B</td>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">Mingguan
+                                            (8-14 Mei 2023)</td>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">PDF</td>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm">
+                                            <button
+                                                class="text-indigo-600 hover:text-indigo-900">Unduh</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">10
+                                            Mei 2023</td>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">Kelas
+                                            12A</td>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">Semester
+                                            (Semester 2 - 2022/2023)</td>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">Excel</td>
+                                        <td
+                                            class="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm">
+                                            <button
+                                                class="text-indigo-600 hover:text-indigo-900">Unduh</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer class="bg-gray-800 text-white py-4 md:py-6 mt-8">
+                <div class="container mx-auto px-4">
+                    <div
+                        class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="mb-4 md:mb-0 text-center md:text-left">
+                            <p class="text-sm md:text-base">&copy; 2023 Sistem
+                                Kehadiran Siswa. Hak Cipta Dilindungi.</p>
+                        </div>
+                        <div
+                            class="flex flex-wrap justify-center md:justify-end space-x-4 text-sm md:text-base">
+                            <a href="#"
+                                class="hover:text-indigo-300">Bantuan</a>
+                            <a href="#" class="hover:text-indigo-300">Kontak</a>
+                            <a href="#" class="hover:text-indigo-300">Kebijakan
+                                Privasi</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <script>
+        // Initialize chart with responsive options
+        const ctx = document.getElementById('attendanceChart').getContext('2d');
+        const attendanceChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Hadir', 'Izin', 'Sakit', 'Tanpa Keterangan'],
+                datasets: [{
+                    data: [0, 0, 0, 0],
+                    backgroundColor: [
+                        '#4ade80', // green
+                        '#60a5fa', // blue
+                        '#fbbf24', // yellow
+                        '#f87171'  // red
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 12,
+                            padding: 15,
+                            font: {
+                                size: function(context) {
+                                    const width = context.chart.width;
+                                    return width < 400 ? 10 : 12;
+                                }
+                            }
+                        }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+
+        // Ensure chart is responsive to container size
+        function resizeChart() {
+            const container = document.querySelector('.chart-container');
+            if (container) {
+                const containerWidth = container.offsetWidth;
+                // Adjust chart height based on container width for better mobile display
+                const aspectRatio = containerWidth < 400 ? 1 : 1.5;
+                attendanceChart.options.aspectRatio = aspectRatio;
+                attendanceChart.resize();
+            }
+        }
+
+        // Call resize on load and window resize
+        window.addEventListener('load', resizeChart);
+        window.addEventListener('resize', resizeChart);
+
+        // Handle period selection
+        const periodSelect = document.getElementById('period');
+        const dateContainer = document.getElementById('dateContainer');
+        const monthContainer = document.getElementById('monthContainer');
+        const semesterContainer = document.getElementById('semesterContainer');
+
+        periodSelect.addEventListener('change', function() {
+            // Hide all containers first
+            dateContainer.classList.add('hidden');
+            monthContainer.classList.add('hidden');
+            semesterContainer.classList.add('hidden');
+            
+            // Show the appropriate container based on selection
+            if (this.value === 'weekly') {
+                dateContainer.classList.remove('hidden');
+            } else if (this.value === 'monthly') {
+                monthContainer.classList.remove('hidden');
+            } else if (this.value === 'semester') {
+                semesterContainer.classList.remove('hidden');
+            }
+            
+            validateForm();
+        });
+
+        // Form validation and export button activation
+        const classSelect = document.getElementById('class');
+        const exportBtn = document.getElementById('exportBtn');
+        const previewInfo = document.getElementById('previewInfo');
+        const previewData = document.getElementById('previewData');
+        
+        function validateForm() {
+            const classValue = classSelect.value;
+            const periodValue = periodSelect.value;
+            
+            let dateValid = true;
+            
+            if (periodValue === 'weekly' && !document.getElementById('date').value) {
+                dateValid = false;
+            } else if (periodValue === 'monthly' && !document.getElementById('month').value) {
+                dateValid = false;
+            } else if (periodValue === 'semester' && !document.getElementById('semester').value) {
+                dateValid = false;
+            }
+            
+            if (classValue && periodValue && dateValid) {
+                exportBtn.disabled = false;
+                updatePreview();
+            } else {
+                exportBtn.disabled = true;
+            }
+        }
+        
+        // Add event listeners to all form elements
+        document.querySelectorAll('select, input').forEach(element => {
+            element.addEventListener('change', validateForm);
+        });
+        
+        // Update preview when form is valid
+        function updatePreview() {
+            // Hide info message and show data
+            previewInfo.classList.add('hidden');
+            previewData.classList.remove('hidden');
+            
+            // Generate random data for demonstration
+            const totalStudents = Math.floor(Math.random() * 20) + 25; // 25-45 students
+            const present = Math.floor(totalStudents * (0.8 + Math.random() * 0.15)); // 80-95% present
+            const permitted = Math.floor((totalStudents - present) * Math.random() * 0.5);
+            const sick = Math.floor((totalStudents - present - permitted) * Math.random() * 0.8);
+            const absent = totalStudents - present - permitted - sick;
+            
+            // Update chart
+            attendanceChart.data.datasets[0].data = [present, permitted, sick, absent];
+            attendanceChart.update();
+            
+            // Update text counters
+            document.getElementById('totalStudents').textContent = totalStudents;
+            document.getElementById('presentCount').textContent = present;
+            document.getElementById('permittedCount').textContent = permitted;
+            document.getElementById('sickCount').textContent = sick;
+            document.getElementById('absentCount').textContent = absent;
+        }
+        
+        // Handle export button click
+        exportBtn.addEventListener('click', function() {
+            const classValue = classSelect.value;
+            const periodValue = periodSelect.value;
+            const formatValue = document.querySelector('input[name="format"]:checked').value;
+            
+            let periodText = '';
+            if (periodValue === 'weekly') {
+                const date = new Date(document.getElementById('date').value);
+                periodText = `Mingguan (${date.toLocaleDateString('id-ID')})`;
+            } else if (periodValue === 'monthly') {
+                const monthValue = document.getElementById('month').value;
+                const [year, month] = monthValue.split('-');
+                const date = new Date(year, month - 1);
+                periodText = `Bulanan (${date.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })})`;
+            } else if (periodValue === 'semester') {
+                periodText = `Semester (${document.getElementById('semester').options[document.getElementById('semester').selectedIndex].text})`;
+            }
+            
+            // Simulate export process
+            exportBtn.disabled = true;
+            exportBtn.innerHTML = '<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span class="ml-2">Memproses...</span>';
+            
+            setTimeout(() => {
+                // Show success message
+                alert(`Data kehadiran untuk ${classValue} (${periodText}) berhasil diekspor dalam format ${formatValue.toUpperCase()}`);
+                
+                // Reset button
+                exportBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg><span>Ekspor Data</span>';
+                exportBtn.disabled = false;
+                
+                // Add to recent exports (in a real app, this would be handled by the backend)
+                const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td class="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-900">${today}</td>
+                    <td class="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-900">${classValue}</td>
+                    <td class="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-900">${periodText}</td>
+                    <td class="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-900">${formatValue.toUpperCase()}</td>
+                    <td class="px-3 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm">
+                        <button class="text-indigo-600 hover:text-indigo-900">Unduh</button>
+                    </td>
+                `;
+                
+                const tableBody = document.querySelector('tbody');
+                tableBody.insertBefore(newRow, tableBody.firstChild);
+            }, 1500);
+        });
+
+        // Make date inputs more mobile-friendly
+        document.addEventListener('DOMContentLoaded', function() {
+            // For iOS Safari better date input handling
+            const dateInputs = document.querySelectorAll('input[type="date"], input[type="month"]');
+            dateInputs.forEach(input => {
+                input.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    this.focus();
+                });
+            });
+        });
+    </script>
+        <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94c515e69551fd22',t:'MTc0OTM1MTA2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

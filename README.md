@@ -1,15 +1,8 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/your-repo"><img src="https://github.com/your-repo/actions/workflows/tests.yml/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/your-package"><img src="https://img.shields.io/packagist/dt/your-package" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/your-package"><img src="https://img.shields.io/packagist/v/your-package" alt="Latest Stable Version"></a>
-<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License"></a>
-</p>
-
 ## About PAKAR.Solution
 
-PAKAR.Solution is a web application developed for SMPK Penabur 2 (PAKAR) school using Laravel framework and Vite as the frontend build tool. This application provides digital solutions for school administration tasks, including:
+PAKAR.Solution is a web application developed for SMP KP 2 Majalaya (PAKAR) school using Laravel framework and Vite as the frontend build tool. This application provides digital solutions for school administration tasks, including:
 
 -   Teacher data management
 -   Automatic letter numbering system
@@ -33,6 +26,7 @@ The application features a user-friendly interface with dropdown selections for 
 -   MySQL
 -   Bootstrap 5 (optional)
 -   Livewire (optional)
+-   Tailwind CSS
 
 ## Installation Guide
 
@@ -48,7 +42,7 @@ The application features a user-friendly interface with dropdown selections for 
 1.  Clone the repository
 
 ```bash
-    git clone https://github.com/your-repo/aplikasi_pakar_smpkp2.git
+    git clone https://github.com/taufiqjamil47/aplikasi_pakar_smpkp2.git
     cd aplikasi_pakar_smpkp2
 ```
 
@@ -77,12 +71,22 @@ The application features a user-friendly interface with dropdown selections for 
     php artisan key:generate
 ```
 
-6.  Configure Database
+6.  Configure .env file
 
 ```bash
     DB_DATABASE=your_database_name
     DB_USERNAME=your_database_user
     DB_PASSWORD=your_database_password
+
+    BROADCAST_DRIVER=pusher
+
+    PUSHER_APP_ID=YOUR_ID
+    PUSHER_APP_KEY=YOUR_KEY
+    PUSHER_APP_SECRET=YOUR_SECRET
+    PUSHER_HOST=
+    PUSHER_PORT=443
+    PUSHER_SCHEME=https
+    PUSHER_APP_CLUSTER=YOUR_CLUSETER
 ```
 
 7.  Run Migration adn Seeders
@@ -96,6 +100,7 @@ The application features a user-friendly interface with dropdown selections for 
 ```bash
     For development:
     npm run dev
+
     For production:
     npm run build
 ```

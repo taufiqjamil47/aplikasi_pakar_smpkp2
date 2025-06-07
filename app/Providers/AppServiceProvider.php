@@ -24,9 +24,26 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::defaultView('pagination::tailwind');
-        Gate::define('userRole', function (User $user) {
+        Gate::define('isAdmin', function (User $user) {
             return $user->role === 1;
         });
+
+        Gate::define('isStaff', function (User $user) {
+            return $user->role === 2;
+        });
+
+        Gate::define('isKepsek', function (User $user) {
+            return $user->role === 3;
+        });
+
+        Gate::define('isWakasek', function (User $user) {
+            return $user->role === 4;
+        });
+
+        Gate::define('isPiket', function (User $user) {
+            return $user->role === 5;
+        });
+
 
         // if (app()->environment('local')) {
         //     URL::forceScheme('https');

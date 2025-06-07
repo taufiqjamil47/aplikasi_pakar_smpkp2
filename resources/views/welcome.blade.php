@@ -124,7 +124,7 @@
                     </a>
 
                     <!-- Presence Card -->
-                    <a href="@auth /admin-dash @else /absen-hari-ini/form @endauth"
+                    <a href="@auth /presence-dash @else /absen-hari-ini/form @endauth"
                         class="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                         <div
                             class="absolute inset-0 bg-gradient-to-br from-green-500 to-green-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300">

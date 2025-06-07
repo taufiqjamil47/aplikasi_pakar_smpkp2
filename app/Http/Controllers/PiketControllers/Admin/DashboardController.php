@@ -15,10 +15,13 @@ class DashboardController extends Controller
     public function index()
     {
         $totalSiswa = Student::count();
+        $belumBerkelas = Student::whereNull('classroom_id')
+            ->orWhere('classroom_id', 0)
+            ->count();
         $jumlahRombel = ClassRoom::count(); // 1 kelas = 1 rombel
         $kelas = ClassRoom::with(['teacher'])->withCount('students')->take(5)->get();
 
-        return view('absencePages.admin.pages.dashboard', compact('totalSiswa', 'jumlahRombel', 'kelas'));
+        return view('absencePages.admin.pages.dashboard', compact('totalSiswa', 'jumlahRombel', 'kelas', 'belumBerkelas'));
     }
 
     /**

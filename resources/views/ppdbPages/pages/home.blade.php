@@ -109,7 +109,8 @@
                                             <div class="text-sm text-gray-900">{{ $siswa->asal_sekolah }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">{{ $siswa->created_at->format('H:i') }}</div>
+                                            <div class="text-sm text-gray-900">{{ $siswa->created_at->format('d M Y H:i') }}
+                                            </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span

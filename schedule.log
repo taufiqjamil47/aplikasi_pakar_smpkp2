@@ -6,3 +6,7 @@
   2025-06-06 08:53:00 Running ["artisan" app:generate-absensi-token] .................................... 1,260ms DONE
   ⇂ "C:\xampp\php\php.exe" "artisan" app:generate-absensi-token > "NUL" 2>&1  
 
+
+  2025-06-08 08:41:02 Running ["artisan" app:generate-absensi-token] .................................... 1,252ms DONE
+  ⇂ "C:\xampp\php\php.exe" "artisan" app:generate-absensi-token > "NUL" 2>&1  
+

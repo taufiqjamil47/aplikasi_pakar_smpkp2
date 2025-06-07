@@ -38,7 +38,7 @@
             <div class="bg-white rounded-xl shadow p-6 border-l-4 border-green-500 card-hover">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-500 text-sm font-medium">Jumlah Rombel</p>
+                        <p class="text-gray-500 text-sm font-medium">Jumlah Kelas</p>
                         <h3 class="text-2xl font-bold text-gray-800">{{ $jumlahRombel }}</h3>
                     </div>
                     <div class="p-3 rounded-full bg-green-100 text-green-600">
@@ -47,6 +47,23 @@
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M3 10l9-7 9 7v10a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4H9v4a2 2 0 01-2 2H5a2 2 0 01-2-2V10z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Siswa belum memiliki kelas --}}
+            <div class="bg-white rounded-xl shadow p-6 border-l-4 border-red-500 card-hover">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium">Belum memiliki kelas</p>
+                        <h3 class="text-2xl font-bold text-gray-800">{{ $belumBerkelas }}</h3>
+                    </div>
+                    <div class="p-3 rounded-full bg-red-100 text-red-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                         </svg>
                     </div>
                 </div>

@@ -23,6 +23,46 @@ class Student extends Model
         'nik' => 'string'
     ];
 
+    // Data baru 
+    protected $fillable = [
+        'nama_siswa',
+        'jenis_kelamin',
+        'nisn',
+        'nik',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'agama',
+        'alamat',
+        'rt',
+        'rw',
+        'desa',
+        'kecamatan',
+        'no_telp',
+        'asal_sekolah',
+        'pkh',
+        'kks',
+        'pip',
+        'tinggi_badan',
+        'berat_badan',
+        'anak_ke',
+        'classroom_id',
+        'ukuran_baju',
+        'nama_ayah',
+        'tahun_lahir_ayah',
+        'pekerjaan_ayah',
+        'pendidikan_ayah',
+        'nama_ibu',
+        'tahun_lahir_ibu',
+        'pekerjaan_ibu',
+        'pendidikan_ibu',
+        'nama_wali',
+        'tahun_lahir_wali',
+        'pekerjaan_wali',
+        'pendidikan_wali',
+        'slug',
+        'periode',
+    ];
+
     public function setNamaAttribute($value)
     {
         $this->attributes['nama_siswa'] = $value;

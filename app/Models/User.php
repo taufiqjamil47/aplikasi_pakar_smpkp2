@@ -48,11 +48,17 @@ class User extends Authenticatable
     public function getRoleNameAttribute()
     {
         return match ($this->role) {
-            1 => 'Admin',
-            2 => 'Piket',
+            1 => 'Administrator',
+            2 => 'Staff Admin',
             3 => 'Kepala Sekolah',
             4 => 'Wakasek Kesiswaan',
+            5 => 'Petugas Piket',
             default => 'Tidak Diketahui',
         };
+    }
+
+    public function hasAnyRole(array $roles)
+    {
+        return in_array($this->role, $roles);
     }
 }

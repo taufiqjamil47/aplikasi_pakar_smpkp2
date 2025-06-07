@@ -4,14 +4,16 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PiketControllers\Admin\DashboardController;
-use App\Http\Controllers\PiketControllers\AdminController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PpdbControllers\PpdbController;
-use App\Http\Controllers\PiketControllers\MessageTemplateController;
+use App\Http\Controllers\PiketControllers\AdminController;
 use App\Http\Controllers\PiketControllers\PiketController;
 use App\Http\Controllers\PpdbControllers\OCRScanController;
 use App\Http\Controllers\PpdbControllers\StudentController;
+use App\Http\Controllers\PiketControllers\Admin\SiswaController;
+use App\Http\Controllers\PiketControllers\Admin\DashboardController;
+use App\Http\Controllers\PiketControllers\Admin\KelasController;
+use App\Http\Controllers\PiketControllers\MessageTemplateController;
 
 // Home App
 Route::get('/', function () {
@@ -47,15 +49,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/ppdb/store', [OCRScanController::class, 'store'])->name('store');
 });
 
-# ADMIN (Staff) Route
-// Route::get('/admin/staff/home', [AdminStaffController::class, 'index'])->name('admin-staff');
 
 # Absensi 
-// routes/web.php
-
-// Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-//     // ... route lainnya
-// });
 Route::resource('message-templates', MessageTemplateController::class)
     ->except(['create', 'store', 'destroy']);
 
@@ -71,5 +66,8 @@ Route::get('/absen-hari-ini', [PiketController::class, 'index'])
 Route::post('/absen-hari-ini', [PiketController::class, 'create'])->name('absen.create');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/admin-dash', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/presence-dash', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/presence-dash/kelola-kelas', [KelasController::class, 'index'])->name('dashboard.pengelolaan');
+    Route::get('/presence-dash/kelola-kelas/{id}', [KelasController::class, 'show'])->name('dashboard.show');
+    Route::post('/presence-dash/kelola-kelas/{id}/tambah-siswa', [KelasController::class, 'tambahSiswa'])->name('dashboard.tambahSiswa');
 });
