@@ -4,7 +4,7 @@
     <div class="p-4">
         <nav class="mt-6">
             <div class="space-y-1">
-                <a href="/ppdb/home"
+                <a href="/presence-dash"
                     class="nav-item flex items-center px-4 py-3 text-sm font-medium text-primary-600 bg-primary-50 rounded-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor">
                         <path
@@ -12,7 +12,7 @@
                     </svg>
                     Dashboard
                 </a>
-                <a href="/ppdb/data-siswa"
+                <a href="#"
                     class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20"
                         fill="currentColor">
@@ -21,7 +21,7 @@
                     </svg>
                     Data Siswa
                 </a>
-                <a href="/ppdb/data-siswa"
+                <a href="#"
                     class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="currentColor" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -30,7 +30,7 @@
                     </svg>
                     Data Kelas
                 </a>
-                <a href="/ppdb/tambah-data"
+                <a href="#"
                     class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20"
                         fill="currentColor">
@@ -40,7 +40,7 @@
                     </svg>
                     Tambah Siswa
                 </a>
-                <a href="/ppdb/tambah-data"
+                <a href="#"
                     class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20"
                         fill="currentColor">
@@ -49,6 +49,16 @@
                             clip-rule="evenodd" />
                     </svg>
                     Tambah Kelas
+                </a>
+                <a href="/presence-dash/kelola-kelas"
+                    class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Kelola Kelas
                 </a>
                 <a href="#"
                     class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg">

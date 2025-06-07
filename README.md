@@ -1,15 +1,8 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/your-repo"><img src="https://github.com/your-repo/actions/workflows/tests.yml/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/your-package"><img src="https://img.shields.io/packagist/dt/your-package" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/your-package"><img src="https://img.shields.io/packagist/v/your-package" alt="Latest Stable Version"></a>
-<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License"></a>
-</p>
-
 ## About PAKAR.Solution
 
-PAKAR.Solution is a web application developed for SMPK Penabur 2 (PAKAR) school using Laravel framework and Vite as the frontend build tool. This application provides digital solutions for school administration tasks, including:
+PAKAR.Solution is a web application developed for SMP KP 2 Majalaya (PAKAR) school using Laravel framework and Vite as the frontend build tool. This application provides digital solutions for school administration tasks, including:
 
 -   Teacher data management
 -   Automatic letter numbering system
@@ -48,7 +41,7 @@ The application features a user-friendly interface with dropdown selections for 
 1.  Clone the repository
 
 ```bash
-    git clone https://github.com/your-repo/aplikasi_pakar_smpkp2.git
+    git clone https://github.com/taufiqjamil47/aplikasi_pakar_smpkp2.git
     cd aplikasi_pakar_smpkp2
 ```
 

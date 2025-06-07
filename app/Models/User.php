@@ -48,7 +48,7 @@ class User extends Authenticatable
     public function getRoleNameAttribute()
     {
         return match ($this->role) {
-            1 => 'Admin',
+            1 => 'Administrator',
             2 => 'Piket',
             3 => 'Kepala Sekolah',
             4 => 'Wakasek Kesiswaan',

@@ -23,6 +23,14 @@ class Student extends Model
         'nik' => 'string'
     ];
 
+    // Data baru 
+    protected $fillable = [
+        'nama_siswa',
+        'slug',
+        'nik',
+        'classroom_id',
+    ];
+
     public function setNamaAttribute($value)
     {
         $this->attributes['nama_siswa'] = $value;
