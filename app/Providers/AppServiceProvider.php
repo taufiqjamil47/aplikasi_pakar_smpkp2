@@ -28,8 +28,8 @@ class AppServiceProvider extends ServiceProvider
             return $user->role === 1;
         });
 
-        if (app()->environment('local')) {
-            URL::forceScheme('https');
-        }
+        // if (app()->environment('local')) {
+        //     URL::forceScheme('https');
+        // }
     }
 }

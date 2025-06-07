@@ -12,7 +12,8 @@
 
                 <div class="relative z-10">
                     <h2 class="text-3xl font-bold mb-2">Selamat Datang, {{ Auth::user()->name }}</h2>
-                    <p class="text-blue-100 max-w-2xl">Anda masuk sebagai administrator sistem PPDB SMP KP 2 Majalaya Tahun
+                    <p class="text-blue-100 max-w-2xl">Anda masuk sebagai {{ Auth::user()->role_name }} sistem PPDB SMP KP 2
+                        Majalaya Tahun
                         Pelajaran 2024-2025.</p>
                 </div>
             </div>
@@ -25,7 +26,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500">Total Pendaftar</p>
-                            <h3 class="text-2xl font-bold text-gray-800">1,248</h3>
+                            <h3 class="text-2xl font-bold text-gray-800">{{ $totalSiswa }}</h3>
                         </div>
                         <div class="p-3 rounded-full bg-blue-100 text-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -35,9 +36,6 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <span class="text-green-500 text-sm font-medium">+12.5% dari kemarin</span>
-                    </div>
                 </div>
 
                 <!-- Diterima Card -->
@@ -46,7 +44,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-500">Diterima</p>
-                            <h3 class="text-2xl font-bold text-gray-800">320</h3>
+                            <h3 class="text-2xl font-bold text-gray-800">{{ $totalSiswa }}</h3>
                         </div>
                         <div class="p-3 rounded-full bg-green-100 text-green-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -55,51 +53,6 @@
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                    </div>
-                    <div class="mt-4">
-                        <span class="text-green-500 text-sm font-medium">+8.2% dari kemarin</span>
-                    </div>
-                </div>
-
-                <!-- Ditolak Card -->
-                <div
-                    class="transition-all duration-300 ease-in-out transform hover:scale-[1.03] bg-white rounded-xl shadow-lg p-6 border-l-4 border-red-500">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-gray-500">Ditolak</p>
-                            <h3 class="text-2xl font-bold text-gray-800">56</h3>
-                        </div>
-                        <div class="p-3 rounded-full bg-red-100 text-red-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <span class="text-red-500 text-sm font-medium">+3.1% dari kemarin</span>
-                    </div>
-                </div>
-
-                <!-- Pending Card -->
-                <div
-                    class="transition-all duration-300 ease-in-out transform hover:scale-[1.03] bg-white rounded-xl shadow-lg p-6 border-l-4 border-yellow-500">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-gray-500">Menunggu</p>
-                            <h3 class="text-2xl font-bold text-gray-800">872</h3>
-                        </div>
-                        <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <span class="text-yellow-500 text-sm font-medium">+15.7% dari kemarin</span>
                     </div>
                 </div>
             </div>
@@ -162,62 +115,6 @@
                                         <a href="#" class="text-blue-600 hover:text-blue-900">Detail</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10">
-                                                <img class="h-10 w-10 rounded-full"
-                                                    src="https://ui-avatars.com/api/?name=Siti+Maryam&background=random"
-                                                    alt="">
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">Siti Maryam</div>
-                                                <div class="text-sm text-gray-500">Perempuan</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">SDN Majalaya 3</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">14 Jun 2024</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Proses</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="#" class="text-blue-600 hover:text-blue-900">Detail</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10">
-                                                <img class="h-10 w-10 rounded-full"
-                                                    src="https://ui-avatars.com/api/?name=Rudi+Hartono&background=random"
-                                                    alt="">
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">Rudi Hartono</div>
-                                                <div class="text-sm text-gray-500">Laki-laki</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">SDN Sukamaju 2</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">14 Jun 2024</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Ditolak</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="#" class="text-blue-600 hover:text-blue-900">Detail</a>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -229,11 +126,11 @@
                     <h3 class="text-xl font-bold text-gray-800 mb-6">Aksi Cepat</h3>
 
                     <div class="space-y-4">
-                        <a href="#"
+                        <a href="/ppdb/tambah-data"
                             class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors duration-200">
                             <div class="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 4v16m8-8H4" />
                                 </svg>
@@ -247,8 +144,8 @@
                         <a href="#"
                             class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors duration-200">
                             <div class="p-3 rounded-full bg-green-100 text-green-600 mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                                 </svg>
@@ -259,20 +156,22 @@
                             </div>
                         </a>
 
-                        <a href="#"
-                            class="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors duration-200">
-                            <div class="p-3 rounded-full bg-purple-100 text-purple-600 mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-medium text-gray-900">Ekspor Data</h4>
-                                <p class="text-sm text-gray-500">Ekspor data ke format Excel</p>
-                            </div>
-                        </a>
+                        @can('userRole')
+                            <a href="{{ url('ppdb/excel-export') }}"
+                                class="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors duration-200">
+                                <div class="p-3 rounded-full bg-purple-100 text-purple-600 mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Ekspor Data</h4>
+                                    <p class="text-sm text-gray-500">Ekspor data ke format Excel</p>
+                                </div>
+                            </a>
+                        @endcan
 
                         <a href="#"
                             class="flex items-center p-4 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition-colors duration-200">

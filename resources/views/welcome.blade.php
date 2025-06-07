@@ -95,7 +95,7 @@
                             <div class="ml-6">
                                 <h3
                                     class="text-xl font-semibold text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                                    PAKAR.ppdb
+                                    PAKAR.spmb
                                 </h3>
                                 <p class="mt-2 text-gray-600 dark:text-gray-300">
                                     Aplikasi unggulan untuk mengelola Penerimaan Peserta Didik Baru (PPDB). Memberikan
@@ -114,7 +114,7 @@
                     </a>
 
                     <!-- Presence Card -->
-                    <a href="/absen-hari-ini/form"
+                    <a href="@auth /admin-dash @else /absen-hari-ini/form @endauth"
                         class="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                         <div
                             class="absolute inset-0 bg-gradient-to-br from-green-500 to-green-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300">

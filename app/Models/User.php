@@ -44,4 +44,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getRoleNameAttribute()
+    {
+        return match ($this->role) {
+            1 => 'Admin',
+            2 => 'Piket',
+            3 => 'Kepala Sekolah',
+            4 => 'Wakasek Kesiswaan',
+            default => 'Tidak Diketahui',
+        };
+    }
 }

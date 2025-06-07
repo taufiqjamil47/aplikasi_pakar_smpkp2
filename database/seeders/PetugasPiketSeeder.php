@@ -14,15 +14,10 @@ class PetugasPiketSeeder extends Seeder
     public function run(): void
     {
         DB::table('petugas_pikets')->insert([
-            // [
-            //     'nama' => 'Taufiq Jamil Hanafi',
-            //     'nomor_wa' => '082218247031',
-            //     'hari_piket' => 'Senin',
-            // ],
             [
                 'nama' => 'Nurdin Permiansyah',
                 'nomor_wa' => '085709905390',
-                'hari_piket' => 'Senin,Selasa,Rabu,Kamis,Jum\'at',
+                'hari_piket' => 'Senin,Selasa,Rabu,Kamis,Jumat',
             ],
             [
                 'nama' => 'Imas Siti Kulsum',
@@ -37,7 +32,7 @@ class PetugasPiketSeeder extends Seeder
             [
                 'nama' => 'Kurnia Dewi',
                 'nomor_wa' => '081546969936',
-                'hari_piket' => 'Rabu,Jum\'at',
+                'hari_piket' => 'Rabu,Jumat',
             ],
             [
                 'nama' => 'Yopi Sudirman',

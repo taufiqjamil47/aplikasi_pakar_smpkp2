@@ -4,14 +4,14 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PiketControllers\Admin\DashboardController;
+use App\Http\Controllers\PiketControllers\AdminController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PpdbControllers\PpdbController;
 use App\Http\Controllers\PiketControllers\MessageTemplateController;
 use App\Http\Controllers\PiketControllers\PiketController;
 use App\Http\Controllers\PpdbControllers\OCRScanController;
 use App\Http\Controllers\PpdbControllers\StudentController;
-use App\Http\Controllers\AdminStaffControllers\AdminStaffController;
-use App\Http\Controllers\PiketControllers\AdminPiketController;
 
 // Home App
 Route::get('/', function () {
@@ -71,5 +71,5 @@ Route::get('/absen-hari-ini', [PiketController::class, 'index'])
 Route::post('/absen-hari-ini', [PiketController::class, 'create'])->name('absen.create');
 
 Route::middleware(['auth'])->group(function () {
-    // khusus admin disini
+    Route::get('/admin-dash', [DashboardController::class, 'index'])->name('dashboard');
 });
