@@ -18,6 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    @vite(['resources/css/ppdb/app.css', 'resources/css/cdn/toastr.min.css', 'resources/js/ppdb/app.js', 'resources/js/cdn/toastr.min.js'])
 
     <!-- Tailwind via CDN (for production, consider self-hosting) -->
     <script src="https://cdn.tailwindcss.com"></script>

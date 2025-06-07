@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\PpdbControllers;
 
-use App\Exports\StudentModelExport;
+use Carbon\Carbon;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\StudentModelExport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -20,12 +21,16 @@ class PpdbController extends Controller
     public function index()
     {
         $totalSiswa = $this->getTotalSiswa();
-        return view(
-            'ppdbPages.pages.home',
-            [
-                'totalSiswa' => $totalSiswa,
-            ]
-        );
+        // Ambil data siswa yang dibuat hari ini, limit 10, urut terbaru
+        $siswaHariIni = Student::whereDate('created_at', Carbon::today())
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('ppdbPages.pages.home', [
+            'totalSiswa' => $totalSiswa,
+            'siswaHariIni' => $siswaHariIni,
+        ]);
     }
 
     public function tambahData()

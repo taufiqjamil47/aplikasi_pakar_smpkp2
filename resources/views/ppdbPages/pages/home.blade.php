@@ -12,9 +12,10 @@
 
                 <div class="relative z-10">
                     <h2 class="text-3xl font-bold mb-2">Selamat Datang, {{ Auth::user()->name }}</h2>
-                    <p class="text-blue-100 max-w-2xl">Anda masuk sebagai {{ Auth::user()->role_name }} sistem PPDB SMP KP 2
+                    <p class="text-blue-100 max-w-2xl">Anda masuk sebagai {{ Auth::user()->role_name }} pada sistem SPMB SMP
+                        KP 2
                         Majalaya Tahun
-                        Pelajaran 2024-2025.</p>
+                        Pelajaran 2025-2026.</p>
                 </div>
             </div>
 
@@ -64,7 +65,8 @@
                     class="lg:col-span-2 transition-all duration-500 ease-in-out transform hover:scale-[1.01] bg-white rounded-xl shadow-lg p-6">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-bold text-gray-800">Pendaftaran Terbaru</h3>
-                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">Lihat Semua</a>
+                        <a href="/ppdb/data-siswa" class="text-blue-600 hover:text-blue-800 text-sm font-medium">Lihat
+                            Semua</a>
                     </div>
 
                     <div class="overflow-x-auto">
@@ -87,34 +89,38 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10">
-                                                <img class="h-10 w-10 rounded-full"
-                                                    src="https://ui-avatars.com/api/?name=Ahmad+Setiawan&background=random"
-                                                    alt="">
+                                @foreach ($siswaHariIni as $siswa)
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div class="flex-shrink-0 h-10 w-10">
+                                                    <img class="h-10 w-10 rounded-full"
+                                                        src="https://ui-avatars.com/api/?name=Ahmad+Setiawan&background=random"
+                                                        alt="">
+                                                </div>
+                                                <div class="ml-4">
+                                                    <div class="text-sm font-medium text-gray-900">{{ $siswa->nama_siswa }}
+                                                    </div>
+                                                    <div class="text-sm text-gray-500">{{ $siswa->jenis_kelamin }}</div>
+                                                </div>
                                             </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">Ahmad Setiawan</div>
-                                                <div class="text-sm text-gray-500">Laki-laki</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">SDN Majalaya 1</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">15 Jun 2024</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Diterima</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="#" class="text-blue-600 hover:text-blue-900">Detail</a>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-900">{{ $siswa->asal_sekolah }}</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-900">{{ $siswa->created_at->format('H:i') }}</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span
+                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Diterima</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <a href="{{ route('data-siswa.show', $siswa->slug) }}"
+                                                class="text-blue-600 hover:text-blue-900">Detail</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -141,27 +147,12 @@
                             </div>
                         </a>
 
-                        <a href="#"
-                            class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors duration-200">
-                            <div class="p-3 rounded-full bg-green-100 text-green-600 mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-medium text-gray-900">Impor Data</h4>
-                                <p class="text-sm text-gray-500">Impor data peserta dari Excel</p>
-                            </div>
-                        </a>
-
                         @can('userRole')
                             <a href="{{ url('ppdb/excel-export') }}"
                                 class="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors duration-200">
                                 <div class="p-3 rounded-full bg-purple-100 text-purple-600 mr-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                     </svg>

@@ -8,9 +8,9 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
-            <a href="/"
-                class="text-md font-bold bg-gradient-to-r from-orange-600 via-blue-500 to-green-500 bg-clip-text text-transparent bg-400% animate-gradient">
-                PRESENCE DASH
+            <a href="/" class="hidden lg:block text-2xl logo text-blueColor">
+                <strong
+                    class="text-2xl font-bold bg-gradient-to-r from-orange-600 via-blue-500 to-green-500 bg-clip-text text-transparent bg-400% animate-gradient">PAKAR.</strong>presence
             </a>
         </div>
 

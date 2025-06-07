@@ -5,7 +5,7 @@
             class="transition-all duration-300 ease-in-out flex justify-between items-center relative bg-white p-[1.2rem] rounded-[10px] shadow-lg">
             <div class="logoDiv">
                 <a href="/" class="hidden lg:block logo text-[25px] text-blueColor"><strong
-                        class="text-2xl font-bold bg-gradient-to-r from-orange-700 via-blue-500 to-green-400 text-transparent bg-clip-text bg-400% animate-gradient">PAKAR.</strong>ppdb</a>
+                        class="text-2xl font-bold bg-gradient-to-r from-orange-700 via-blue-500 to-green-400 text-transparent bg-clip-text bg-400% animate-gradient">PAKAR.</strong>spmb</a>
             </div>
             <div class="menu flex gap-2 items-center">
                 <button id="hamburger" name="hamburger" type="button" class="block absolute left-4 lg:hidden">

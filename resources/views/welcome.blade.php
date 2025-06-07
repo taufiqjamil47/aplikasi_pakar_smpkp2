@@ -57,10 +57,12 @@
                                 <i class="fas fa-th-large mr-2"></i> Portal
                             </a>
                         @else
-                            <a href="#"
-                                class="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-lg shadow-md hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center">
-                                <i class="fas fa-search mr-2"></i> Cari Data
-                            </a>
+                            @if (Route::has('login'))
+                                <a href="{{ route('login') }}"
+                                    class="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-lg shadow-md hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center">
+                                    <i class="fas fa-sign-in mr-2"></i> Login
+                                </a>
+                            @endif
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}"
                                     class="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-medium rounded-lg shadow-md hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center">
@@ -73,9 +75,17 @@
             </div>
 
             <!-- Applications Grid -->
-            <div class="mt-16" id="portal">
+            <div class="mt-15" id="portal">
+                @auth
+                    <h2 class="text-2xl md:text-2xl font-bold text-center text-gray-800 dark:text-white mb-5">
+                        Hai 👋🏻, {{ Auth::user()->name }}
+                        <span class="text-white bg-blue-600 px-2 rounded-md animate-pulse">
+                            {{ Auth::user()->role_name }}
+                        </span>
+                    </h2>
+                @endauth
                 <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-800 dark:text-white mb-10">
-                    Pilih Aplikasi yang Anda Butuhkan
+                    silahkan pilih Aplikasi yang anda butuhkan
                 </h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
@@ -98,7 +108,7 @@
                                     PAKAR.spmb
                                 </h3>
                                 <p class="mt-2 text-gray-600 dark:text-gray-300">
-                                    Aplikasi unggulan untuk mengelola Penerimaan Peserta Didik Baru (PPDB). Memberikan
+                                    Aplikasi unggulan untuk mengelola Sistem Penerimaan Siswa Baru (SPMB). Memberikan
                                     solusi terpadu untuk mempermudah proses pendaftaran serta pengelolaan PPDB di
                                     lembaga pendidikan.
                                 </p>
@@ -129,7 +139,7 @@
                             <div class="ml-6">
                                 <h3
                                     class="text-xl font-semibold text-gray-800 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300">
-                                    PAKAR.Presence
+                                    PAKAR.presence
                                 </h3>
                                 <p class="mt-2 text-gray-600 dark:text-gray-300">
                                     Aplikasi khusus untuk Piket dalam menjalankan tugasnya secara digital. Memudahkan
