@@ -17,7 +17,7 @@ class MessageTemplateSeeder extends Seeder
             [
                 'nama' => 'absensi_token',
                 'deskripsi' => 'Template pesan untuk pengiriman token absensi',
-                'template' => 'Assalamualaikum *{nama_petugas}* 👋\n\nToken Absensi Hari Ini:\n*{token}*\n\nSilakan klik link berikut untuk input token:\n{link}\n\n⏳ Berlaku sampai jam 14.00 WIB.',
+                'template' => 'Assalamualaikum Wr Wb*{nama_petugas}* 👋\n\nToken Absensi Hari Ini:\n*{token}*\n\nSilakan klik link berikut untuk input token:\n{link}\n\n⏳ Berlaku sampai jam 14.00 WIB.',
                 'created_at' => now(),
                 'updated_at' => now()
             ]

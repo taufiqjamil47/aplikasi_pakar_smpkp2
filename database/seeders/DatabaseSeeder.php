@@ -18,10 +18,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TeacherClassSeeder::class,
             ClassRoomSeeder::class,
-            PetugasPiketSeeder::class,
             StudentSeeder::class,
             UserSeeder::class, // Jangan lupa bikin seeder ini dulu
-            PetugasPiketSeeder::class
+            PetugasPiketSeeder::class,
+            MessageTemplateSeeder::class,
+            AbsensiSeeder::class
         ]);
     }
 }

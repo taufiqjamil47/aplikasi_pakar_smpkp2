@@ -33,9 +33,10 @@ The application features a user-friendly interface with dropdown selections for 
 ### Prerequisites
 
 -   PHP 8.1 or higher
--   Composer 2.x
+-   Composer 2.x or higher
 -   Node.js 16.x or higher
--   MySQL 5.7+ or MariaDB 10.3+
+-   Python 3.11 (LTS)
+-   MySQL 5.7+ or higher
 
 ### Step-by-Step Installation
 
@@ -56,7 +57,6 @@ The application features a user-friendly interface with dropdown selections for 
 
 ```bash
     npm install
-    cp .env.example .env
 ```
 
 4.  Create environment file
@@ -89,7 +89,7 @@ The application features a user-friendly interface with dropdown selections for 
     PUSHER_APP_CLUSTER=YOUR_CLUSETER
 ```
 
-7.  Run Migration adn Seeders
+7.  Run Migration and Seeders
 
 ```bash
     php artisan migrate --seed
@@ -124,18 +124,14 @@ Email: taufiqjamil47@gmail.com
 Password: password (change this immediately after first login)
 
 Security Vulnerabilities
-If you discover a security vulnerability, please send an email to our development team at security@pakar.sch.id. All vulnerabilities will be promptly addressed.
+If you discover a security vulnerability, please send an email to our development team at security@pakar.ac.id. All vulnerabilities will be promptly addressed.
 
 License
-PAKAR.Solution is open-source software licensed under the MIT license.
+PAKAR.Solution is open-source software (Not-licensied)
 Support
 For support or questions, please contact:
-
 Email: taufiq.jamil16@guru.smp.belajar.id
-
 School Office: SMP KP 2 Majalaya
-
-text
 
 ### Key Improvements Made:
 
@@ -152,8 +148,4 @@ text
 8. **Maintained all essential sections** (license, contributing, etc.)
 9. **Added support information** specific to your school
 
-The README now properly represents your Laravel+Vite application for SMP KP 2 Majalayawhile maintaining professional standards and providing all necessary information for installation and development.
-
-```
-
-```
+The README now properly represents your Laravel+Vite application for SMP KP 2 Majalaya while maintaining professional standards and providing all necessary information for installation and development.

@@ -40,7 +40,7 @@
                     </div>
 
                     <h1 class="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
-                        Portal Layanan Aplikasi <span class="text-blue-600 dark:text-blue-400">PAKAR</span>
+                        Portal Layanan <span class="text-blue-600 dark:text-blue-400">PAKAR</span>
                     </h1>
 
                     <p class="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -78,15 +78,20 @@
             <div class="mt-15" id="portal">
                 @auth
                     <h2 class="text-2xl md:text-2xl font-bold text-center text-gray-800 dark:text-white mb-5">
-                        Hai 👋🏻, {{ Auth::user()->name }}
-                        <span class="text-white bg-blue-600 px-2 rounded-md animate-pulse">
-                            {{ Auth::user()->role_name }}
-                        </span>
+                        Hallo 👋🏻, {{ Auth::user()->name }}
                     </h2>
                 @endauth
                 <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-800 dark:text-white mb-10">
-                    silahkan pilih Aplikasi yang anda butuhkan
+                    dibawah ini adalah kumpulan Aplikasi yang bisa anda gunakan
                 </h2>
+                <!-- Floating Arrow Button -->
+                <div id="scrollArrow"
+                    class="fixed bottom-8 right-8 z-50 transition-all duration-300 transform translate-y-4 opacity-0">
+                    <a href="#portal"
+                        class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 dark:bg-blue-500 shadow-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-300 group animate-bounce">
+                        <i class="fas fa-chevron-down text-white text-xl"></i>
+                    </a>
+                </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
                     <!-- PPDB Card -->
@@ -109,7 +114,7 @@
                                 </h3>
                                 <p class="mt-2 text-gray-600 dark:text-gray-300">
                                     Aplikasi unggulan untuk mengelola Sistem Penerimaan Siswa Baru (SPMB). Memberikan
-                                    solusi terpadu untuk mempermudah proses pendaftaran serta pengelolaan PPDB di
+                                    solusi terpadu untuk mempermudah proses pendaftaran serta pengelolaan SPMB di
                                     lembaga pendidikan.
                                 </p>
                             </div>
@@ -139,11 +144,13 @@
                             <div class="ml-6">
                                 <h3
                                     class="text-xl font-semibold text-gray-800 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300">
-                                    PAKAR.presence
+                                    PAKAR.attendance
                                 </h3>
                                 <p class="mt-2 text-gray-600 dark:text-gray-300">
-                                    Aplikasi khusus untuk Piket dalam menjalankan tugasnya secara digital. Memudahkan
-                                    pengabsenan harian dengan antarmuka yang intuitif dan fitur yang lengkap.
+                                    Aplikasi admin yang Memudahkan
+                                    pengabsenan harian melacak dan menganalisis kehadiran siswa dengan antarmuka yang
+                                    intuitif dan
+                                    fitur yang lengkap.
                                 </p>
                             </div>
                         </div>
@@ -164,17 +171,59 @@
                     <div class="flex items-center space-x-4 mb-4 md:mb-0">
                         <a href="https://github.com/taufiqjamil47"
                             class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors duration-300 flex items-center">
-                            <i class="fas fa-heart text-red-500 mr-2"></i>
+                            <i class="fas fa-user-graduate text-red-500 mr-2"></i>
                             <span>PAKAR.solution | SMP KP 2 Majalaya</span>
                         </a>
                     </div>
                     <div class="text-gray-500 dark:text-gray-400 text-sm">
-                        App Version {{ Illuminate\Foundation\Application::VERSION }}
+                        <i class="fas fa-rocket mr-2"></i>App Version {{ config('app.version') }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
+<script>
+    // Fungsi untuk menangani scroll
+    function handleScroll() {
+        const arrow = document.getElementById('scrollArrow');
+        const scrollPosition = window.scrollY || window.pageYOffset;
+
+        if (scrollPosition === 0) {
+            // Animasi muncul: fade in + slide up
+            arrow.classList.remove('opacity-0', 'translate-y-4');
+            arrow.classList.add('opacity-100', 'translate-y-0');
+        } else {
+            // Animasi menghilang: fade out + slide down
+            arrow.classList.remove('opacity-100', 'translate-y-0');
+            arrow.classList.add('opacity-0', 'translate-y-4');
+        }
+    }
+
+    // Fungsi untuk menangani klik pada arrow
+    function handleArrowClick(e) {
+        e.preventDefault();
+        const target = document.querySelector('#portal');
+        target.scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+
+    // Inisialisasi
+    document.addEventListener('DOMContentLoaded', () => {
+        const arrow = document.getElementById('scrollArrow');
+        const arrowLink = arrow.querySelector('a');
+
+        // Set state awal
+        if (window.scrollY === 0) {
+            arrow.classList.remove('opacity-0', 'translate-y-4');
+            arrow.classList.add('opacity-100', 'translate-y-0');
+        }
+
+        // Tambahkan event listeners
+        window.addEventListener('scroll', handleScroll);
+        arrowLink.addEventListener('click', handleArrowClick);
+    });
+</script>
 
 </html>

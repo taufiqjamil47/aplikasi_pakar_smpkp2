@@ -1,15 +1,6 @@
-@extends('absencePages.layouts.index')
+@extends('absencePages.admin.layouts.index')
 @section('content')
     <div class="container mx-auto px-2 py-8 max-w-6xl">
-        <!-- Header Section -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 mb-4 card-hover fade-in">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-                <div>
-                    <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Message Templates</h1>
-                </div>
-            </div>
-        </div>
-
         <!-- Status Messages -->
         @if (session('success'))
             <div

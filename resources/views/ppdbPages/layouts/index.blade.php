@@ -31,7 +31,7 @@
                 document.querySelector('#totalSiswa').innerText = newTotalSiswa;
             });
     </script>
-    <title>Document</title>
+    <title>PAKAR.spmb</title>
 </head>
 
 <body class="flex flex-col min-h-screen">

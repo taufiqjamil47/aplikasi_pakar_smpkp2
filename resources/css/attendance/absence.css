@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#signatureCanvas {
+    touch-action: none;
+    /* penting untuk HP agar tidak scroll saat tanda tangan */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+canvas {
+    touch-action: none;
+    /* important untuk HP */
+}
+
+@media (max-width: 650px) {
+    table {
+        border: 0;
+    }
+
+    thead {
+        display: none;
+    }
+
+    .mobile-stack td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        text-align: left;
+        font-size: 0.875rem;
+        /* Tailwind text-sm */
+    }
+
+    .mobile-stack tr {
+        display: block;
+        margin-bottom: 1.5rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        background-color: white;
+    }
+}

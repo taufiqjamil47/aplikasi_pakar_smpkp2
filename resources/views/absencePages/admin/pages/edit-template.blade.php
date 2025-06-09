@@ -1,16 +1,6 @@
-@extends('absencePages.layouts.index')
+@extends('absencePages.admin.layouts.index')
 @section('content')
     <div class="container mx-auto px-2 py-8 max-w-6xl">
-        <!-- Header Section -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 mb-4 card-hover fade-in">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-                <div>
-                    <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Edit Template: {{ $messageTemplate->name }}
-                    </h1>
-                </div>
-            </div>
-        </div>
-
         <!-- Status Messages -->
         @if (session('success'))
             <div
@@ -66,7 +56,7 @@
                         <textarea name="template" id="template" rows="10"
                             class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">{{ $messageTemplate->template }}</textarea>
                         <p class="mt-1 text-sm text-gray-500">
-                            Placeholders yang tersedia: {nama_petugas}, {token}, {link}
+                            Placeholders yang tersedia: {{ Auth::user()->name }}
                         </p>
                     </div>
                 </div>

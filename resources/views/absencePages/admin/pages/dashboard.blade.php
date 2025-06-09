@@ -9,7 +9,8 @@
 
             <div class="relative z-10">
                 <h2 class="text-2xl md:text-3xl font-bold mb-2">Selamat Datang, {{ Auth::user()->name }}</h2>
-                <p class="text-primary-100 max-w-2xl">Anda masuk sebagai {{ Auth::user()->role_name }} sistem Presence
+                <p class="text-primary-100 max-w-2xl">Anda masuk sebagai {{ Auth::user()->role_name }} pada Attendance System
+                    (PAKAR.attendance)
                     Online SMP KP 2
                     Majalaya</p>
             </div>

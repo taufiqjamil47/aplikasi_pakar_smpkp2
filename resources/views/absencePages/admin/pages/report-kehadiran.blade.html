@@ -1,7 +1,6 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,28 +14,44 @@
             font-family: 'Poppins', sans-serif;
             background-color: #f0f4f8;
         }
-        .attendance-present { background-color: #dcfce7; }
-        .attendance-absent { background-color: #fee2e2; }
-        .attendance-late { background-color: #fef3c7; }
-        .attendance-excused { background-color: #e0e7ff; }
-        
+
+        .attendance-present {
+            background-color: #dcfce7;
+        }
+
+        .attendance-absent {
+            background-color: #fee2e2;
+        }
+
+        .attendance-late {
+            background-color: #fef3c7;
+        }
+
+        .attendance-excused {
+            background-color: #e0e7ff;
+        }
+
         @media print {
             .no-print {
                 display: none;
             }
+
             body {
                 background-color: white;
             }
+
             .container {
                 max-width: 100% !important;
                 padding: 0 !important;
             }
+
             .shadow-lg {
                 box-shadow: none !important;
             }
         }
     </style>
     </head>
+
     <body class="min-h-screen">
         <div class="container mx-auto px-4 py-8">
             <div class="bg-white shadow-lg rounded-lg overflow-hidden">
@@ -56,8 +71,8 @@
                                 class="bg-white text-blue-700 px-4 py-2 rounded-lg font-medium hover:bg-blue-50 transition no-print">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="h-5 w-5 inline-block mr-1"
-                                    fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
+                                    fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round"
                                         stroke-linejoin="round" stroke-width="2"
                                         d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
@@ -163,7 +178,8 @@
                             <p id="reportClass" class="text-gray-600">Class: All
                                 Classes</p>
                             <p id="reportDate" class="text-gray-600">Generated:
-                                <span id="currentDate"></span></p>
+                                <span id="currentDate"></span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -174,26 +190,36 @@
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    No</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Student
                                     ID</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Name</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Class</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Class</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mon</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Mon</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tue</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Tue</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Wed</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Wed</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thu</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Thu</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fri</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Fri</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Present
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Present
                                     %</th>
                             </tr>
                         </thead>
@@ -210,24 +236,33 @@
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    No</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Student
                                     ID</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Name</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Class</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Class</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Present</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Present</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Absent</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Absent</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Late</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Late</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Excused</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Excused</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Present
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Present
                                     %</th>
                             </tr>
                         </thead>
@@ -244,27 +279,37 @@
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    No</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Student
                                     ID</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Name</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Class</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Class</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Total
                                     Days</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Present</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Present</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Absent</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Absent</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Late</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Late</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Excused</th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Excused</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Present
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Present
                                     %</th>
                             </tr>
                         </thead>
@@ -287,7 +332,8 @@
                                 <div class="rounded-full bg-green-100 p-3 mr-4">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-6 w-6 text-green-600"
-                                        fill="none" viewBox="0 0 24 24"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
                                         stroke="currentColor">
                                         <path stroke-linecap="round"
                                             stroke-linejoin="round"
@@ -427,7 +473,8 @@
                         <div class="mt-2 md:mt-0">
                             <p class="text-sm text-gray-500">Report generated by
                                 <span class="font-medium">Attendance
-                                    System</span></p>
+                                    System</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -436,19 +483,58 @@
 
         <script>
         // Sample data
-        const students = [
-            { id: "S001", name: "Ahmad Rizky", class: "10A" },
-            { id: "S002", name: "Budi Santoso", class: "10A" },
-            { id: "S003", name: "Citra Dewi", class: "10A" },
-            { id: "S004", name: "Dian Purnama", class: "10B" },
-            { id: "S005", name: "Eko Prasetyo", class: "10B" },
-            { id: "S006", name: "Fitri Handayani", class: "11A" },
-            { id: "S007", name: "Galih Pratama", class: "11A" },
-            { id: "S008", name: "Hana Safira", class: "11B" },
-            { id: "S009", name: "Irfan Hakim", class: "12A" },
-            { id: "S010", name: "Joko Widodo", class: "12B" }
+        const students = [{
+                id: "S001",
+                name: "Ahmad Rizky",
+                class: "10A"
+            },
+            {
+                id: "S002",
+                name: "Budi Santoso",
+                class: "10A"
+            },
+            {
+                id: "S003",
+                name: "Citra Dewi",
+                class: "10A"
+            },
+            {
+                id: "S004",
+                name: "Dian Purnama",
+                class: "10B"
+            },
+            {
+                id: "S005",
+                name: "Eko Prasetyo",
+                class: "10B"
+            },
+            {
+                id: "S006",
+                name: "Fitri Handayani",
+                class: "11A"
+            },
+            {
+                id: "S007",
+                name: "Galih Pratama",
+                class: "11A"
+            },
+            {
+                id: "S008",
+                name: "Hana Safira",
+                class: "11B"
+            },
+            {
+                id: "S009",
+                name: "Irfan Hakim",
+                class: "12A"
+            },
+            {
+                id: "S010",
+                name: "Joko Widodo",
+                class: "12B"
+            }
         ];
-        
+
         // Attendance codes: P = Present, A = Absent, L = Late, E = Excused
         const weeklyAttendance = {
             "S001": ["P", "P", "P", "L", "P"],
@@ -462,49 +548,159 @@
             "S009": ["P", "P", "L", "P", "P"],
             "S010": ["P", "P", "P", "P", "E"]
         };
-        
+
         const monthlyAttendance = {
-            "S001": { present: 18, absent: 1, late: 2, excused: 1 },
-            "S002": { present: 16, absent: 3, late: 1, excused: 2 },
-            "S003": { present: 19, absent: 0, late: 1, excused: 2 },
-            "S004": { present: 15, absent: 2, late: 3, excused: 2 },
-            "S005": { present: 20, absent: 0, late: 1, excused: 1 },
-            "S006": { present: 17, absent: 1, late: 2, excused: 2 },
-            "S007": { present: 16, absent: 2, late: 2, excused: 2 },
-            "S008": { present: 18, absent: 1, late: 1, excused: 2 },
-            "S009": { present: 19, absent: 0, late: 2, excused: 1 },
-            "S010": { present: 17, absent: 1, late: 1, excused: 3 }
+            "S001": {
+                present: 18,
+                absent: 1,
+                late: 2,
+                excused: 1
+            },
+            "S002": {
+                present: 16,
+                absent: 3,
+                late: 1,
+                excused: 2
+            },
+            "S003": {
+                present: 19,
+                absent: 0,
+                late: 1,
+                excused: 2
+            },
+            "S004": {
+                present: 15,
+                absent: 2,
+                late: 3,
+                excused: 2
+            },
+            "S005": {
+                present: 20,
+                absent: 0,
+                late: 1,
+                excused: 1
+            },
+            "S006": {
+                present: 17,
+                absent: 1,
+                late: 2,
+                excused: 2
+            },
+            "S007": {
+                present: 16,
+                absent: 2,
+                late: 2,
+                excused: 2
+            },
+            "S008": {
+                present: 18,
+                absent: 1,
+                late: 1,
+                excused: 2
+            },
+            "S009": {
+                present: 19,
+                absent: 0,
+                late: 2,
+                excused: 1
+            },
+            "S010": {
+                present: 17,
+                absent: 1,
+                late: 1,
+                excused: 3
+            }
         };
-        
+
         const semesterAttendance = {
-            "S001": { days: 100, present: 90, absent: 3, late: 5, excused: 2 },
-            "S002": { days: 100, present: 85, absent: 8, late: 3, excused: 4 },
-            "S003": { days: 100, present: 95, absent: 1, late: 2, excused: 2 },
-            "S004": { days: 100, present: 82, absent: 10, late: 5, excused: 3 },
-            "S005": { days: 100, present: 98, absent: 0, late: 1, excused: 1 },
-            "S006": { days: 100, present: 88, absent: 5, late: 4, excused: 3 },
-            "S007": { days: 100, present: 86, absent: 7, late: 4, excused: 3 },
-            "S008": { days: 100, present: 92, absent: 3, late: 2, excused: 3 },
-            "S009": { days: 100, present: 94, absent: 2, late: 3, excused: 1 },
-            "S010": { days: 100, present: 89, absent: 4, late: 2, excused: 5 }
+            "S001": {
+                days: 100,
+                present: 90,
+                absent: 3,
+                late: 5,
+                excused: 2
+            },
+            "S002": {
+                days: 100,
+                present: 85,
+                absent: 8,
+                late: 3,
+                excused: 4
+            },
+            "S003": {
+                days: 100,
+                present: 95,
+                absent: 1,
+                late: 2,
+                excused: 2
+            },
+            "S004": {
+                days: 100,
+                present: 82,
+                absent: 10,
+                late: 5,
+                excused: 3
+            },
+            "S005": {
+                days: 100,
+                present: 98,
+                absent: 0,
+                late: 1,
+                excused: 1
+            },
+            "S006": {
+                days: 100,
+                present: 88,
+                absent: 5,
+                late: 4,
+                excused: 3
+            },
+            "S007": {
+                days: 100,
+                present: 86,
+                absent: 7,
+                late: 4,
+                excused: 3
+            },
+            "S008": {
+                days: 100,
+                present: 92,
+                absent: 3,
+                late: 2,
+                excused: 3
+            },
+            "S009": {
+                days: 100,
+                present: 94,
+                absent: 2,
+                late: 3,
+                excused: 1
+            },
+            "S010": {
+                days: 100,
+                present: 89,
+                absent: 4,
+                late: 2,
+                excused: 5
+            }
         };
-        
+
         // Set current date
         document.getElementById('currentDate').textContent = new Date().toLocaleDateString('id-ID', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
         });
-        
+
         // Handle report type change
         document.getElementById('reportType').addEventListener('change', function() {
             const reportType = this.value;
-            
+
             // Hide all selectors
             document.getElementById('weekSelector').classList.add('hidden');
             document.getElementById('monthSelector').classList.add('hidden');
             document.getElementById('semesterSelector').classList.add('hidden');
-            
+
             // Show the appropriate selector
             if (reportType === 'weekly') {
                 document.getElementById('weekSelector').classList.remove('hidden');
@@ -514,21 +710,21 @@
                 document.getElementById('semesterSelector').classList.remove('hidden');
             }
         });
-        
+
         // Generate report based on selected filters
         function generateReport() {
             const reportType = document.getElementById('reportType').value;
             const selectedClass = document.getElementById('classSelect').value;
-            
+
             // Hide all reports
             document.getElementById('weeklyReport').classList.add('hidden');
             document.getElementById('monthlyReport').classList.add('hidden');
             document.getElementById('semesterReport').classList.add('hidden');
-            
+
             // Update report title and period
             let reportTitle = '';
             let reportPeriod = '';
-            
+
             if (reportType === 'weekly') {
                 const weekNumber = document.getElementById('weekSelect').value;
                 reportTitle = 'Weekly Attendance Report';
@@ -537,7 +733,9 @@
                 generateWeeklyReport(selectedClass);
             } else if (reportType === 'monthly') {
                 const monthNumber = document.getElementById('monthSelect').value;
-                const monthName = new Date(2023, monthNumber - 1, 1).toLocaleString('default', { month: 'long' });
+                const monthName = new Date(2023, monthNumber - 1, 1).toLocaleString('default', {
+                    month: 'long'
+                });
                 reportTitle = 'Monthly Attendance Report';
                 reportPeriod = `${monthName} 2023`;
                 document.getElementById('monthlyReport').classList.remove('hidden');
@@ -549,31 +747,32 @@
                 document.getElementById('semesterReport').classList.remove('hidden');
                 generateSemesterReport(selectedClass);
             }
-            
+
             document.getElementById('reportTitle').textContent = reportTitle;
             document.getElementById('reportPeriod').textContent = reportPeriod;
-            document.getElementById('reportClass').textContent = `Class: ${selectedClass === 'all' ? 'All Classes' : selectedClass}`;
+            document.getElementById('reportClass').textContent =
+                `Class: ${selectedClass === 'all' ? 'All Classes' : selectedClass}`;
         }
-        
+
         // Generate weekly report
         function generateWeeklyReport(selectedClass) {
             const tableBody = document.getElementById('weeklyTableBody');
             tableBody.innerHTML = '';
-            
+
             let filteredStudents = students;
             if (selectedClass !== 'all') {
                 filteredStudents = students.filter(student => student.class === selectedClass);
             }
-            
+
             let totalPresent = 0;
             let totalAbsent = 0;
             let totalLate = 0;
             let totalExcused = 0;
             let totalDays = 0;
-            
+
             filteredStudents.forEach((student, index) => {
                 const row = document.createElement('tr');
-                
+
                 // Calculate attendance percentage
                 const attendance = weeklyAttendance[student.id];
                 const presentCount = attendance.filter(status => status === 'P').length;
@@ -581,13 +780,13 @@
                 const lateCount = attendance.filter(status => status === 'L').length;
                 const excusedCount = attendance.filter(status => status === 'E').length;
                 const attendancePercentage = Math.round((presentCount / attendance.length) * 100);
-                
+
                 totalPresent += presentCount;
                 totalAbsent += absentCount;
                 totalLate += lateCount;
                 totalExcused += excusedCount;
                 totalDays += attendance.length;
-                
+
                 row.innerHTML = `
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${index + 1}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${student.id}</td>
@@ -600,42 +799,43 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-center ${getAttendanceClass(attendance[4])}">${attendance[4]}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ${attendancePercentage >= 90 ? 'text-green-600' : attendancePercentage >= 75 ? 'text-yellow-600' : 'text-red-600'}">${attendancePercentage}%</td>
                 `;
-                
+
                 tableBody.appendChild(row);
             });
-            
+
             updateSummary(totalPresent, totalAbsent, totalLate, totalExcused, totalDays);
         }
-        
+
         // Generate monthly report
         function generateMonthlyReport(selectedClass) {
             const tableBody = document.getElementById('monthlyTableBody');
             tableBody.innerHTML = '';
-            
+
             let filteredStudents = students;
             if (selectedClass !== 'all') {
                 filteredStudents = students.filter(student => student.class === selectedClass);
             }
-            
+
             let totalPresent = 0;
             let totalAbsent = 0;
             let totalLate = 0;
             let totalExcused = 0;
             let totalDays = 0;
-            
+
             filteredStudents.forEach((student, index) => {
                 const row = document.createElement('tr');
-                
+
                 const attendance = monthlyAttendance[student.id];
-                const totalDaysForStudent = attendance.present + attendance.absent + attendance.late + attendance.excused;
+                const totalDaysForStudent = attendance.present + attendance.absent + attendance.late + attendance
+                    .excused;
                 const attendancePercentage = Math.round((attendance.present / totalDaysForStudent) * 100);
-                
+
                 totalPresent += attendance.present;
                 totalAbsent += attendance.absent;
                 totalLate += attendance.late;
                 totalExcused += attendance.excused;
                 totalDays += totalDaysForStudent;
-                
+
                 row.innerHTML = `
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${index + 1}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${student.id}</td>
@@ -647,41 +847,41 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-indigo-600">${attendance.excused}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ${attendancePercentage >= 90 ? 'text-green-600' : attendancePercentage >= 75 ? 'text-yellow-600' : 'text-red-600'}">${attendancePercentage}%</td>
                 `;
-                
+
                 tableBody.appendChild(row);
             });
-            
+
             updateSummary(totalPresent, totalAbsent, totalLate, totalExcused, totalDays);
         }
-        
+
         // Generate semester report
         function generateSemesterReport(selectedClass) {
             const tableBody = document.getElementById('semesterTableBody');
             tableBody.innerHTML = '';
-            
+
             let filteredStudents = students;
             if (selectedClass !== 'all') {
                 filteredStudents = students.filter(student => student.class === selectedClass);
             }
-            
+
             let totalPresent = 0;
             let totalAbsent = 0;
             let totalLate = 0;
             let totalExcused = 0;
             let totalDays = 0;
-            
+
             filteredStudents.forEach((student, index) => {
                 const row = document.createElement('tr');
-                
+
                 const attendance = semesterAttendance[student.id];
                 const attendancePercentage = Math.round((attendance.present / attendance.days) * 100);
-                
+
                 totalPresent += attendance.present;
                 totalAbsent += attendance.absent;
                 totalLate += attendance.late;
                 totalExcused += attendance.excused;
                 totalDays += attendance.days;
-                
+
                 row.innerHTML = `
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${index + 1}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${student.id}</td>
@@ -694,43 +894,82 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-indigo-600">${attendance.excused}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ${attendancePercentage >= 90 ? 'text-green-600' : attendancePercentage >= 75 ? 'text-yellow-600' : 'text-red-600'}">${attendancePercentage}%</td>
                 `;
-                
+
                 tableBody.appendChild(row);
             });
-            
+
             updateSummary(totalPresent, totalAbsent, totalLate, totalExcused, totalDays);
         }
-        
+
         // Update summary section
         function updateSummary(present, absent, late, excused, totalDays) {
             document.getElementById('presentCount').textContent = present;
             document.getElementById('absentCount').textContent = absent;
             document.getElementById('lateCount').textContent = late;
             document.getElementById('excusedCount').textContent = excused;
-            
+
             const attendancePercentage = Math.round((present / totalDays) * 100);
             document.getElementById('attendanceProgressBar').style.width = `${attendancePercentage}%`;
             document.getElementById('attendancePercentage').textContent = `${attendancePercentage}%`;
         }
-        
+
         // Helper function to get attendance status class
         function getAttendanceClass(status) {
-            switch(status) {
-                case 'P': return 'attendance-present';
-                case 'A': return 'attendance-absent';
-                case 'L': return 'attendance-late';
-                case 'E': return 'attendance-excused';
-                default: return '';
+            switch (status) {
+                case 'P':
+                    return 'attendance-present';
+                case 'A':
+                    return 'attendance-absent';
+                case 'L':
+                    return 'attendance-late';
+                case 'E':
+                    return 'attendance-excused';
+                default:
+                    return '';
             }
         }
-        
+
         // Print report
         function printReport() {
             window.print();
         }
-        
+
         // Generate initial report
         generateReport();
     </script>
-        <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94c52717e5d13e5b',t:'MTc0OTM1MTc3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+        <script>
+        (function() {
+            function c() {
+                var b = a.contentDocument || a.contentWindow.document;
+                if (b) {
+                    var d = b.createElement('script');
+                    d.innerHTML =
+                        "window.__CF$cv$params={r:'94c52717e5d13e5b',t:'MTc0OTM1MTc3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+                    b.getElementsByTagName('head')[0].appendChild(d)
+                }
+            }
+            if (document.body) {
+                var a = document.createElement('iframe');
+                a.height = 1;
+                a.width = 1;
+                a.style.position = 'absolute';
+                a.style.top = 0;
+                a.style.left = 0;
+                a.style.border = 'none';
+                a.style.visibility = 'hidden';
+                document.body.appendChild(a);
+                if ('loading' !== document.readyState) c();
+                else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c);
+                else {
+                    var e = document.onreadystatechange || function() {};
+                    document.onreadystatechange = function(b) {
+                        e(b);
+                        'loading' !== document.readyState && (document.onreadystatechange = e, c())
+                    }
+                }
+            }
+        })();
+    </script>
+    </body>
+
 </html>

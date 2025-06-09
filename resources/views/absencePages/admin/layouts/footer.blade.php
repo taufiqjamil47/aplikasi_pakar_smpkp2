@@ -8,7 +8,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
-                    <span class="font-bold">Presence Solution</span>
+                    <span class="font-bold">Attendance Solution</span>
                 </div>
                 <p class="text-sm fill-slate-300 menu flex gap-2 items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -21,12 +21,12 @@
                             d="M7.009 12.139a7.632 7.632 0 0 1-1.804-1.352A7.568 7.568 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z" />
                     </svg>
                     <span class="fill-slate-300 hidden sm:block pr-3 text-sm">
-                        App Version {{ Illuminate\Foundation\Application::VERSION }}
+                        App Version {{ config('app.version') }}
                     </span>
                 </p>
             </div>
             <div class="text-sm text-gray-300">
-                &copy; 2024 Taufiq Jamil Hanafi. All rights reserved.
+                &copy; SMP KP 2 Majalaya. All rights reserved.
             </div>
         </div>
     </div>

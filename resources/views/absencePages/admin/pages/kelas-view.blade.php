@@ -11,7 +11,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
-                    Kembali ke Pengelolaan
+                    Kembali ke daftar kelola
                 </a>
                 @if ($totalSiswa > 50)
                     <div class="text-red-600 text-center mt-2 font-medium">
@@ -87,30 +87,6 @@
                             interaktif dan efisien.
                         </p>
                     </div>
-
-                    <!-- Card Body -->
-                    {{-- <div class="p-4 space-y-2">
-                        <div class="space-y-2">
-                            <label class="block text-sm font-medium text-gray-500 uppercase tracking-wider">Nama
-                                Kelas</label>
-                            <div class="mt-1 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                                <p class="text-lg font-semibold text-gray-800">{{ $kelas->nama_kelas }}</p>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label class="block text-sm font-medium text-gray-500 uppercase tracking-wider">Wali
-                                Kelas</label>
-                            <div class="mt-1 p-3 bg-gray-50 rounded-lg border border-gray-200 flex items-center space-x-3">
-                                <div
-                                    class="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
-                                    <span
-                                        class="text-indigo-600 font-medium">{{ substr($kelas->teacher->nama_guru, 0, 1) }}</span>
-                                </div>
-                                <p class="text-lg font-semibold text-gray-800">{{ $kelas->teacher->nama_guru }}</p>
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
 
 
