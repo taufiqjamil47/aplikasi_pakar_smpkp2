@@ -1,16 +1,6 @@
-@extends('absencePages.layouts.index')
+@extends('absencePages.admin.layouts.index')
 @section('content')
-    <div class="container mx-auto px-2 py-8 max-w-6xl">
-        <!-- Header Section -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 mb-4 card-hover fade-in">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-                <div>
-                    <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Edit Template: {{ $messageTemplate->name }}
-                    </h1>
-                </div>
-            </div>
-        </div>
-
+    <div class="container mx-auto px-4 py-4 max-w-6xl">
         <!-- Status Messages -->
         @if (session('success'))
             <div
@@ -47,6 +37,15 @@
             </div>
         @endif
 
+        <a href="/presence-dash/message-templates"
+            class="inline-flex items-center px-4 py-2 mb-4 border border-transparent text-sm font-medium rounded-md shadow-sm text-white {{ $totalSiswa > 40 ? 'bg-red-600 hover:bg-red-700' : 'bg-indigo-600 hover:bg-indigo-700' }} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 -ml-1" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Kembali ke daftar Pesan
+        </a>
+
         <!-- Edit Form -->
         <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 card-hover fade-in">
             <form action="{{ route('message-templates.update', $messageTemplate) }}" method="POST">
@@ -63,10 +62,10 @@
 
                     <div class="form-group">
                         <label for="template" class="block text-sm font-medium text-gray-700 mb-1">Template</label>
-                        <textarea name="template" id="template" rows="10"
+                        <textarea name="template" id="template" rows="5"
                             class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">{{ $messageTemplate->template }}</textarea>
                         <p class="mt-1 text-sm text-gray-500">
-                            Placeholders yang tersedia: {nama_petugas}, {token}, {link}
+                            Placeholders yang tersedia: {{ Auth::user()->name }}
                         </p>
                     </div>
                 </div>

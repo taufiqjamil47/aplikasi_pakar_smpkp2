@@ -25,6 +25,7 @@ class Student extends Model
 
     // Data baru 
     protected $fillable = [
+        'student_id',
         'nama_siswa',
         'jenis_kelamin',
         'nisn',
@@ -71,7 +72,7 @@ class Student extends Model
 
     public function absensi()
     {
-        return $this->hasMany(Absensi::class);
+        return $this->hasMany(Absensi::class, 'student_id');
     }
 
     public function classroom()

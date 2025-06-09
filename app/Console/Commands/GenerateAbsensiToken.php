@@ -52,7 +52,7 @@ class GenerateAbsensiToken extends Command
             $absensiToken = AbsensiToken::create([
                 'token' => $token,
                 'tanggal' => $tanggal,
-                'expired_at' => now()->setTime(10, 0),
+                'expired_at' => now()->setTime(14, 0),
             ]);
 
             Log::info("Token berhasil dibuat: {$token}");

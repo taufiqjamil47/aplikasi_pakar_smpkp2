@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\PiketControllers;
+namespace App\Http\Controllers\PiketControllers\Admin;
 
+use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\MessageTemplate;
 use App\Http\Controllers\Controller;
@@ -13,45 +14,17 @@ class MessageTemplateController extends Controller
      */
     public function index()
     {
+        $totalSiswa = Student::count();
         $templates = MessageTemplate::all();
-        return view('absencePages.pages.view-template', compact('templates'));
+        return view('absencePages.admin.pages.view-template', compact('templates', 'totalSiswa'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(MessageTemplate $messageTemplate)
     {
-        return view('absencePages.pages.edit-template', compact('messageTemplate'));
+        $totalSiswa = Student::count();
+        return view('absencePages.admin.pages.edit-template', compact('messageTemplate', 'totalSiswa'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, MessageTemplate $messageTemplate)
     {
         $request->validate([

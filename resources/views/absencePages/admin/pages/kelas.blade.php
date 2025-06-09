@@ -1,9 +1,9 @@
 @extends('absencePages.admin.layouts.index')
 @section('content')
-    <div class="container mx-auto px-4 py-6">
+    <div class="container mx-auto px-4 py-4">
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
             <!-- Pendaftar Card -->
             <div class="bg-white rounded-xl shadow p-6 border-l-4 border-red-500 card-hover">
                 <div class="flex items-center justify-between">

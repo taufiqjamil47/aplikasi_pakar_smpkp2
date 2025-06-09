@@ -10,7 +10,7 @@
             </button>
             <a href="/" class="hidden lg:block text-2xl logo text-blueColor">
                 <strong
-                    class="text-2xl font-bold bg-gradient-to-r from-orange-600 via-blue-500 to-green-500 bg-clip-text text-transparent bg-400% animate-gradient">PAKAR.</strong>presence
+                    class="text-2xl font-bold bg-gradient-to-r from-orange-600 via-blue-500 to-green-500 bg-clip-text text-transparent bg-400% animate-gradient">PAKAR.</strong>attendance
             </a>
         </div>
 

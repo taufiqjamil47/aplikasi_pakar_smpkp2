@@ -1,34 +1,25 @@
 <!-- Sidebar -->
 <aside id="sidebar"
-    class="sidebar-transition bg-white shadow-sm w-64 fixed h-full md:relative transform -translate-x-full md:translate-x-0 z-40">
+    class="sidebar-transition bg-white shadow-sm w-64 fixed h-full md:relative transform -translate-x-full md:translate-x-0 z-40 rounded-br-xl">
     <div class="p-4">
         <nav class="mt-6">
             <div class="space-y-1">
                 <a href="/presence-dash"
-                    class="nav-item flex items-center px-4 py-3 text-sm font-medium text-primary-600 bg-primary-50 rounded-lg">
+                    class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-lg text-gray-600 hover:text-primary-600 hover:bg-primary-50 {{ Request::is('presence-dash') ? 'active' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor">
                         <path
                             d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                     </svg>
                     Dashboard
                 </a>
-                <a href="#"
-                    class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path
-                            d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                    </svg>
-                    Data Siswa
-                </a>
-                <a href="#"
-                    class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="currentColor" viewBox="0 0 24 24"
+                <a href="/presence-dash/attendance-report"
+                    class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg {{ Request::is('presence-dash/attendance-report') ? 'active' : '' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 10l9-7 9 7v10a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4H9v4a2 2 0 01-2 2H5a2 2 0 01-2-2V10z" />
+                            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    Data Kelas
+                    Report Kehadiran
                 </a>
                 @if (auth()->user()->hasAnyRole([1]))
                     <a href="#"
@@ -51,10 +42,19 @@
                         </svg>
                         Tambah Kelas
                     </a>
+                    <a href="/presence-dash/message-templates"
+                        class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg {{ Request::is('presence-dash/message-templates*') ? 'active' : '' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path
+                                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                        </svg>
+                        Edit Pesan Terkirim
+                    </a>
                 @endif
                 @if (auth()->user()->hasAnyRole([1, 4]))
                     <a href="/presence-dash/kelola-kelas"
-                        class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg">
+                        class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg {{ Request::is('presence-dash/kelola-kelas*') ? 'active' : '' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20"
                             fill="currentColor">
                             <path fill-rule="evenodd"

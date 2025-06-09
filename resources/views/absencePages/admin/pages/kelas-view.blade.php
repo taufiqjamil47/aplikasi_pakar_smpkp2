@@ -1,9 +1,9 @@
 @extends('absencePages.admin.layouts.index')
 @section('content')
     {{-- main content --}}
-    <div class="min-h-screen bg-gray-50 py-6 px-2 sm:px-4 lg:px-6 page-transition" id="main-page">
+    <div class="min-h-screen bg-gray-50 py-4 px-2 sm:px-4 lg:px-4 page-transition" id="main-page">
         <div class="w-full mx-auto">
-            <div class="pt-4 border-t border-gray-200 flex mb-5 justify-between">
+            <div class="flex mb-4 justify-between">
                 <a href="{{ route('dashboard.pengelolaan') }}"
                     class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white {{ $totalSiswa > 40 ? 'bg-red-600 hover:bg-red-700' : 'bg-indigo-600 hover:bg-indigo-700' }} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 -ml-1" fill="none" viewBox="0 0 24 24"
@@ -11,7 +11,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
-                    Kembali ke Pengelolaan
+                    Kembali ke daftar kelola
                 </a>
                 @if ($totalSiswa > 50)
                     <div class="text-red-600 text-center mt-2 font-medium">
@@ -21,7 +21,7 @@
             </div>
 
             <!-- Additional Stats (optional) -->
-            <div class="mb-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <div class="mb-4 grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div class="bg-white overflow-hidden shadow rounded-lg">
                     <div class="px-4 py-5 sm:p-6">
                         <div class="flex items-center">
@@ -75,48 +75,22 @@
 
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <!-- Card Header -->
-                <div class="grid grid-cols-1 gap-6 mb-4">
+                <div class="grid grid-cols-1 mb-4">
                     <div
                         class="bg-gradient-to-r {{ $totalSiswa > 40 ? 'from-rose-500 to-red-700' : 'from-blue-500 to-indigo-600' }} px-6 py-3">
                         <h2 class="text-2xl font-bold text-white">Tambah Siswa ke {{ $kelas->nama_kelas }}</h2>
                         <p class="{{ $totalSiswa > 40 ? 'text-red-100' : 'text-blue-100' }} mt-1">
-                            Tambahkan siswa di kolom <b>Daftar Siswa</b> di bawah ke kolom
-                            <strong>{{ $kelas->nama_kelas }}</strong>
-                            untuk menambahkan, gunakan fitur <em>drag-and-drop</em> dengan mudah memindahkan siswa ke
-                            kelas ini secara
-                            interaktif dan efisien.
+                            Gunakan fitur drag-and-drop untuk memindahkan siswa dari Daftar Siswa ke
+                            <strong>{{ $kelas->nama_kelas }}</strong>. Sistem ini menyediakan cara yang intuitif dan efisien
+                            untuk mengelola pengelompokan siswa.
                         </p>
                     </div>
-
-                    <!-- Card Body -->
-                    {{-- <div class="p-4 space-y-2">
-                        <div class="space-y-2">
-                            <label class="block text-sm font-medium text-gray-500 uppercase tracking-wider">Nama
-                                Kelas</label>
-                            <div class="mt-1 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                                <p class="text-lg font-semibold text-gray-800">{{ $kelas->nama_kelas }}</p>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label class="block text-sm font-medium text-gray-500 uppercase tracking-wider">Wali
-                                Kelas</label>
-                            <div class="mt-1 p-3 bg-gray-50 rounded-lg border border-gray-200 flex items-center space-x-3">
-                                <div
-                                    class="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
-                                    <span
-                                        class="text-indigo-600 font-medium">{{ substr($kelas->teacher->nama_guru, 0, 1) }}</span>
-                                </div>
-                                <p class="text-lg font-semibold text-gray-800">{{ $kelas->teacher->nama_guru }}</p>
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
 
 
                 {{-- Penambahan Siswa pada kelas --}}
                 <div
-                    class="pt-4 flex flex-col md:flex-row gap-6 {{ $totalSiswa > 50 ? 'pointer-events-none opacity-50' : '' }}">
+                    class="pt-4 flex flex-col md:flex-row gap-4 {{ $totalSiswa > 50 ? 'pointer-events-none opacity-50' : '' }}">
                     <!-- Daftar Siswa (Kiri) -->
                     <div class="w-full md:w-1/2">
                         <div
@@ -185,9 +159,8 @@
                                             <h5 class="font-medium text-2xl">{{ $kelas->nama_kelas }}</h5>
                                             <p class="text-xs text-gray-500">ID: KLS-{{ $kelas->id }}</p>
                                         </div>
-                                        <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded-full">Wali
-                                            Kelas:
-                                            {{ $kelas->teacher->nama_guru }}</span>
+                                        <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded-full">
+                                            Wali : {{ $kelas->teacher->nama_guru }}</span>
                                     </div>
                                     <div id="class-drop-zone"
                                         class="drop-zone border border-dashed border-gray-300 rounded-lg p-3 bg-gray-50 min-h-[120px]"

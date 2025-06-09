@@ -1,22 +1,23 @@
 @extends('absencePages.admin.layouts.index')
 @section('content')
-    <div class="container mx-auto px-4 py-6">
+    <div class="container mx-auto px-4 py-4">
         <!-- Welcome Banner -->
         <div
-            class="bg-gradient-to-r from-primary-600 to-primary-800 text-white rounded-xl p-6 mb-8 relative overflow-hidden card-hover">
+            class="bg-gradient-to-r from-primary-600 to-primary-800 text-white rounded-xl p-6 mb-4 relative overflow-hidden card-hover">
             <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full"></div>
             <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-white/5 rounded-full"></div>
 
             <div class="relative z-10">
                 <h2 class="text-2xl md:text-3xl font-bold mb-2">Selamat Datang, {{ Auth::user()->name }}</h2>
-                <p class="text-primary-100 max-w-2xl">Anda masuk sebagai {{ Auth::user()->role_name }} sistem Presence
+                <p class="text-primary-100 max-w-2xl">Anda masuk sebagai {{ Auth::user()->role_name }} pada Attendance System
+                    (PAKAR.attendance)
                     Online SMP KP 2
                     Majalaya</p>
             </div>
         </div>
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
             <!-- Pendaftar Card -->
             <div class="bg-white rounded-xl shadow p-6 border-l-4 border-blue-500 card-hover">
                 <div class="flex items-center justify-between">
@@ -71,7 +72,7 @@
         </div>
 
         <!-- Main Content Area -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <!-- Recent Applications -->
             <div class="lg:col-span-2 bg-white rounded-xl shadow p-6 card-hover">
                 <div class="flex items-center justify-between mb-6">

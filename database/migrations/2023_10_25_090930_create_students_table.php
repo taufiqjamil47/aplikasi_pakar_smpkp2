@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             // Step 1 Data Siswa
             $table->id();
+            // $table->string('student_id')->unique();
             $table->string('nama_siswa', 70);
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->text('nisn');

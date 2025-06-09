@@ -39,6 +39,11 @@ class PetugasPiketSeeder extends Seeder
                 'nomor_wa' => '089627146534',
                 'hari_piket' => 'Kamis',
             ],
+            [
+                'nama' => 'Taufiq Jamil Hanafi',
+                'nomor_wa' => '082218247031',
+                'hari_piket' => 'Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
+            ],
         ]);
     }
 }
