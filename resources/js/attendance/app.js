@@ -229,14 +229,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const data = await response.json();
 
             if (data.success) {
-<<<<<<< HEAD
                 showModal('Sukses', data.message || 'Siswa berhasil ditambahkan ke kelas!', 'success', function () {
                     window.location.reload(); // Refresh halaman setelah modal ditutup
                 });
-=======
-                alert(data.message || 'Siswa berhasil ditambahkan ke kelas!');
-                window.location.reload(); // Refresh halaman
->>>>>>> eb03e6a0018e1423252c151cf8834bc4e681a600
+                // alert(data.message || 'Siswa berhasil ditambahkan ke kelas!');
+                // window.location.reload(); // Refresh halaman
             } else {
                 throw new Error(data.message || 'Gagal menyimpan data');
             }
@@ -247,7 +244,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-<<<<<<< HEAD
 // Fungsi untuk menampilkan modal
 function showModal(title, message, type, callback = null) {
     // Hapus modal yang sudah ada jika ada
@@ -282,8 +278,6 @@ function showModal(title, message, type, callback = null) {
     }, 2000);
 }
 
-=======
->>>>>>> eb03e6a0018e1423252c151cf8834bc4e681a600
 // Script : Loading Function
 (function () {
     function c() {

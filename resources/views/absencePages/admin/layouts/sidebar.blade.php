@@ -14,11 +14,7 @@
                     Dashboard
                 </a>
                 <a href="/presence-dash/attendance-report"
-<<<<<<< HEAD
                     class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg {{ Request::is('presence-dash/attendance-report') ? 'active' : '' }}">
-=======
-                    class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg">
->>>>>>> eb03e6a0018e1423252c151cf8834bc4e681a600
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -48,11 +44,7 @@
                         Tambah Kelas
                     </a>
                     <a href="/presence-dash/message-templates"
-<<<<<<< HEAD
                         class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg {{ Request::is('presence-dash/message-templates*') ? 'active' : '' }}">
-=======
-                        class="nav-item flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg">
->>>>>>> eb03e6a0018e1423252c151cf8834bc4e681a600
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20"
                             fill="currentColor">
                             <path

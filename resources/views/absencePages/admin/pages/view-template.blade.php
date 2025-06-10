@@ -1,10 +1,6 @@
 @extends('absencePages.admin.layouts.index')
 @section('content')
-<<<<<<< HEAD
     <div class="container mx-auto px-4 py-4 max-w-6xl">
-=======
-    <div class="container mx-auto px-2 py-8 max-w-6xl">
->>>>>>> eb03e6a0018e1423252c151cf8834bc4e681a600
         <!-- Status Messages -->
         @if (session('success'))
             <div
