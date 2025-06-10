@@ -1,6 +1,10 @@
 @extends('absencePages.admin.layouts.index')
 @section('content')
+<<<<<<< HEAD
     <div class="container mx-auto px-4 py-4">
+=======
+    <div class="container mx-auto px-4 py-8">
+>>>>>>> eb03e6a0018e1423252c151cf8834bc4e681a600
         <div class="bg-white shadow-lg rounded-lg overflow-hidden">
             <!-- Header -->
             <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-6">
@@ -106,7 +110,12 @@
                             1, 2023</p>
                     </div>
                     <div class="mt-4 md:mt-0">
+<<<<<<< HEAD
                         <p id="reportClass" class="text-gray-600">Kelas: Semua Kelas</p>
+=======
+                        <p id="reportClass" class="text-gray-600">Class: All
+                            Classes</p>
+>>>>>>> eb03e6a0018e1423252c151cf8834bc4e681a600
                         <p id="reportDate" class="text-gray-600">Generated:
                             <span id="currentDate"></span>
                         </p>
@@ -115,7 +124,11 @@
             </div>
 
             <!-- Weekly Report Table -->
+<<<<<<< HEAD
             <div id="weeklyReport" class="overflow-x-auto overflow-y-auto max-h-[580px]">
+=======
+            <div id="weeklyReport" class="overflow-x-auto">
+>>>>>>> eb03e6a0018e1423252c151cf8834bc4e681a600
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -158,7 +171,11 @@
             </div>
 
             <!-- Monthly Report Table -->
+<<<<<<< HEAD
             <div id="monthlyReport" class="overflow-x-auto hidden overflow-y-auto max-h-[580px]">
+=======
+            <div id="monthlyReport" class="overflow-x-auto hidden">
+>>>>>>> eb03e6a0018e1423252c151cf8834bc4e681a600
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -198,7 +215,11 @@
             </div>
 
             <!-- Semester Report Table -->
+<<<<<<< HEAD
             <div id="semesterReport" class="overflow-x-auto hidden  overflow-y-auto max-h-[580px]">
+=======
+            <div id="semesterReport" class="overflow-x-auto hidden">
+>>>>>>> eb03e6a0018e1423252c151cf8834bc4e681a600
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -419,7 +440,11 @@
                     document.getElementById('reportTitle').textContent = data.report_title;
                     document.getElementById('reportPeriod').textContent = data.report_period;
                     document.getElementById('reportClass').textContent =
+<<<<<<< HEAD
                         `Kelas: ${data.class === 'all' ? 'Semua Kelas' : data.class}`;
+=======
+                        `Class: ${data.class === 'all' ? 'Semua Kelas' : data.class}`;
+>>>>>>> eb03e6a0018e1423252c151cf8834bc4e681a600
 
                     // Generate appropriate report
                     if (data.report_type === 'weekly') {

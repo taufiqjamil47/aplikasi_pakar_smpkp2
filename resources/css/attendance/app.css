@@ -35,10 +35,13 @@
     width: 100%;
 }
 
+<<<<<<< HEAD
 .active {
     @apply text-blue-600 bg-blue-50;
 }
 
+=======
+>>>>>>> eb03e6a0018e1423252c151cf8834bc4e681a600
 .avatar-ring:hover {
     box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.5);
 }
@@ -128,6 +131,7 @@ body {
         box-shadow: none !important;
     }
 }
+<<<<<<< HEAD
 
 .animate-gradient {
     background-size: 300%;
@@ -165,3 +169,5 @@ body {
 .animate-fade-out {
     animation: fadeOut 0.3s ease forwards;
 }
+=======
+>>>>>>> eb03e6a0018e1423252c151cf8834bc4e681a600
