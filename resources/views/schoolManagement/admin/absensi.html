@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Absensi dan Jurnal Kegiatan</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+        }
+        
+        .form-container {
+            background: linear-gradient(145deg, #ffffff, #f5f7fa);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-header {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+        }
+        
+        .input-field {
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+        
+        .file-input-label {
+            background: linear-gradient(145deg, #f0f4f8, #e6edf5);
+            transition: all 0.3s ease;
+        }
+        
+        .file-input-label:hover {
+            background: linear-gradient(145deg, #e6edf5, #dde7f3);
+        }
+        
+        .preview-container {
+            background-color: #f8fafc;
+            border: 2px dashed #cbd5e1;
+        }
+        
+        select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+    </style>
+    </head>
+    <body class="min-h-screen py-8 px-4 sm:px-6">
+        <div
+            class="max-w-3xl mx-auto form-container rounded-xl overflow-hidden">
+            <div class="form-header p-6 text-white">
+                <h1 class="text-2xl sm:text-3xl font-bold text-center">Absensi
+                    dan Jurnal Kegiatan Organisasi SMP KP 2 Majalaya</h1>
+            </div>
+
+            <form class="p-6 space-y-6" id="journalForm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Tanggal Hari Ini -->
+                    <div class="col-span-1">
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-1">Tanggal</label>
+                        <div
+                            class="bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-700 font-medium"
+                            id="currentDate">
+                            Loading...
+                        </div>
+                    </div>
+
+                    <!-- Minggu Ke- -->
+                    <div class="col-span-1">
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-1">Minggu
+                            Ke-</label>
+                        <input type="text" id="weekNumber"
+                            class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 text-gray-700 font-medium"
+                            disabled>
+                    </div>
+                </div>
+
+                <!-- Dropdown Organisasi -->
+                <div>
+                    <label for="organization"
+                        class="block text-sm font-medium text-gray-700 mb-1">Organisasi</label>
+                    <select id="organization"
+                        class="input-field w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-700 focus:outline-none">
+                        <option value selected disabled>Pilih
+                            Organisasi</option>
+                        <option value="OSIS">OSIS</option>
+                        <option value="PRAMUKA">PRAMUKA</option>
+                        <option value="PASKIBRA">PASKIBRA</option>
+                        <option value="PMR">PMR</option>
+                        <option value="SENI TARI">SENI TARI</option>
+                        <option value="PADUS">PADUS</option>
+                        <option value="KARATE">KARATE</option>
+                        <option value="SAINS">SAINS</option>
+                    </select>
+                </div>
+
+                <!-- Nama Pelatih (Disabled) -->
+                <div>
+                    <label for="coach"
+                        class="block text-sm font-medium text-gray-700 mb-1">Nama
+                        Pelatih</label>
+                    <input type="text" id="coach"
+                        class="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 text-gray-700 font-medium"
+                        disabled placeholder="Pilih organisasi terlebih dahulu">
+                </div>
+
+                <!-- Upload Gambar -->
+                <div>
+                    <label
+                        class="block text-sm font-medium text-gray-700 mb-1">Upload
+                        Dokumentasi</label>
+                    <div class="space-y-3">
+                        <label
+                            class="file-input-label flex items-center justify-center w-full rounded-lg border-2 border-dashed border-gray-300 px-4 py-4 cursor-pointer">
+                            <div class="text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="mx-auto h-10 w-10 text-gray-400"
+                                    fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <p class="mt-2 text-sm text-gray-600">Klik untuk
+                                    upload gambar</p>
+                                <p class="text-xs text-gray-500">(Format: JPG,
+                                    JPEG, PNG)</p>
+                            </div>
+                            <input type="file" id="imageUpload" class="hidden"
+                                accept=".jpg,.jpeg,.png">
+                        </label>
+
+                        <div id="imagePreview"
+                            class="preview-container hidden rounded-lg p-2 text-center">
+                            <img id="previewImg"
+                                class="max-h-60 mx-auto rounded" src="#"
+                                alt="Preview">
+                            <button type="button" id="removeImage"
+                                class="mt-2 px-3 py-1 bg-red-500 text-white text-sm rounded-md hover:bg-red-600 transition">Hapus</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Keterangan Kegiatan -->
+                <div>
+                    <label for="activityDescription"
+                        class="block text-sm font-medium text-gray-700 mb-1">Keterangan
+                        Kegiatan</label>
+                    <textarea id="activityDescription" rows="4"
+                        class="input-field w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-700 focus:outline-none"
+                        placeholder="Tuliskan keterangan kegiatan di sini..."></textarea>
+                </div>
+
+                <!-- Materi -->
+                <div>
+                    <label for="material"
+                        class="block text-sm font-medium text-gray-700 mb-1">Materi</label>
+                    <input type="text" id="material"
+                        class="input-field w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-700 focus:outline-none"
+                        placeholder="Masukkan materi kegiatan">
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-4">
+                    <button type="submit"
+                        class="btn-submit w-full text-white font-medium rounded-lg px-5 py-3 text-center">
+                        Simpan Jurnal Kegiatan
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current date in Indonesian format
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            
+            const now = new Date();
+            const dayName = days[now.getDay()];
+            const day = now.getDate();
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            
+            document.getElementById('currentDate').textContent = `${dayName}, ${day} ${month} ${year}`;
+            
+            // Calculate week of month
+            function getWeekOfMonth(date) {
+                const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+                return Math.ceil((date.getDate() + firstDay) / 7);
+            }
+            
+            const weekNumber = getWeekOfMonth(now);
+            document.getElementById('weekNumber').value = `Minggu ke-${weekNumber}`;
+            
+            // Organization and coach mapping
+            const coachMap = {
+                'OSIS': 'Iyep Yaya, S.Pd',
+                'PRAMUKA': 'Dudi Riswandi Mukti, S.Pd',
+                'PASKIBRA': 'Irwan Anugrah Pratama',
+                'PMR': 'Anis Khaerunnisa, S.Pd',
+                'SENI TARI': 'Ikasartika Sari, S.Pd',
+                'PADUS': 'Yopi Sudirman, S.Sn',
+                'KARATE': 'Medinar, S.Pd',
+                'SAINS': 'Tiara Elvira Sany, S.Si'
+            };
+            
+            // Handle organization selection change
+            const organizationSelect = document.getElementById('organization');
+            const coachInput = document.getElementById('coach');
+            
+            organizationSelect.addEventListener('change', function() {
+                const selectedOrg = this.value;
+                if (selectedOrg && coachMap[selectedOrg]) {
+                    coachInput.value = coachMap[selectedOrg];
+                } else {
+                    coachInput.value = '';
+                }
+            });
+            
+            // Image upload preview
+            const imageUpload = document.getElementById('imageUpload');
+            const imagePreview = document.getElementById('imagePreview');
+            const previewImg = document.getElementById('previewImg');
+            const removeImage = document.getElementById('removeImage');
+            
+            imageUpload.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        previewImg.src = e.target.result;
+                        imagePreview.classList.remove('hidden');
+                    }
+                    
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            removeImage.addEventListener('click', function() {
+                imageUpload.value = '';
+                imagePreview.classList.add('hidden');
+                previewImg.src = '#';
+            });
+            
+            // Form submission
+            document.getElementById('journalForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate organization selection
+                if (!organizationSelect.value) {
+                    alert('Silakan pilih organisasi terlebih dahulu!');
+                    organizationSelect.focus();
+                    return;
+                }
+                
+                const formData = {
+                    date: document.getElementById('currentDate').textContent,
+                    week: document.getElementById('weekNumber').value,
+                    organization: organizationSelect.value,
+                    coach: coachInput.value,
+                    description: document.getElementById('activityDescription').value,
+                    material: document.getElementById('material').value,
+                    hasImage: !imageUpload.value ? false : true
+                };
+                
+                // In a real application, you would send this data to a server
+                console.log('Form submitted with data:', formData);
+                
+                // Show success message
+                alert('Jurnal kegiatan berhasil disimpan!');
+            });
+        });
+    </script>
+        <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94f23bd97182b587',t:'MTc0OTgyNDQ4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

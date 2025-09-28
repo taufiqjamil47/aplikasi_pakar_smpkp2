@@ -15,7 +15,7 @@ class AbsensiSeeder extends Seeder
     public function run()
     {
         $statuses = ['Hadir', 'Izin', 'Sakit', 'Alfa'];
-        $students = range(1, 10); // ID siswa dari 1 sampai 10
+        $students = range(11, 20); // ID siswa dari 1 sampai 10
         $startDate = Carbon::create(2025, 6, 9); // Mulai dari 2 Juni 2025
         $endDate = Carbon::create(2025, 6, 13);   // Sampai 6 Juni 2025
 

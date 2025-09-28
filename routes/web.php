@@ -11,24 +11,27 @@ use App\Http\Controllers\PpdbControllers\OCRScanController;
 use App\Http\Controllers\PpdbControllers\StudentController;
 use App\Http\Controllers\PiketControllers\Admin\KelasController;
 use App\Http\Controllers\PiketControllers\Admin\DashboardController;
-use App\Http\Controllers\PiketControllers\Admin\AttendanceReportController;
 use App\Http\Controllers\PiketControllers\Admin\MessageTemplateController;
+use App\Http\Controllers\PiketControllers\Admin\AttendanceExportController;
+use App\Http\Controllers\PiketControllers\Admin\AttendanceReportController;
+use App\Http\Controllers\ManagementControllers\DashboardController as ManagementControllersDashboardController;
 
-// Home App
+// Welcome display
 Route::get('/', function () {
     return view('welcome');
 });
 Auth::routes();
 
-# System Login & Registration
+
+# Login & Registration
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->name('store-register');
-# System End
 
-# PPDB Route
+
+# SPMB System 
 Route::middleware(['auth'])->group(function () {
     Route::get('/ppdb/home', [PpdbController::class, 'index']);
     Route::get('/ppdb/tambah-data', [PpdbController::class, 'tambahData']);
@@ -49,7 +52,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-# Absensi 
+# Attendance System  
 Route::get('/absen-hari-ini/form', function () {
     return view('absencePages.pages.input-token');
 })->name('absen.token-form');
@@ -70,4 +73,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/presence-dash/kelola-kelas/{id}/tambah-siswa', [KelasController::class, 'tambahSiswa'])->name('dashboard.tambahSiswa');
     Route::get('/presence-dash/attendance-report', [AttendanceReportController::class, 'index'])->name('attendance.report');
     Route::post('/presence-dash/attendance-report/generate', [AttendanceReportController::class, 'generateReport'])->name('attendance.report.generate');
+
+    Route::get('/export', [AttendanceExportController::class, 'index'])->name('attendance.export.index');
+    Route::get('/export/process', [AttendanceExportController::class, 'export'])->name('attendance.export');
 });
+
+
+# Management System
+Route::get('/management-system', [ManagementControllersDashboardController::class, 'index'])->name('manage.dashboard');

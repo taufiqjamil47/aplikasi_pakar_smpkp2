@@ -39,11 +39,11 @@
                             class="w-full h-full object-contain">
                     </div>
 
-                    <h1 class="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
+                    <h1 class="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white mb-2">
                         Portal Layanan <span class="text-blue-600 dark:text-blue-400">PAKAR</span>
                     </h1>
 
-                    <p class="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                    <p class="mt-2 text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
                         Kumpulan jalan pintas menuju masing-masing aplikasi PAKAR.solution SMP KP 2 Majalaya
                     </p>
                 </div>
@@ -52,9 +52,9 @@
                 <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
                     @if (Route::has('login'))
                         @auth
-                            <a href="#portal"
+                            <a href="#start-card"
                                 class="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-lg shadow-md hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center">
-                                <i class="fas fa-th-large mr-2"></i> Portal
+                                <i class="fas fa-th-large mr-2"></i> Pakar apps .PORTAL
                             </a>
                         @else
                             @if (Route::has('login'))
@@ -75,7 +75,7 @@
             </div>
 
             <!-- Applications Grid -->
-            <div class="mt-15" id="portal">
+            <div class="mt-15">
                 @auth
                     <h2 class="text-2xl md:text-2xl font-bold text-center text-gray-800 dark:text-white mb-5">
                         Hallo 👋🏻, {{ Auth::user()->name }}
@@ -95,7 +95,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
                     <!-- PPDB Card -->
-                    <a href="/login"
+                    <a href="/login" id="start-card"
                         class="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                         <div
                             class="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300">
@@ -160,6 +160,40 @@
                                 mengakses</span>
                             <i
                                 class="fas fa-arrow-right text-green-500 dark:text-green-400 group-hover:translate-x-1 transition-transform duration-300"></i>
+                        </div>
+                    </a>
+
+                    <!-- School Management Card -->
+                    <a href="#" id="portal"
+                        class="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-purple-500 to-purple-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300">
+                        </div>
+                        <div class="p-6 flex items-start">
+                            <div class="flex-shrink-0">
+                                <div
+                                    class="h-16 w-16 bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center rounded-xl text-purple-500 dark:text-purple-400 group-hover:bg-purple-50 dark:group-hover:bg-purple-900/50 transition-colors duration-300">
+                                    <i class="fas fa-school-circle-check text-2xl"></i>
+                                </div>
+                            </div>
+                            <div class="ml-6">
+                                <h3
+                                    class="text-xl font-semibold text-gray-800 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
+                                    PAKAR.management
+                                </h3>
+                                <p class="mt-2 text-gray-600 dark:text-gray-300">
+                                    Platform manajemen sekolah all-in-one yang memudahkan pengelolaan
+                                    data siswa, data guru, dan pelaporan akademik secara real-time dengan fitur analitik
+                                    canggih.
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="px-6 py-4 bg-gray-50 dark:bg-gray-700/30 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                            <span class="text-sm text-purple-600 dark:text-purple-400 font-medium">Klik untuk
+                                mengakses</span>
+                            <i
+                                class="fas fa-arrow-right text-purple-500 dark:text-purple-400 group-hover:translate-x-1 transition-transform duration-300"></i>
                         </div>
                     </a>
                 </div>

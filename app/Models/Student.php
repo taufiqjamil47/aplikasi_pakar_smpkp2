@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Student extends Model
@@ -70,7 +71,7 @@ class Student extends Model
         $this->attributes['slug'] = Str::slug($value); // Mengonversi nama menjadi slug
     }
 
-    public function absensi()
+    public function absensi(): HasMany
     {
         return $this->hasMany(Absensi::class, 'student_id');
     }

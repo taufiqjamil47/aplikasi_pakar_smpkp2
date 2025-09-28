@@ -107,7 +107,7 @@
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-8 w-8">
                                                 <img class="h-8 w-8 rounded-full"
-                                                    src="https://ui-avatars.com/api/?name={{ $kls->nama_kelas }}&background=random"
+                                                    src="https://ui-avatars.com/api/?name={{ $kls->nama_kelas }}&background=random&length=3&font-size=0.4"
                                                     alt="">
                                             </div>
                                             <div class="ml-4">

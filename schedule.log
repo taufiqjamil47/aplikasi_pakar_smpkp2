@@ -30,3 +30,9 @@
   2025-06-09 07:00:06 Running ["artisan" app:generate-absensi-token] .................................... 1,595ms DONE
   ⇂ "C:\xampp\php\php.exe" "artisan" app:generate-absensi-token > "NUL" 2>&1  
 
+
+   INFO  No scheduled commands are ready to run.  
+
+
+   INFO  No scheduled commands are ready to run.  
+

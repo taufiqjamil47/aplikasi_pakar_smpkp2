@@ -62,7 +62,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <!-- Recent Applications -->
                 <div
-                    class="lg:col-span-2 transition-all duration-500 ease-in-out transform hover:scale-[1.01] bg-white rounded-xl shadow-lg p-6">
+                    class="lg:col-span-2 transition-all duration-300 ease-in-out transform hover:scale-[1.02] bg-white rounded-xl shadow-lg p-6">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-bold text-gray-800">Pendaftaran Terbaru</h3>
                         <a href="/ppdb/data-siswa" class="text-blue-600 hover:text-blue-800 text-sm font-medium">Lihat
@@ -95,7 +95,7 @@
                                             <div class="flex items-center">
                                                 <div class="flex-shrink-0 h-10 w-10">
                                                     <img class="h-10 w-10 rounded-full"
-                                                        src="https://ui-avatars.com/api/?name=Ahmad+Setiawan&background=random"
+                                                        src="https://ui-avatars.com/api/?name={{ $siswa->nama_siswa }}&background=random"
                                                         alt="">
                                                 </div>
                                                 <div class="ml-4">
@@ -129,7 +129,7 @@
 
                 <!-- Quick Actions -->
                 <div
-                    class="transition-all duration-500 ease-in-out transform hover:scale-[1.01] bg-white rounded-xl shadow-lg p-6">
+                    class="transition-all duration-300 ease-in-out transform hover:scale-[1.02] bg-white rounded-xl shadow-lg p-6">
                     <h3 class="text-xl font-bold text-gray-800 mb-6">Aksi Cepat</h3>
 
                     <div class="space-y-4">

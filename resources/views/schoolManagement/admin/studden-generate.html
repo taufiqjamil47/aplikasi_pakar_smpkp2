@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Student Class Assignment v8</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .student-card {
+            transition: all 0.3s ease;
+        }
+        .student-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .class-container {
+            min-height: 300px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .generate-btn {
+            transition: all 0.3s ease;
+        }
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(79, 70, 229, 0.2);
+        }
+        .generate-btn:active {
+            transform: translateY(0);
+        }
+        .high-score {
+            background-color: #fef3c7;
+        }
+        /* Scrollbar styling */
+        .class-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .class-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .class-container::-webkit-scrollbar-thumb {
+            background: #c7d2fe;
+            border-radius: 10px;
+        }
+        .class-container::-webkit-scrollbar-thumb:hover {
+            background: #a5b4fc;
+        }
+        .class-stats {
+            font-size: 0.75rem;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 9999px;
+            margin-left: 8px;
+        }
+        .paired {
+            border: 2px solid #8b5cf6;
+            position: relative;
+        }
+        .paired::after {
+            content: "Grouped";
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: #8b5cf6;
+            color: white;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+        .student-select {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .group-member {
+            transition: all 0.2s ease;
+        }
+        .group-member:hover .remove-student {
+            opacity: 1;
+        }
+        .remove-student {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .group-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #8b5cf6;
+            color: white;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .assigned {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .assigned::after {
+            content: "Assigned";
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: #10b981;
+            color: white;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="container mx-auto px-4 py-8 max-w-7xl">
+            <header class="text-center mb-10">
+                <h1 class="text-4xl font-bold text-indigo-800 mb-2">Pembagian
+                    Siswa Kedalam Kelas v8</h1>
+                <p class="text-gray-600 text-lg">Menetapkan siwa kedalam kelas
+                    dengan distribusi seimbang</p>
+                <div
+                    class="mt-4 bg-blue-50 p-5 rounded-lg inline-block text-left shadow-md">
+                    <p class="text-blue-800 font-medium">Aturan Penetapan:</p>
+                    <ul class="list-disc pl-5 text-blue-700 text-sm">
+                        <li>Setiap kelas harus memiliki 40 siswa (default) dan
+                            maksimal 50 siswa</li>
+                        <li>Tidak lebih dari 3 siswa dengan nama depan yang sama
+                            di satu kelas</li>
+                        <li>Maksimal 5 siswa dengan nilai diatas 80 di setiap
+                            kelas</li>
+                        <li>Siswa dengan nilai diatas 90 tidak dapat berada
+                            dikelas yang sama lebih dari 3 orang</li>
+                        <li>Siswa diurutkan berdasarkan Abjad dalam setiap
+                            kelas</li>
+                        <li>Siswa yang ingin di satukelaskan maksimal adalah 5
+                            orang setiap kelas</li>
+                    </ul>
+                </div>
+            </header>
+
+            <div class="mb-8 bg-white rounded-xl p-6 shadow-md">
+                <h2
+                    class="text-2xl font-semibold text-gray-800 mb-4">Pengelompokan
+                    Siswa</h2>
+
+                <div id="currentGroup" class="mb-6 bg-purple-50 rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-lg font-medium text-purple-800">Grup
+                            saat ini</h3>
+                        <span id="groupCount"
+                            class="bg-purple-600 text-white text-xs px-2 py-1 rounded-full">0/5</span>
+                    </div>
+                    <div id="groupMembers" class="space-y-2 mb-4">
+                        <p class="text-gray-500 italic">Belum ada siswa yang
+                            ditambahkan ke grup ini</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <button id="clearGroupBtn"
+                            class="text-red-600 hover:text-red-800 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
+                            Hapus Grup
+                        </button>
+                        <button id="saveGroupBtn"
+                            class="bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
+                            Simpan Grup
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-6">
+                    <div class="flex-1">
+                        <label for="studentSelect"
+                            class="block text-sm font-medium text-gray-700 mb-1">Tambahkan
+                            Siswa ke Grup</label>
+                        <div class="flex flex-col md:flex-row gap-2">
+                            <select id="studentSelect"
+                                class="student-select flex-1 border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value>Pilih Siswa</option>
+                            </select>
+                            <button id="addStudentBtn"
+                                class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                                disabled>
+                                Menambahkan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="savedGroups"
+                    class="mb-6 bg-purple-50 rounded-lg p-4 hidden">
+                    <h3 class="text-lg font-medium text-purple-800 mb-2">Grup
+                        Tersimpan</h3>
+                    <div id="groupsContainer"
+                        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                        <!-- Groups will be displayed here -->
+                    </div>
+                </div>
+
+                <div
+                    class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+                    <div class="flex items-center">
+                        <h2 class="text-2xl font-semibold text-gray-800">Daftar
+                            Siswa</h2>
+                        <span id="unassignedCount"
+                            class="ml-3 bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">40
+                            belum ditetapkan</span>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <div class="flex items-center">
+                            <label for="studentsPerClass"
+                                class="mr-2 text-gray-700">Siswa per
+                                kelas:</label>
+                            <input type="number" id="studentsPerClass" min="5"
+                                max="50" value="5"
+                                class="border border-gray-300 rounded px-3 py-2 w-20 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <button id="generateBtn"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Hasilkan Penugasan Kelas
+                        </button>
+                    </div>
+                </div>
+                <div id="studentList"
+                    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 text-xs gap-3">
+                    <!-- Student cards will be generated here -->
+                </div>
+            </div>
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div
+                        class="bg-red-500 text-white py-3 px-4 flex justify-between items-center">
+                        <h3 class="text-xl font-bold">Kelas A</h3>
+                        <div class="flex items-center">
+                            <span id="classAHighCount"
+                                class="bg-amber-500 class-stats mr-1">0/5</span>
+                            <span id="classACount"
+                                class="bg-red-700 class-stats">0/5</span>
+                        </div>
+                    </div>
+                    <div id="classA" class="p-4 class-container">
+                        <p class="text-gray-500 text-center italic mt-10">No
+                            students assigned yet</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div
+                        class="bg-blue-500 text-white py-3 px-4 flex justify-between items-center">
+                        <h3 class="text-xl font-bold">Kelas B</h3>
+                        <div class="flex items-center">
+                            <span id="classBHighCount"
+                                class="bg-amber-500 class-stats mr-1">0/5</span>
+                            <span id="classBCount"
+                                class="bg-blue-700 class-stats">0/5</span>
+                        </div>
+                    </div>
+                    <div id="classB" class="p-4 class-container">
+                        <p class="text-gray-500 text-center italic mt-10">No
+                            students assigned yet</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div
+                        class="bg-green-500 text-white py-3 px-4 flex justify-between items-center">
+                        <h3 class="text-xl font-bold">Kelas C</h3>
+                        <div class="flex items-center">
+                            <span id="classCHighCount"
+                                class="bg-amber-500 class-stats mr-1">0/5</span>
+                            <span id="classCCount"
+                                class="bg-green-700 class-stats">0/5</span>
+                        </div>
+                    </div>
+                    <div id="classC" class="p-4 class-container">
+                        <p class="text-gray-500 text-center italic mt-10">No
+                            students assigned yet</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div
+                        class="bg-yellow-500 text-white py-3 px-4 flex justify-between items-center">
+                        <h3 class="text-xl font-bold">Kelas D</h3>
+                        <div class="flex items-center">
+                            <span id="classDHighCount"
+                                class="bg-amber-500 class-stats mr-1">0/5</span>
+                            <span id="classDCount"
+                                class="bg-yellow-700 class-stats">0/5</span>
+                        </div>
+                    </div>
+                    <div id="classD" class="p-4 class-container">
+                        <p class="text-gray-500 text-center italic mt-10">No
+                            students assigned yet</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div
+                        class="bg-purple-500 text-white py-3 px-4 flex justify-between items-center">
+                        <h3 class="text-xl font-bold">Kelas E</h3>
+                        <div class="flex items-center">
+                            <span id="classEHighCount"
+                                class="bg-amber-500 class-stats mr-1">0/5</span>
+                            <span id="classECount"
+                                class="bg-purple-700 class-stats">0/5</span>
+                        </div>
+                    </div>
+                    <div id="classE" class="p-4 class-container">
+                        <p class="text-gray-500 text-center italic mt-10">No
+                            students assigned yet</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="resultMessage"
+                class="hidden bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-8 rounded-md">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-green-500"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm">Siswa telah berhasil ditempatkan di
+                            kelas!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="errorMessage"
+                class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-8 rounded-md">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-500"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm" id="errorText">Could not assign all
+                            students while following all rules.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate a larger set of students (40 students)
+            const students = generateStudents(200);
+            
+            // Store student groups
+            const studentGroups = [];
+            
+            // Current group being built
+            const currentGroup = [];
+            
+            // Track assigned students
+            const assignedStudents = new Set();
+
+            // Display all students
+            displayStudents(students, assignedStudents);
+            
+            // Update unassigned count
+            updateUnassignedCount(students, assignedStudents);
+            
+            // Populate student dropdown
+            populateStudentDropdown(students, assignedStudents);
+
+            // Add event listener to add student button
+            document.getElementById('addStudentBtn').addEventListener('click', function() {
+                const studentId = document.getElementById('studentSelect').value;
+                if (!studentId) return;
+                
+                const student = students.find(s => s.id === parseInt(studentId));
+                if (!student) return;
+                
+                // Check if student is already in a group
+                const isAlreadyGrouped = studentGroups.some(group => 
+                    group.some(id => id === student.id)
+                );
+                
+                if (isAlreadyGrouped) {
+                    alert("Siswa ini sudah berada di grup lain");
+                    return;
+                }
+                
+                // Check if student is already in current group
+                if (currentGroup.includes(student.id)) {
+                    alert("Siswa ini sudah ada di grup saat ini");
+                    return;
+                }
+                
+                // Check if adding this student would exceed the max group size
+                if (currentGroup.length >= 5) {
+                    alert("Satu kelompok dapat memiliki maksimal 5 siswa");
+                    return;
+                }
+                
+                // Add student to current group
+                currentGroup.push(student.id);
+                
+                // Update UI
+                updateCurrentGroupDisplay(students, currentGroup);
+                
+                // Reset dropdown
+                document.getElementById('studentSelect').value = "";
+                
+                // Enable/disable buttons
+                document.getElementById('clearGroupBtn').disabled = currentGroup.length === 0;
+                document.getElementById('saveGroupBtn').disabled = currentGroup.length < 2;
+                document.getElementById('addStudentBtn').disabled = true;
+            });
+            
+            // Add event listener to student select dropdown
+            document.getElementById('studentSelect').addEventListener('change', function() {
+                document.getElementById('addStudentBtn').disabled = !this.value;
+            });
+
+            // Add event listener to clear group button
+            document.getElementById('clearGroupBtn').addEventListener('click', function() {
+                currentGroup.length = 0;
+                updateCurrentGroupDisplay(students, currentGroup);
+                
+                // Disable buttons
+                document.getElementById('clearGroupBtn').disabled = true;
+                document.getElementById('saveGroupBtn').disabled = true;
+            });
+
+            // Add event listener to save group button
+            document.getElementById('saveGroupBtn').addEventListener('click', function() {
+                if (currentGroup.length < 2) {
+                    alert("Suatu kelompok harus memiliki minimal 2 siswa");
+                    return;
+                }
+                
+                // Add current group to saved groups
+                studentGroups.push([...currentGroup]);
+                
+                // Clear current group
+                currentGroup.length = 0;
+                updateCurrentGroupDisplay(students, currentGroup);
+                
+                // Update saved groups display
+                updateSavedGroupsDisplay(students, studentGroups);
+                
+                // Update student cards to show grouped status
+                displayStudents(students, assignedStudents);
+                
+                // Update student dropdown
+                populateStudentDropdown(students, assignedStudents);
+                
+                // Disable buttons
+                document.getElementById('clearGroupBtn').disabled = true;
+                document.getElementById('saveGroupBtn').disabled = true;
+            });
+
+            // Add event listener to generate button
+            document.getElementById('generateBtn').addEventListener('click', function() {
+                const studentsPerClass = parseInt(document.getElementById('studentsPerClass').value);
+                if (studentsPerClass < 5 || studentsPerClass > 50) {
+                    alert("Jumlah siswa per kelas harus antara 40 dan 50");
+                    return;
+                }
+                
+                // Clear assigned students set before generating new assignments
+                assignedStudents.clear();
+                
+                generateClassAssignments(students, studentsPerClass, studentGroups, assignedStudents);
+                
+                // Update student list to show assigned status
+                displayStudents(students, assignedStudents);
+                
+                // Update student dropdown
+                populateStudentDropdown(students, assignedStudents);
+                
+                // Update unassigned count
+                updateUnassignedCount(students, assignedStudents);
+            });
+
+            // Function to generate random students
+            function generateStudents(count) {
+                const firstNames = ["Ahmad", "Budi", "Citra", "Dewi", "Eko", "Fitri", "Gunawan", "Hendra", "Indra", "Joko", "Kartika", "Lina", "Maya", "Nadia", "Oki", "Putri", "Rudi", "Siti", "Tono", "Umar"];
+                const middleNames = ["Adi", "Bintang", "Cahya", "Dian", "Eka", "Fajar", "Gita", "Hadi", "Indah", "Jaya", "Kusuma", "Laras", "Maulana", "Nugraha", "Oktavia", "Pratama", "Ratna", "Surya", "Tirta", "Utama"];
+                const lastNames = ["Pratama", "Wijaya", "Sari", "Putra", "Lestari", "Setiawan", "Wibowo", "Santoso", "Rahmawati", "Nugroho", "Handayani", "Saputra", "Ningrum", "Kusuma", "Hartono", "Anggraini", "Wibisono", "Rahman", "Putri", "Hidayat"];
+                
+                const students = [];
+                
+                for (let i = 1; i <= count; i++) {
+                    // Generate a random name
+                    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+                    const middleName = middleNames[Math.floor(Math.random() * middleNames.length)];
+                    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+                    
+                    // Ensure we have some students with the same first name
+                    const name = i <= 15 ? 
+                        `${firstNames[i % 5]} ${middleName} ${lastName}` : 
+                        `${firstName} ${middleName} ${lastName}`;
+                    
+                    // Generate a random grade between 70 and 100
+                    // Ensure we have a good mix of high-scoring students (above 80)
+                    let grade;
+                    if (i <= 15) {
+                        // First 15 students: 60% chance of grade > 80
+                        grade = Math.random() < 0.6 ? 
+                            Math.floor(Math.random() * 20) + 81 : // 81-100
+                            Math.floor(Math.random() * 11) + 60;  // 70-80
+                    } else {
+                        // Remaining students: 30% chance of grade > 80
+                        grade = Math.random() < 0.3 ? 
+                            Math.floor(Math.random() * 20) + 81 : // 81-100
+                            Math.floor(Math.random() * 11) + 60;  // 70-80
+                    }
+                    
+                    students.push({ id: i, name, grade });
+                }
+                
+                return students;
+            }
+
+            // Function to populate student dropdown
+            function populateStudentDropdown(studentList, assignedSet) {
+                const studentSelect = document.getElementById('studentSelect');
+                
+                // Clear existing options
+                studentSelect.innerHTML = '<option value="">Pilih Siswa</option>';
+                
+                // Add student options (only unassigned students)
+                studentList.filter(student => !assignedSet.has(student.id))
+                    .forEach(student => {
+                        // Skip students that are already in groups
+                        const isAlreadyGrouped = studentGroups.some(group => 
+                            group.some(id => id === student.id)
+                        );
+                        
+                        if (isAlreadyGrouped) return;
+                        
+                        const option = document.createElement('option');
+                        option.value = student.id;
+                        option.textContent = `${student.name} (Grade: ${student.grade})`;
+                        studentSelect.appendChild(option);
+                    });
+            }
+
+            // Function to update the current group display
+            function updateCurrentGroupDisplay(studentList, group) {
+                const groupMembers = document.getElementById('groupMembers');
+                const groupCount = document.getElementById('groupCount');
+                
+                // Update count
+                groupCount.textContent = `${group.length}/5`;
+                
+                // Update members list
+                if (group.length === 0) {
+                    groupMembers.innerHTML = '<p class="text-gray-500 italic">Belum ada siswa yang ditambahkan ke grup ini</p>';
+                    return;
+                }
+                
+                groupMembers.innerHTML = '';
+                group.forEach(studentId => {
+                    const student = studentList.find(s => s.id === studentId);
+                    if (!student) return;
+                    
+                    const memberEl = document.createElement('div');
+                    memberEl.className = 'group-member flex justify-between items-center bg-white p-2 rounded-lg shadow-sm';
+                    memberEl.innerHTML = `
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 rounded-full p-2 mr-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm">${student.name}</p>
+                                <p class="text-xs text-gray-500">Grade: ${student.grade}</p>
+                            </div>
+                        </div>
+                        <button class="remove-student text-red-500 hover:text-red-700" data-id="${student.id}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    `;
+                    groupMembers.appendChild(memberEl);
+                    
+                    // Add event listener to remove button
+                    memberEl.querySelector('.remove-student').addEventListener('click', function() {
+                        const studentId = parseInt(this.getAttribute('data-id'));
+                        const index = group.indexOf(studentId);
+                        if (index !== -1) {
+                            group.splice(index, 1);
+                            updateCurrentGroupDisplay(studentList, group);
+                            
+                            // Enable/disable buttons
+                            document.getElementById('clearGroupBtn').disabled = group.length === 0;
+                            document.getElementById('saveGroupBtn').disabled = group.length < 2;
+                            
+                            // Update student dropdown
+                            populateStudentDropdown(studentList, assignedStudents);
+                        }
+                    });
+                });
+            }
+
+            // Function to update the saved groups display
+            function updateSavedGroupsDisplay(studentList, groups) {
+                const savedGroups = document.getElementById('savedGroups');
+                const groupsContainer = document.getElementById('groupsContainer');
+                
+                // Show the groups section if there are groups
+                if (groups.length > 0) {
+                    savedGroups.classList.remove('hidden');
+                } else {
+                    savedGroups.classList.add('hidden');
+                    return;
+                }
+                
+                // Clear existing groups
+                groupsContainer.innerHTML = '';
+                
+                // Add each group
+                groups.forEach((group, index) => {
+                    const groupStudents = group.map(id => studentList.find(s => s.id === id)).filter(Boolean);
+                    const hasHighScorer = groupStudents.some(s => s.grade > 80);
+                    const hasVeryHighScorer = groupStudents.some(s => s.grade > 89);
+                    
+                    const groupEl = document.createElement('div');
+                    groupEl.className = 'bg-white p-3 rounded-lg shadow-sm border border-purple-200 relative';
+                    
+                    // Add group badge
+                    const groupBadge = document.createElement('div');
+                    groupBadge.className = 'group-badge';
+                    groupBadge.textContent = index + 1;
+                    groupEl.appendChild(groupBadge);
+                    
+                    // Group header
+                    const header = document.createElement('div');
+                    header.className = 'flex justify-between items-center mb-2';
+                    header.innerHTML = `
+                        <h4 class="font-medium text-purple-800">Group ${index + 1}</h4>
+                        <button class="remove-group-btn text-red-500 hover:text-red-700" data-index="${index}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    `;
+                    groupEl.appendChild(header);
+                    
+                    // Group members
+                    const membersList = document.createElement('div');
+                    membersList.className = 'space-y-1';
+                    
+                    groupStudents.forEach(student => {
+                        const isVeryHighScore = student.grade > 89;
+                        const isHighScore = student.grade > 80;
+                        const memberItem = document.createElement('div');
+                        memberItem.className = `text-sm ${isVeryHighScore ? 'text-amber-700 font-medium' : isHighScore ? 'text-amber-600' : 'text-gray-600'}`;
+                        memberItem.textContent = `${student.name} (${student.grade})`;
+                        membersList.appendChild(memberItem);
+                    });
+                    
+                    groupEl.appendChild(membersList);
+                    
+                    // Add warning if group has high scorer
+                    if (hasVeryHighScorer) {
+                        const warning = document.createElement('div');
+                        warning.className = 'mt-2 text-xs text-amber-600 flex items-center';
+                        warning.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                            Berisi siswa yang mendapat nilai sangat tinggi (>90)
+                        `;
+                        groupEl.appendChild(warning);
+                    } else if (hasHighScorer) {
+                        const warning = document.createElement('div');
+                        warning.className = 'mt-2 text-xs text-amber-500 flex items-center';
+                        warning.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                            Berisi siswa berprestasi (>90)
+                        `;
+                        groupEl.appendChild(warning);
+                    }
+                    
+                    groupsContainer.appendChild(groupEl);
+                    
+                    // Add event listener to remove button
+                    groupEl.querySelector('.remove-group-btn').addEventListener('click', function() {
+                        const groupIndex = parseInt(this.getAttribute('data-index'));
+                        groups.splice(groupIndex, 1);
+                        updateSavedGroupsDisplay(studentList, groups);
+                        
+                        // Update student cards
+                        displayStudents(studentList, assignedStudents);
+                        
+                        // Update student dropdown
+                        populateStudentDropdown(studentList, assignedStudents);
+                    });
+                });
+            }
+
+            // Function to update unassigned count
+            function updateUnassignedCount(studentList, assignedSet) {
+                const unassignedCount = document.getElementById('unassignedCount');
+                const count = studentList.length - assignedSet.size;
+                unassignedCount.textContent = `${count} belum ditetapkan`;
+                
+                // Change color based on count
+                if (count === 0) {
+                    unassignedCount.className = 'ml-3 bg-green-200 text-green-800 text-xs px-2 py-1 rounded-full';
+                } else {
+                    unassignedCount.className = 'ml-3 bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full';
+                }
+            }
+
+            // Function to display students
+            function displayStudents(studentList, assignedSet) {
+                const studentListContainer = document.getElementById('studentList');
+                studentListContainer.innerHTML = '';
+
+                // If all students are assigned, show a message
+                if (assignedSet.size === studentList.length) {
+                    const allAssignedMsg = document.createElement('div');
+                    allAssignedMsg.className = 'col-span-full text-center py-8 bg-green-50 rounded-lg border border-green-200';
+                    allAssignedMsg.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-green-500 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p class="text-green-800 font-medium">Semua siswa telah ditugaskan ke kelas!</p>
+                    `;
+                    studentListContainer.appendChild(allAssignedMsg);
+                    return;
+                }
+
+                studentList.forEach(student => {
+                    const isVeryHighScore = student.grade > 89;
+                    const isHighScore = student.grade > 80;
+                    const isGrouped = studentGroups.some(group => group.includes(student.id)) || 
+                                     currentGroup.includes(student.id);
+                    const isAssigned = assignedSet.has(student.id);
+                    
+                    // Skip assigned students
+                    if (isAssigned) return;
+                    
+                    const studentCard = document.createElement('div');
+                    studentCard.className = `student-card ${isVeryHighScore ? 'high-score' : isHighScore ? 'bg-amber-50' : 'bg-white'} ${isGrouped ? 'paired' : ''} ${isAssigned ? 'assigned' : ''} p-4 rounded-lg shadow-sm border border-gray-200 relative`;
+                    
+                    let gradeClass, gradeTextClass;
+                    if (isVeryHighScore) {
+                        gradeClass = 'bg-amber-500';
+                        gradeTextClass = 'text-white';
+                    } else if (isHighScore) {
+                        gradeClass = 'bg-amber-400';
+                        gradeTextClass = 'text-amber-900';
+                    } else {
+                        gradeClass = 'bg-gray-200';
+                        gradeTextClass = 'text-gray-700';
+                    }
+                    
+                    studentCard.innerHTML = `
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="bg-indigo-100 rounded-full p-3 mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-gray-800">${student.name}</h3>
+                                    <p class="text-sm text-gray-500">ID: ${student.id}</p>
+                                </div>
+                            </div>
+                            <div class="${gradeClass} ${gradeTextClass} text-sm font-bold rounded-full w-10 h-10 flex items-center justify-center">
+                                ${student.grade}
+                            </div>
+                        </div>
+                    `;
+                    studentListContainer.appendChild(studentCard);
+                });
+            }
+
+            // Function to generate class assignments
+            function generateClassAssignments(studentList, studentsPerClass, groups, assignedSet) {
+                // Clear previous assignments
+                document.getElementById('classA').innerHTML = '';
+                document.getElementById('classB').innerHTML = '';
+                document.getElementById('classC').innerHTML = '';
+                document.getElementById('classD').innerHTML = '';
+                document.getElementById('classE').innerHTML = '';
+                
+                // Hide any previous messages
+                document.getElementById('resultMessage').classList.add('hidden');
+                document.getElementById('errorMessage').classList.add('hidden');
+
+                // Create a copy of students to work with
+                const studentsCopy = [...studentList];
+                
+                // Sort students by grade (descending) to handle high-scoring students first
+                studentsCopy.sort((a, b) => b.grade - a.grade);
+
+                // Create class containers
+                const classes = {
+                    'A': { 
+                        element: document.getElementById('classA'), 
+                        countElement: document.getElementById('classACount'),
+                        highCountElement: document.getElementById('classAHighCount'),
+                        students: [], 
+                        firstNames: {}, 
+                        hasHighScorer: false,
+                        highScorerCount: 0
+                    },
+                    'B': { 
+                        element: document.getElementById('classB'), 
+                        countElement: document.getElementById('classBCount'),
+                        highCountElement: document.getElementById('classBHighCount'),
+                        students: [], 
+                        firstNames: {}, 
+                        hasHighScorer: false,
+                        highScorerCount: 0
+                    },
+                    'C': { 
+                        element: document.getElementById('classC'), 
+                        countElement: document.getElementById('classCCount'),
+                        highCountElement: document.getElementById('classCHighCount'),
+                        students: [], 
+                        firstNames: {}, 
+                        hasHighScorer: false,
+                        highScorerCount: 0
+                    },
+                    'D': { 
+                        element: document.getElementById('classD'), 
+                        countElement: document.getElementById('classDCount'),
+                        highCountElement: document.getElementById('classDHighCount'),
+                        students: [], 
+                        firstNames: {}, 
+                        hasHighScorer: false,
+                        highScorerCount: 0
+                    },
+                    'E': { 
+                        element: document.getElementById('classE'), 
+                        countElement: document.getElementById('classECount'),
+                        highCountElement: document.getElementById('classEHighCount'),
+                        students: [], 
+                        firstNames: {}, 
+                        hasHighScorer: false,
+                        highScorerCount: 0
+                    },
+                };
+
+                // First, handle grouped students
+                const groupedStudentIds = new Set(groups.flat());
+                const groupedStudents = studentsCopy.filter(student => groupedStudentIds.has(student.id));
+                const ungroupedStudents = studentsCopy.filter(student => !groupedStudentIds.has(student.id));
+                
+                // Group students by their groups
+                const studentGroups = groups.map(group => {
+                    return {
+                        students: studentList.filter(student => group.includes(student.id)),
+                        highScorer: studentList.filter(student => group.includes(student.id)).some(s => s.grade > 89),
+                        highScorerCount: studentList.filter(student => group.includes(student.id) && student.grade > 80).length
+                    };
+                });
+                
+                // Assign grouped students first
+                for (const group of studentGroups) {
+                    // Find the best class for this group
+                    let bestClass = null;
+                    let bestScore = -Infinity;
+                    
+                    for (const className in classes) {
+                        const classObj = classes[className];
+                        
+                        // Skip if adding this group would exceed the class size
+                        if (classObj.students.length + group.students.length > studentsPerClass) {
+                            continue;
+                        }
+                        
+                        // Skip if this group has a high scorer (>89) and the class already has one
+                        if (group.highScorer && classObj.hasHighScorer) {
+                            continue;
+                        }
+                        
+                        // Skip if adding this group would exceed the high scorer (>80) limit
+                        if (classObj.highScorerCount + group.highScorerCount > 5) {
+                            continue;
+                        }
+                        
+                        // Calculate a score for this class based on name distribution
+                        let score = 0;
+                        let canAssign = true;
+                        
+                        // Check first name constraints
+                        const firstNameCounts = {};
+                        
+                        // Count existing first names in the class
+                        for (const student of classObj.students) {
+                            const firstName = student.name.split(' ')[0];
+                            if (!firstNameCounts[firstName]) {
+                                firstNameCounts[firstName] = 1;
+                            } else {
+                                firstNameCounts[firstName]++;
+                            }
+                        }
+                        
+                        // Check if adding this group would violate the first name constraint
+                        for (const student of group.students) {
+                            const firstName = student.name.split(' ')[0];
+                            const currentCount = firstNameCounts[firstName] || 0;
+                            
+                            if (currentCount + 1 > 3) {
+                                canAssign = false;
+                                break;
+                            }
+                            
+                            // Update the count for checking subsequent students
+                            if (!firstNameCounts[firstName]) {
+                                firstNameCounts[firstName] = 1;
+                            } else {
+                                firstNameCounts[firstName]++;
+                            }
+                        }
+                        
+                        if (!canAssign) continue;
+                        
+                        // Higher score for classes with fewer students overall
+                        score -= classObj.students.length * 0.5;
+                        
+                        // Higher score for classes with fewer high scorers
+                        score -= classObj.highScorerCount * 1.5;
+                        
+                        if (score > bestScore) {
+                            bestScore = score;
+                            bestClass = className;
+                        }
+                    }
+                    
+                    // If we found a suitable class, assign all students in the group
+                    if (bestClass) {
+                        for (const student of group.students) {
+                            assignStudentToClass(student, classes[bestClass]);
+                            assignedSet.add(student.id);
+                        }
+                    }
+                }
+
+                // Next, handle very high-scoring ungrouped students (>89)
+                const veryHighScorers = ungroupedStudents.filter(student => student.grade > 90);
+                const highScorers = ungroupedStudents.filter(student => student.grade > 80 && student.grade <= 90);
+                const regularStudents = ungroupedStudents.filter(student => student.grade <= 80);
+                
+                // Assign very high scorers to different classes first
+                for (const student of veryHighScorers) {
+                    // Find the best class for this high-scoring student
+                    let bestClass = null;
+                    let bestScore = -Infinity;
+                    
+                    for (const className in classes) {
+                        const classObj = classes[className];
+                        
+                        // Skip classes that already have the maximum number of students
+                        if (classObj.students.length >= studentsPerClass) continue;
+                        
+                        // Skip classes that already have a very high scorer (>89)
+                        if (classObj.hasHighScorer >= 5) continue;
+                        
+                        // Skip if adding this student would exceed the high scorer (>80) limit
+                        if (classObj.highScorerCount >= 10) continue;
+                        
+                        // Calculate a score for this class
+                        const firstName = student.name.split(' ')[0];
+                        const sameNameCount = classObj.firstNames[firstName] || 0;
+                        
+                        // Skip if adding this student would exceed the name limit
+                        if (sameNameCount >= 2) continue;
+                        
+                        // Higher score for classes with fewer students
+                        let score = -classObj.students.length;
+                        
+                        // Higher score for classes with fewer high scorers
+                        score -= classObj.highScorerCount * 2;
+                        
+                        // Higher score for classes with fewer students with the same name
+                        score -= sameNameCount * 1.5;
+                        
+                        if (score > bestScore) {
+                            bestScore = score;
+                            bestClass = className;
+                        }
+                    }
+                    
+                    // If we found a suitable class, assign the student
+                    if (bestClass) {
+                        assignStudentToClass(student, classes[bestClass]);
+                        assignedSet.add(student.id);
+                    }
+                }
+
+                // Next, handle high-scoring ungrouped students (>80 and <=89)
+                for (const student of highScorers) {
+                    // Find the best class for this high-scoring student
+                    let bestClass = null;
+                    let bestScore = -Infinity;
+                    
+                    for (const className in classes) {
+                        const classObj = classes[className];
+                        
+                        // Skip classes that already have the maximum number of students
+                        if (classObj.students.length >= studentsPerClass) continue;
+                        
+                        // Skip if adding this student would exceed the high scorer (>80) limit
+                        if (classObj.highScorerCount >= 10) continue; // default 5
+                        
+                        // Calculate a score for this class
+                        const firstName = student.name.split(' ')[0];
+                        const sameNameCount = classObj.firstNames[firstName] || 0;
+                        
+                        // Skip if adding this student would exceed the name limit
+                        if (sameNameCount >= 2) continue; // default 2
+                        
+                        // Higher score for classes with fewer students
+                        let score = -classObj.students.length;
+                        
+                        // Higher score for classes with fewer high scorers
+                        score -= classObj.highScorerCount * 2;
+                        
+                        // Higher score for classes with fewer students with the same name
+                        score -= sameNameCount * 1.5;
+                        
+                        if (score > bestScore) {
+                            bestScore = score;
+                            bestClass = className;
+                        }
+                    }
+                    
+                    // If we found a suitable class, assign the student
+                    if (bestClass) {
+                        assignStudentToClass(student, classes[bestClass]);
+                        assignedSet.add(student.id);
+                    }
+                }
+
+                // Finally, assign remaining regular students
+                for (const student of regularStudents) {
+                    // Find the best class for this student
+                    let bestClass = null;
+                    let bestScore = -Infinity;
+                    
+                    for (const className in classes) {
+                        const classObj = classes[className];
+                        
+                        // Skip classes that already have the maximum number of students
+                        if (classObj.students.length >= studentsPerClass) continue;
+                        
+                        // Calculate a score for this class
+                        const firstName = student.name.split(' ')[0];
+                        const sameNameCount = classObj.firstNames[firstName] || 0;
+                        
+                        // Skip if adding this student would exceed the name limit
+                        if (sameNameCount >= 2) continue; // default 2
+                        
+                        // Higher score for classes with fewer students
+                        let score = -classObj.students.length;
+                        
+                        // Higher score for classes with fewer students with the same name
+                        score -= sameNameCount * 2;
+                        
+                        if (score > bestScore) {
+                            bestScore = score;
+                            bestClass = className;
+                        }
+                    }
+                    
+                    // If we found a suitable class, assign the student
+                    if (bestClass) {
+                        assignStudentToClass(student, classes[bestClass]);
+                        assignedSet.add(student.id);
+                    }
+                }
+
+                // Check if all students were assigned
+                const totalAssigned = Object.values(classes).reduce((sum, classObj) => sum + classObj.students.length, 0);
+                
+                if (totalAssigned < studentList.length) {
+                    // Show error message
+                    document.getElementById('errorMessage').classList.remove('hidden');
+                    document.getElementById('errorText').textContent = 
+                        `Hanya dapat menugaskan ${totalAssigned} dari ${studentList.length} siswa sambil mematuhi semua aturan.`;
+                    
+                    // Find unassigned students
+                    const unassignedStudents = [...studentsCopy].filter(student => 
+                        !Object.values(classes).some(classObj => 
+                            classObj.students.some(s => s.id === student.id)
+                        )
+                    );
+                    
+                    // Try to assign them to classes with space, even if it means breaking some rules
+                    // but still respecting the class size limit
+                    for (const student of unassignedStudents) {
+                        const isVeryHighScorer = student.grade > 90;
+                        const isHighScorer = student.grade > 80;
+                        
+                        // Find a class with space
+                        for (const className in classes) {
+                            const classObj = classes[className];
+                            
+                            // Skip if class is full
+                            if (classObj.students.length >= studentsPerClass) continue;
+                            
+                            // Skip if this is a very high scorer and the class already has one
+                            if (isVeryHighScorer && classObj.hasHighScorer) continue;
+                            
+                            // Assign to this class
+                            assignStudentToClass(student, classObj);
+                            assignedSet.add(student.id);
+                            break;
+                        }
+                    }
+                } else {
+                    // Show success message
+                    document.getElementById('resultMessage').classList.remove('hidden');
+                }
+
+                // Sort students alphabetically in each class and display them
+                for (const className in classes) {
+                    const classObj = classes[className];
+                    const classElement = classObj.element;
+                    
+                    // Sort students alphabetically by name
+                    classObj.students.sort((a, b) => a.name.localeCompare(b.name));
+                    
+                    // Update the counters
+                    classObj.countElement.textContent = `${classObj.students.length}/${studentsPerClass}`;
+                    classObj.highCountElement.textContent = `${classObj.highScorerCount}/5`;
+                    
+                    if (classObj.students.length === 0) {
+                        classElement.innerHTML = '<p class="text-gray-500 text-center italic mt-10">No students assigned</p>';
+                        continue;
+                    }
+                    
+                    classElement.innerHTML = '';
+                    
+                    // Group students by their groups for display
+                    const groupedStudents = {};
+                    
+                    // First, identify which group each student belongs to
+                    for (let i = 0; i < studentGroups.length; i++) {
+                        const group = studentGroups[i];
+                        for (const student of group.students) {
+                            if (classObj.students.some(s => s.id === student.id)) {
+                                if (!groupedStudents[i]) {
+                                    groupedStudents[i] = [];
+                                }
+                                groupedStudents[i].push(student);
+                            }
+                        }
+                    }
+                    
+                    // Display grouped students first
+                    for (const groupIndex in groupedStudents) {
+                        const groupContainer = document.createElement('div');
+                        groupContainer.className = 'mb-3 bg-purple-50 p-2 rounded-lg border border-purple-200';
+                        
+                        const groupHeader = document.createElement('div');
+                        groupHeader.className = 'text-xs font-medium text-purple-800 mb-1';
+                        groupHeader.textContent = `Group ${parseInt(groupIndex) + 1}`;
+                        groupContainer.appendChild(groupHeader);
+                        
+                        const students = groupedStudents[groupIndex];
+                        for (const student of students) {
+                            const isVeryHighScore = student.grade > 90;
+                            const isHighScore = student.grade > 80;
+                            
+                            const studentEl = document.createElement('div');
+                            studentEl.className = `${isVeryHighScore ? 'bg-amber-50' : isHighScore ? 'bg-amber-50/50' : 'bg-white'} rounded-lg p-2 mb-1 border-l-4 border-purple-400`;
+                            
+                            let gradeClass, gradeTextClass;
+                            if (isVeryHighScore) {
+                                gradeClass = 'bg-amber-500';
+                                gradeTextClass = 'text-white';
+                            } else if (isHighScore) {
+                                gradeClass = 'bg-amber-400';
+                                gradeTextClass = 'text-amber-900';
+                            } else {
+                                gradeClass = 'bg-gray-200';
+                                gradeTextClass = 'text-gray-700';
+                            }
+                            
+                            studentEl.innerHTML = `
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="font-medium">${student.name}</span>
+                                        <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full ml-2">ID: ${student.id}</span>
+                                    </div>
+                                    <span class="${gradeClass} ${gradeTextClass} text-xs px-2 py-1 rounded-full font-bold">${student.grade}</span>
+                                </div>
+                            `;
+                            groupContainer.appendChild(studentEl);
+                            
+                            // Remove this student from the main list to avoid duplication
+                            classObj.students = classObj.students.filter(s => s.id !== student.id);
+                        }
+                        
+                        classElement.appendChild(groupContainer);
+                    }
+                    
+                    // Display remaining ungrouped students
+                    for (const student of classObj.students) {
+                        const isVeryHighScore = student.grade > 90;
+                        const isHighScore = student.grade > 80;
+                        
+                        const studentEl = document.createElement('div');
+                        studentEl.className = `${isVeryHighScore ? 'bg-amber-50' : isHighScore ? 'bg-amber-50/50' : 'bg-gray-50'} border-l-4 border-indigo-400 rounded-lg p-3 mb-2`;
+                        
+                        let gradeClass, gradeTextClass;
+                        if (isVeryHighScore) {
+                            gradeClass = 'bg-amber-500';
+                            gradeTextClass = 'text-white';
+                        } else if (isHighScore) {
+                            gradeClass = 'bg-amber-400';
+                            gradeTextClass = 'text-amber-900';
+                        } else {
+                            gradeClass = 'bg-gray-200';
+                            gradeTextClass = 'text-gray-700';
+                        }
+                        
+                        studentEl.innerHTML = `
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="font-medium">${student.name}</span>
+                                    <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full ml-2">ID: ${student.id}</span>
+                                </div>
+                                <span class="${gradeClass} ${gradeTextClass} text-xs px-2 py-1 rounded-full font-bold">${student.grade}</span>
+                            </div>
+                        `;
+                        classElement.appendChild(studentEl);
+                    }
+                }
+            }
+
+            // Helper function to assign a student to a class
+            function assignStudentToClass(student, classObj) {
+                classObj.students.push(student);
+                
+                // Update the first name count
+                const firstName = student.name.split(' ')[0];
+                if (!classObj.firstNames[firstName]) {
+                    classObj.firstNames[firstName] = 1;
+                } else {
+                    classObj.firstNames[firstName]++;
+                }
+                
+                // Update high scorer flags
+                if (student.grade > 90) {
+                    classObj.hasHighScorer = true;
+                }
+                
+                if (student.grade > 80) {
+                    classObj.highScorerCount++;
+                }
+            }
+        });
+    </script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94fde71b15aeb593',t:'MTc0OTk0NjgzOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</html>
